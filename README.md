@@ -1,37 +1,14 @@
-## Welcome to GitHub Pages
+# **Welcome**
 
-You can use the [editor on GitHub](https://github.com/brockv/brockv.github.io/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+My name is Brock Vance and I am a senior in the Computer Science program at Western Oregon University. This page was created to 
+serve as my portfolio for the senior sequence (460, 461, and 462). While I have many years of experience with Java, C/C++
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+## **Software Engineering I Assignments**
+- [Homework 1](https://github.com/brockv/CS460/tree/master/HWK1): HTML, CSS, and Bootstrap
 
-### Markdown
+## **Contact Information**
+- [GitHub](https://github.com/brockv)
+- Email: vancebrock22@gmail.com
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
 
-```markdown
-Syntax highlighted code block
 
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/brockv/brockv.github.io/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
