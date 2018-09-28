@@ -11,7 +11,7 @@ helpful for learning the little things that Bootstrap was capable of, and used t
 - [Code Repository](https://github.com/brockv/brockv.github.io/tree/master/CS460/HWK1/demo)
 - [Site Demo](https://brockv.github.io/CS460/HWK1/demo/index.html)
 
-### **Setup - Getting a Repository on Git Working**
+### **I: Setup - Getting a Repository on Git Working**
 
 I had previously set up an account through GitHub so most of the work was done already. After creating the repository in my account, the
 next step was to clone it on my local machine using Git Bash since part of the assignment requirements was to use Git strictly from the
@@ -32,4 +32,8 @@ git commit -m "Fixed a broken link."
 git push -u origin master
 ```
 
+### **II: Using Bootstrap to Manage Page Layouts**
 
+### **III: Creating the Content**
+
+### **IV: Publishing the Pages Using GitPages**
