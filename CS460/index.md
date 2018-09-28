@@ -1,8 +1,3 @@
----
-title: "Brock Vance"
-layout: default
----
-
 # **Senior Sequence Portfolio**
 
 All code in this portfolio was written while attending Western Oregon University for the senior sequence in the
