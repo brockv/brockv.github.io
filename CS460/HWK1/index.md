@@ -8,8 +8,8 @@ helpful for learning the little things that Bootstrap was capable of, and used t
 ## **Relevant Links**
 - [Home](https://brockv.github.io/)
 - [Assignment Page](http://www.wou.edu/~morses/classes/cs46x/assignments/HW1.html)
-- [Assignment Repository](https://github.com/brockv/CS460/tree/master/HWK1)
-- [Live Demo](https://brockv.github.io/CS460/HWK1/index.html)
+- [Code Repository](https://github.com/brockv/CS460/tree/master/HWK1)
+- [Site Demo](https://brockv.github.io/CS460/HWK1/index.html)
 
 ### **Setup - Getting a Repository on Git Working**
 
@@ -24,10 +24,7 @@ git clone https://github.com/brockv/CS460.git
 cd CS460
 ```
 
-Throughout this assignment, I used commands such as add, commit, push, and pull to make changes to the files and to keep the repositories
-in sync and up to date. Specifically, the 'add' command is used to stage files that have been modified, and 'commit' is used to save the
-changes. Commits should be accompanied by a message to indicate the changes that were made. The 'push' and 'pull' commands are used to 
-send and retrieve files from the repository, respectively.
+Throughout this assignment, I used commands such as add, commit, push, and pull to make changes to the files and to keep the repositories in sync and up to date. Specifically, the 'add' command is used to stage files that have been modified, and 'commit' is used to save the changes. Commits should be accompanied by a message to indicate the changes that were made. The 'push' and 'pull' commands are used to send and retrieve files from the repository, respectively.
 
 ```
 git add file_to_add.html
