@@ -1,3 +1,8 @@
+---
+title: "Brock Vance"
+layout: default
+---
+
 # **Homework I**
 
 The first homework assignment we were given was to create several webpages. We were to use HTML to build the pages, CSS to style them, and 
