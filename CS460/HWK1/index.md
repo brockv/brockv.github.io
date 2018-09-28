@@ -8,8 +8,8 @@ helpful for learning the little things that Bootstrap was capable of, and used t
 ## **Relevant Links**
 - [Home](https://brockv.github.io/)
 - [Assignment Page](http://www.wou.edu/~morses/classes/cs46x/assignments/HW1.html)
-- [Code Repository](https://brockv.github.io/CS460/HWK1/demo)
-- [Site Demo](https://brockv.github.io/CS460/HWK1//demo/index.html)
+- [Code Repository](https://github.com/brockv/brockv.github.io/tree/master/CS460/HWK1/demo)
+- [Site Demo](https://brockv.github.io/CS460/HWK1/demo/index.html)
 
 ### **Setup - Getting a Repository on Git Working**
 
