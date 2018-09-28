@@ -1,3 +1,8 @@
+---
+title: "Brock Vance"
+layout: default
+---
+
 # **Welcome**
 
 My name is Brock Vance and I am a senior in the Computer Science program at Western Oregon University. This page was created to 
