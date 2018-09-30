@@ -46,39 +46,36 @@ I decided to use [Brackets](http://brackets.io/) for this assignment as I was fa
 
 ```html
 <html lang="en">
-    
     <head>
-       <!-- BOOTSTRAP -->
-       <meta name="viewport" content="width=device-width, initial-scale=1">
-       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-       <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+        <!-- BOOTSTRAP -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
     </head>
     
     <body>
+        <!-- PAGE TITLE -->
+        <div class="jumbotron text-center">
+            <h1>CS460 Homework I</h1>
+            <p>This is the main page for my first homework assignment in CS460!</p> 
+        </div>
        
-       <!-- PAGE TITLE -->
-       <div class="jumbotron text-center">
-           <h1>CS460 Homework I</h1>
-           <p>This is the main page for my first homework assignment in CS460!</p> 
-       </div>
-       
-       <!-- NAVBAR / LINKS -->
-       <nav class="navbar navbar-expand-sm justify-content-center border-bottom border-top">
+        <!-- NAVBAR / LINKS -->
+        <nav class="navbar navbar-expand-sm justify-content-center border-bottom border-top">
             <ul class="navbar-nav">
-               <li class="nav-item active">
-                   <a class="nav-link" href="#">Home</a>
-               </li>
-               <li class="nav-item active">
-                   <a class="nav-link" href="#">Random</a>
-               </li>
-               <li class="nav-item active">
-                   <a class="nav-link" href="#">Pictures</a>
-               </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Random</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Pictures</a>
+                </li>
             </ul>
         </nav>
-        
     </body>   
 </html>
 
@@ -89,38 +86,36 @@ With the navigation bar out of the way, I began working on the other requirement
 
 ```html
 <div class="container">
-           <h3 class= "text-center">Purto oratio tempor nostrud bonorum suavitate est in:<hr/></h3>
-           <div class="row">
-               
-               <!-- LEFT COLUMN -->
-               <div class="col-sm-4">
-                   <h3>Left Column</h3>
-                   <p>Here's some text in the left column...</p>
-               </div>
-            
-              <!-- CENTER COLUMN -->
-              <div class="col-sm-4">
-                  <h3>Center Column</h3>
-                   <p>Here's some text in the center column...</p>
-              </div>
-            
-              <!-- RIGHT COLUMN -->
-              <div class="col-sm-4">
-                   <h3>Right Column</h3>        
-                   <p>Here's some text in the right column...</p>
-               </div>
-               
-               <!-- UNORDERED LIST -->
-               <h3 class= "text-center"><hr/>Viris tation partem no quo natum lobortis an usu:<hr/></h3>
-               <ul>
-                   <li>Lorem.</li>
-                   <li>Vestibulum.</li>
-                   <li>Sed.</li>
-                   <li>Etiam.</li>
-              </ul>
-
-           </div>                         
+    <h3 class= "text-center">Purto oratio tempor nostrud bonorum suavitate est in:<hr/></h3>
+    <div class="row">
+        <!-- LEFT COLUMN -->
+        <div class="col-sm-4">
+            <h3>Left Column</h3>
+            <p>Here's some text in the left column...</p>
         </div>
+            
+        <!-- CENTER COLUMN -->
+        <div class="col-sm-4">
+            <h3>Center Column</h3>
+            <p>Here's some text in the center column...</p>
+        </div>
+            
+        <!-- RIGHT COLUMN -->
+        <div class="col-sm-4">
+            <h3>Right Column</h3>        
+            <p>Here's some text in the right column...</p>
+        </div>
+               
+        <!-- UNORDERED LIST -->
+        <h3 class= "text-center"><hr/>Viris tation partem no quo natum lobortis an usu:<hr/></h3>
+        <ul>
+            <li>Lorem.</li>
+            <li>Vestibulum.</li>
+            <li>Sed.</li>
+            <li>Etiam.</li>
+        </ul>
+    </div>
+</div>
 ```
 
 For the second page I chose to display the table and the second required list.
@@ -169,7 +164,7 @@ For the second page I chose to display the table and the second required list.
 </div> 
 ```
 
-The last page wasn't entirely necessary, as the requirements had been met at this point, but I wanted to see if I could display images of varying sizes nicely in a single column.
+The last page wasn't entirely necessary, as the requirements had been met at this point, but I wanted to see if I could display images of varying sizes nicely in a single column layout.
 
 ```html
 <!-- IMAGES IN A SINGLE COLUMN LAYOUT -->
