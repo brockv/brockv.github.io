@@ -178,6 +178,9 @@ The last page wasn't entirely necessary, as the requirements had been met at thi
     </div>
 </div>
 ```
+Using the "img-fluid" class allowed the images to react to the screen size and adjust in order to fit while looking nice.
+
+![](site_image5.PNG)
 
 ### **III: Styling the Pages Using a Cascading Style Sheet (CSS)**
 
@@ -208,6 +211,10 @@ Once I was finished with all three pages and I was satisfied with the layouts, i
 }
 ```
 
+The result isn't anything fancy, but is clean and professional:
+
+<img class="img-fluid" src="https://media.giphy.com/media/SFLScQooAr50y5iav7/giphy.gif"/>
+
 ### **IV: Publishing the Pages Using GitPages**
 
-Admittedly, this is the step I had the most trouble with, mostly because I initially had two repositories setup on GitHub. This led to some unexpected behavior on the pages, such as links not going where they should. After banging my head into a wall for a few hours I eventually decided to move everything into a single repository (the one ending in .io), and after restructuring the directories everything worked as it should.
+Admittedly, this is the step I had the most trouble with, mostly because I initially had two repositories setup on GitHub. This led to some unexpected behavior on the pages, such as links not going where they should, and some pages not being found altogether. After banging my head into a wall for a few hours I eventually decided to move everything into a single repository (the one ending in .io), and after restructuring the directories everything worked as it should.
