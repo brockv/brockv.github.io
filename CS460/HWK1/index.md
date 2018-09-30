@@ -211,7 +211,7 @@ Once I was finished with all three pages and I was satisfied with the layouts, i
 
 The result isn't anything fancy, but is clean and professional:
 
-![](images/navbar_border.PNG?raw=true)
+![](images/navbar_border.gif?raw=true)
 
 
 ### **IV: Publishing the Pages Using GitPages**
