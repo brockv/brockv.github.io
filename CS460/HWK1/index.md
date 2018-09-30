@@ -181,7 +181,7 @@ The last page wasn't entirely necessary, as the requirements had been met at thi
 
 ### **III: Styling the Pages Using a Cascading Style Sheet (CSS)**
 
-Once I was finished with all three pages and I was satisfied with the layouts, it was time to apply some customization. Having used cascading style sheets in the past for Java projects, getting started was easy. I decided to go with a design that included minimal colors used black / white contrast to make the pages stand out. The following is a snippet from my style sheet that I used to apply a custom bottom border to the links in my navigation bar:
+Once I was finished with all three pages and I was satisfied with the layouts, it was time to apply some customization. Having used cascading style sheets in the past for Java projects, getting started was easy. I decided to go with a design that included minimal colors that used black / white contrast to make the pages stand out. The following is a snippet from my style sheet that I used to apply a custom bottom border to the links in my navigation bar:
 
 ```css
 .navbar a
