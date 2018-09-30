@@ -81,7 +81,6 @@ I decided to use [Brackets](http://brackets.io/) for this assignment as I was fa
 
 ```
 
-
 With the navigation bar out of the way, I began working on the other requirements for the assignments. For the main page I decided to display some content in multiple columns, and to also have one of the lists.
 
 ```html
@@ -178,6 +177,7 @@ The last page wasn't entirely necessary, as the requirements had been met at thi
     </div>
 </div>
 ```
+
 Using the "img-fluid" class allowed the images to react to the screen size and adjust in order to fit while looking nice.
 
 ### **III: Styling the Pages Using a Cascading Style Sheet (CSS)**
@@ -212,6 +212,7 @@ Once I was finished with all three pages and I was satisfied with the layouts, i
 The result isn't anything fancy, but is clean and professional:
 
 ![](images/navbar_border.PNG?raw=true)
+
 
 ### **IV: Publishing the Pages Using GitPages**
 
