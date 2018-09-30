@@ -1,8 +1,3 @@
----
-layout: default
-title: Brock Vance
----
-
 # **Homework I**
 
 The first homework assignment we were given was to create several webpages. We were to use HTML to build the pages, CSS to style them, and Bootstrap to format the layout. I had very little experience with HTML going into this and had never heard of Bootstrap before, so the first thing I did was dive into some documentation. I found [this](https://getbootstrap.com/docs/4.0/components/alerts/) link especially helpful for learning the little things that Bootstrap was capable of, and used them to tailor the pages to my liking.
