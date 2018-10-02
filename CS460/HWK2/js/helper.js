@@ -1,27 +1,55 @@
-// Grab the list from the form
-var toDoNodelist = document.getElementsByTagName("LI");
+/*eslint-env browser*/
 
-// Loop through each item in the list, appending the "close" button to each entry
-var i;
-for (i = 0; i < toDoNodelist.length; i++) {
-    var span = document.createElement("SPAN");
-    var txt = document.createTextNode("\u00D7");
-    span.className = "close";
-    span.appendChild(txt);
-    toDoNodelist[i].appendChild(span);
+// Initialize variables used for maintaining the to do list
+var toDoList      = document.querySelector("ul"),
+    item          = document.getElementsByTagName("li"),
+    userInput     = document.getElementById("userInput"),
+    addItemButton = document.getElementById("btnAddItem");
+
+// Helper function that gets the length of the user's input
+function userInputLength() {
+    "use strict";
+    return userInput.value.length;
 }
 
-// Figure out which "close" button the user pressed
-var itemClosed = document.getElementsByClassName("close");
-
-// Hide the list item associated with that "close" button
-for (i = 0; i < itemClosed.length; i++) {
-    itemClosed[i].onclick = function() {
-        var div = this.parentElement;
-        div.style.display = "none";
-    }
+// Helper function that gets the length of the to do list
+function toDoListLength() {
+    "use strict";
+    return item.length;
 }
 
+// Function that handles actions related to the to do list
+function addNewItem() {
+    "use strict";
+    // Create a new list item
+    var li            = document.createElement("li"),
+        btnDeleteItem = document.createElement("button");
+    
+    // Assign the user's input to the new list item
+    li.appendChild(document.createTextNode(userInput.value));
+    
+    // Append the new list item to the to do list
+    toDoList.appendChild(li);
+    
+    // Reset the text field for the user's convenience
+    userInput.value = "";
+    
+    // Add the 'checked' class to newly created items
+	function markCompleted() {
+		li.classList.toggle("checked");
+	}
 
+	li.addEventListener("click", markCompleted);
+    
+    // Add the 'delete' class to newly created items
+	function deleteListItem() {
+		li.classList.add("delete");
+	}
+    
+    // Add the delete button to newly created items
+	btnDeleteItem.appendChild(document.createTextNode("X"));
+	li.appendChild(btnDeleteItem);
+	btnDeleteItem.addEventListener("click", deleteListItem);
+	// END ADD DELETE BUTTON
 
-
+}
