@@ -11,34 +11,62 @@
 <html lang="en">
     
     <head>
-        <!-- BOOTSTRAP -->
+        <!-- Load in Bootstrap -->
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-        <!-- CUSTOM STYLE SHEET -->
+        <!-- Apply our custom style sheet to the page -->
         <link rel="stylesheet" href="css/style.css">
+        
     </head>
     
     <body>
+        <!-- Create a container to hold all of the form elements -->
         <div class="container">
-            <div id="pageTitle" class="header">
-                <h1>To Do List 2.0</h1>
-                <div class="row">
-                    <div class="helpText col-12">
-                        <p id="first">Use the input field to add items to your list.</p>
-                        <p id="second">Click on an item to mark it as complete.</p>
-                        <p id="third">Click the "X" to remove the item from your list.</p>
+            <div class="row">
+                <!-- Display the page header -->
+                <div class="intro col-12">
+                    <h1>To-Do List 2.0</h1>
+                    <div>
+                        <div class="border1"></div>
+                        <div c
                     </div>
                 </div>
-                <input type="text" id="userInput" placeholder="Enter item...">
-                <span onclick="newItem()" class="btnAddItem">Add</span>
             </div>
-            
-            <ul id="toDoList">
-            </ul>
-        </div>
-    </body>
 
+            <!-- Move into a row -->
+            <div class="row">
+                <!-- Display helper text -->
+                <div class="helpText col-12">
+                    <p id="first">Enter text into the input field to add items to your list.</p>
+                    <p id="second">Click the item to mark it as complete.</p>
+                    <p id="third">Click the "X" to remove the item from your list.</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <!-- Create the input field, display a prompt, and limit input length -->
+                    <input id="userInput" type="text" placeholder="Enter an item..." maxlength="27">
+                    <button id="btnAddItem"><img src="images/pencil.PNG"></button>
+                </div>
+            </div>
+
+            <!-- Create an empty list for the user to add items to -->
+            <div class="row">
+                <div class="listItems col-12">
+                    <ul class="col-12 offset-0 col-sm-8 offset-sm-2">
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+           
+        <!-- Link the JS file to the page -->
+        <script src="js/helper.js"></script>
+        
+    </body>
+    
 </html>
