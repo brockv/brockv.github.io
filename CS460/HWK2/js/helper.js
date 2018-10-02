@@ -53,3 +53,25 @@ function addNewItem() {
 	// END ADD DELETE BUTTON
 
 }
+
+// Event handler for when the user clicks the button
+function addItemAfterClick() {
+    "use strict";
+	if (toDoListLength() > 0) {
+		addNewItem();
+	}
+}
+
+// Event handler for when the user presses 'Enter'
+function addItemAfterKeypress(event) {
+    "use strict";
+	if (userInputLength() > 0 && event.which === 13) {
+		addNewItem();
+	}
+}
+
+// Add an event listener for when the user clicks on the button
+addItemButton.addEventListener("click", addItemAfterClick);
+
+// Add an event listener for when the user presses 'Enter'
+userInput.addEventListener("keypress", addItemAfterKeypress);
