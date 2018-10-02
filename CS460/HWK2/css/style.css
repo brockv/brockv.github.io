@@ -1,0 +1,30 @@
+/*
+ * Programmer: Vance, Brock
+ * Western Oregon University
+ * October 1, 2018
+ * Class: CS460
+ * Assignment: Homework II
+ * File Name: style.css
+ */
+
+/* Set the form background color, alignment, and font for the page content */
+body
+{
+	background: #302f30;
+	text-align: center;
+	font-family: 'Cambria Math', sans-serif;
+    color: #ffffff;
+}
+
+.intro
+{
+	margin: 30px 0px;
+	font-weight: bold;
+}
+
+h1
+{
+	color: #ffffff;
+	text-transform: uppercase;
+	font-weight: 800;
+}
