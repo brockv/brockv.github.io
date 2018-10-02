@@ -28,3 +28,53 @@ h1
 	text-transform: uppercase;
 	font-weight: 800;
 }
+
+p
+{
+	font-weight: 600;
+}
+
+#first
+{
+	margin-top: 10px;
+	color: #c972c9;
+}
+
+#second
+{
+	color: #51DF70;
+
+}
+
+/* Set the border, width, and padding for the user input field */
+input
+{
+	border-radius: 5px;
+	min-width: 65%;
+	padding: 5px;
+	border: none;
+}
+
+/* Style the button to add items to the list */
+#btnAddItem
+{
+    cursor: pointer;
+	border: none;
+	padding: 5px 15px;
+	border-radius: 5px;
+	color: #605d60;
+	background-color: #515151;
+	transition: all 0.75s ease;
+	-webkit-transition: all 0.75s ease;
+	-moz-transition: all 0.75s ease;
+	-ms-transition: all 0.75s ease;
+	-o-transition: all 0.75 ease;
+	font-weight: normal;
+}
+
+/* Add a hover effect to the add items button */
+#btnAddItem:hover
+{
+	background-color: #c972c9;
+	color: #FFCD5D;
+}
