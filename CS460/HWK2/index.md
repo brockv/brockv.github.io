@@ -25,7 +25,7 @@ The next step was to create a new branch and switch over to it. This can be done
 git checkout -b HWK2
 ```
 
-This created the branch 'HWK2' and checked it out in one step. That moved me out of the master branch and into the new one, which allowed me to work without disturbing the contents of master. All that was left was to create some empty files I would require for this assignment, and push them to the repository.
+This created the branch 'HWK2' and checked it out in one step. That moved me out of the master branch and into the new one, which allowed me to work without affecting anything in the master branch. All that was left was to create some empty files I would require for this assignment, and push them to the repository.
 
 ```bash
 touch index.html
@@ -59,5 +59,176 @@ This is an example of the form with an item marked as complete by the user. The 
 ![](images/form_item_completed.png?raw=true)
 
 
-### **IV: Creating the Content**
+### **IV: Creating and Styling the Page**
 
+Now that I had an idea of how I wanted the page to look, it was time to begin coding. I started with the HTML and CSS files to get the page layout started and looking nice. There wasn't much to do for the HTML portion, as the layout was fairly simple. 
+
+First, I needed a title and some instructions for the user:
+
+```html
+<!-- Create a container to hold all of the form elements -->
+<div class="container">
+    <div class="row">
+        <!-- Display the page header -->
+        <div class="intro col-12">
+            <h1>Task Tracker 2.0</h1>
+            <div>
+                <div class="border1"></div>
+                <div c></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Move into a row -->
+    <div class="row">
+        <!-- Display helper text -->
+        <div class="helpText col-12">
+            <p id="firstHelpText">Easily keep track of tasks by adding them to your to-do list.</p>
+            <p id="secondHelpText">Clicking on an item will mark it as complete.</p>
+            <p>Clicking on the "X" will remove an item item from your to-do list.</p>
+        </div>
+    </div>
+</div>
+```
+
+ Next up was an input for the user to type items into, and a button to them to submit new items:
+ 
+```html
+<div class="row">
+    <div class="col-12">
+        <!-- Create the input field, set a default a prompt, and limit input length -->
+        <input id="userInput" type="text" placeholder="Enter an item..." maxlength="27">
+        <button id="btnAddItem"><img src="images/pencil.PNG"></button>
+    </div>
+</div>
+```
+
+The last thing I needed was the list itself, which started empty:
+
+```html
+<!-- Create an empty list for the user to add items to -->
+<div class="row">
+    <div class="listItems col-12">
+        <ul class="col-12 offset-0 col-sm-8 offset-sm-2">
+        </ul>
+    </div>
+</div>
+```
+
+Once I had those completed, I moved on to the CSS to start styling the page. The look of the page went through a lot of changes before I finally settled on the colors and theme. I didn't want this to be all business and no fun, so I went with a softer look. Rounding the corners of the input, buttons, and list items helped to achieve this, as well as using lighter colors on a nice gray background.
+
+```css
+/* Set the border, width, and padding for the user input field */
+input
+{
+	border-radius: 5px;
+	min-width: 65%;
+	padding: 5px;
+	border-style: solid;
+}
+
+/* Style the button to add items to the list */
+#btnAddItem
+{
+    cursor: pointer;
+	padding: 5px 15px;
+	border-radius: 4px;
+    border-color: #000000;
+    border-style: solid
+	color: #605d60;
+	background-color: #515151;
+	transition: all 0.75s ease;
+	-webkit-transition: all 0.75s ease;
+	-moz-transition: all 0.75s ease;
+	-ms-transition: all 0.75s ease;
+	-o-transition: all 0.75 ease;
+	font-weight: normal;
+}
+
+/* Add a hover effect to the add items button */
+#btnAddItem:hover
+{
+	background-color: #c972c9;
+}
+```
+
+The list is easily the most important piece of the page, at least visually, so I wanted to make sure it stood out while also fitting the theme I had going. This consisted of making sure the corners of all the list elements were rounded in the same style as the input and button, and using a nice purple to make them stand out from the rest of the form. While testing this I realized the user could select the items in the list, which I didn't want, so I eventually added the code at the bottom the the 'li' section below, preventing that from happening.
+
+```css
+/* Set the alignment and margin for the list */
+ul
+{
+    text-align: left;
+    margin-top: 20px;
+}
+
+/* Style the individual list items */
+li
+{
+    cursor: pointer;
+	list-style: none;
+	padding: 10px 20px;
+	color: #000000;
+	text-transform: capitalize;
+	font-weight: 600;
+	border: 2px solid #000000;
+	border-radius: 5px;
+	margin-bottom: 10px;
+	background: #c972c9;
+	transition: all 0.75s ease;
+	-webkit-transition: all 0.5s ease;
+	-moz-transition: all 0.5s ease;
+	-ms-transition: all 0.5s ease;
+	-o-transition: all 0.5 ease;
+    
+    /* Make the list items unselectable */
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+```
+
+So far, so good! The next step was to style the 'delete' button each newly created list item gets, and a color change when the user hovered over a list item, just for the visual that it's highlighted.
+
+```css
+/* Add a hover effect to the individual list items */
+li:hover
+{
+	background: #aa5aaa;
+}
+
+/* Style the delete item button assigned to each list item */
+li > button
+{
+	font-weight: normal;
+	background: none;
+    border: none;
+	float: right;
+	color: #000000;
+	font-weight: 800;
+    cursor: pointer;
+}
+```
+
+All that was left was a way to show a list item as completed, and to "remove" deleted items (which really just consisted of hiding them).
+
+```css
+/* Set list items to have a strikethrough when marked completed by the user*/
+.completed
+{
+	background: #888 !important;
+	color: #ddd;
+    text-decoration: line-through;
+}
+
+/* Hide individual list items deleted by the user */
+.delete
+{    
+	display: none;
+}
+```
+
+### **IV: Writing the JavaScript and jQuery**
+
+One of the goals of this assignment was to alter the page somehow in response to user interaction, and we were to use JavaScript and jQuery to accomplish this.
