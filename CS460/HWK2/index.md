@@ -121,34 +121,34 @@ Once I had those completed, I moved on to the CSS to start styling the page. The
 /* Set the border, width, and padding for the user input field */
 input
 {
-	border-radius: 5px;
-	min-width: 65%;
-	padding: 5px;
-	border-style: solid;
+    border-radius: 5px;
+    min-width: 65%;
+    padding: 5px;
+    border-style: solid;
 }
 
 /* Style the button to add items to the list */
 #btnAddItem
 {
     cursor: pointer;
-	padding: 5px 15px;
-	border-radius: 4px;
+    padding: 5px 15px;
+    border-radius: 4px;
     border-color: #000000;
-    border-style: solid
-	color: #605d60;
-	background-color: #515151;
-	transition: all 0.75s ease;
-	-webkit-transition: all 0.75s ease;
-	-moz-transition: all 0.75s ease;
-	-ms-transition: all 0.75s ease;
-	-o-transition: all 0.75 ease;
-	font-weight: normal;
+    border-style: solid;
+    color: #605d60;
+    background-color: #515151;
+    transition: all 0.75s ease;
+    -webkit-transition: all 0.75s ease;
+    -moz-transition: all 0.75s ease;
+    -ms-transition: all 0.75s ease;
+    -o-transition: all 0.75 ease;
+    font-weight: normal;
 }
 
 /* Add a hover effect to the add items button */
 #btnAddItem:hover
 {
-	background-color: #c972c9;
+    background-color: #c972c9;
 }
 ```
 
@@ -166,20 +166,20 @@ ul
 li
 {
     cursor: pointer;
-	list-style: none;
-	padding: 10px 20px;
-	color: #000000;
-	text-transform: capitalize;
-	font-weight: 600;
-	border: 2px solid #000000;
-	border-radius: 5px;
-	margin-bottom: 10px;
-	background: #c972c9;
-	transition: all 0.75s ease;
-	-webkit-transition: all 0.5s ease;
-	-moz-transition: all 0.5s ease;
-	-ms-transition: all 0.5s ease;
-	-o-transition: all 0.5 ease;
+    list-style: none;
+    padding: 10px 20px;
+    color: #000000;
+    text-transform: capitalize;
+    font-weight: 600;
+    border: 2px solid #000000;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    background: #c972c9;
+    transition: all 0.75s ease;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -ms-transition: all 0.5s ease;
+    -o-transition: all 0.5 ease;
     
     /* Make the list items unselectable */
     -webkit-user-select: none;
@@ -201,12 +201,12 @@ li:hover
 /* Style the delete item button assigned to each list item */
 li > button
 {
-	font-weight: normal;
-	background: none;
+    font-weight: normal;
+    background: none;
     border: none;
-	float: right;
-	color: #000000;
-	font-weight: 800;
+    float: right;
+    color: #000000;
+    font-weight: 800;
     cursor: pointer;
 }
 ```
@@ -217,15 +217,15 @@ All that was left was a way to show a list item as completed, and to "remove" de
 /* Set list items to have a strikethrough when marked completed by the user*/
 .completed
 {
-	background: #888 !important;
-	color: #ddd;
+    background: #888 !important;
+    color: #ddd;
     text-decoration: line-through;
 }
 
 /* Hide individual list items deleted by the user */
 .delete
-{    
-	display: none;
+{
+    display: none;
 }
 ```
 
