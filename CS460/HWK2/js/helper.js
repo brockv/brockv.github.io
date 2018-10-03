@@ -13,8 +13,13 @@ function userInputLength() {
     return userInput.value.length;
 }
 
+<<<<<<< HEAD
 // Helper function that gets the length of the to-do list
 function toDoListLength() {
+=======
+// Helper function that gets the length of a given list item
+function newItemLength() {
+>>>>>>> ef9210f3d03e5e0716f4c01b79f459f2df188b7d
     "use strict";
     return item.length;
 }
@@ -51,14 +56,13 @@ function addNewItem() {
 	btnDeleteItem.appendChild(document.createTextNode("X"));
 	li.appendChild(btnDeleteItem);
 	btnDeleteItem.addEventListener("click", deleteListItem);
-	// END ADD DELETE BUTTON
 
 }
 
 // Event handler for when the user clicks the button
 function addItemAfterClick() {
     "use strict";
-	if (toDoListLength() > 0) {
+	if (newItemLength() > 0) {
 		addNewItem();
 	}
 }
