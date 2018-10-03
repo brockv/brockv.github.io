@@ -50,7 +50,6 @@ function addNewItem() {
 	btnDeleteItem.appendChild(document.createTextNode("X"));
 	li.appendChild(btnDeleteItem);
 	btnDeleteItem.addEventListener("click", deleteListItem);
-	// END ADD DELETE BUTTON
 
 }
 
