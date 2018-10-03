@@ -48,15 +48,15 @@ Now that I had an idea, it was time to decide what it should look like. Having s
 
 This was the basic idea. An input field for the user to enter items, a button to add the item to their to-do list, with the list elements underneath. The initial design had each list element with it's own checkbox for the user mark them as complete, but this eventually changed.
 
-![](images/form_items?raw=true)
+![](images/form_items.png?raw=true)
 
 In order to make completed items stand out I decided to add a strikethrough effect to the text of a list element once the user marked it as complete. In the styling phase I also applied a different color to really make it stand out from tasks that still needed to be completed. This is also the step where I removed the checkboxes in favor of a button that would allow the user to remove items from their to-do list.
 
-![](images/form_updated?raw=true)
+![](images/form_updated.png?raw=true)
 
 This is an example of the form with an item marked as complete by the user. The text is given a strikethrough effect and the item is given a dull background color to show it as inactive in order to make it stand out from incomplete tasks.
 
-![](images/form_item_completed?raw=true)
+![](images/form_item_completed.png?raw=true)
 
 
 ### **IV: Creating the Content**
