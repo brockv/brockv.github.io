@@ -10,16 +10,10 @@
 /* Set the form background color, alignment, and font for the page content */
 body
 {
-<<<<<<< HEAD
-	background: #04A1BF;
-	text-align: center;
-	font-family: 'Cambria Math', sans-serif;
-=======
 	background: #302f30;
 	text-align: center;
-	font-family: 'Cambria Math', sans-serif;
+	font-family: 'Arial', sans-serif;
     color: #ffffff;
->>>>>>> ef9210f3d03e5e0716f4c01b79f459f2df188b7d
 }
 
 .intro
@@ -40,31 +34,18 @@ p
 	font-weight: 600;
 }
 
-#first
+#firstHelpText
 {
 	margin-top: 10px;
-<<<<<<< HEAD
-	color: #FFCD5D;
-=======
 	color: #c972c9;
->>>>>>> ef9210f3d03e5e0716f4c01b79f459f2df188b7d
 }
 
-#second
+#secondHelpText
 {
 	color: #51DF70;
 
 }
 
-<<<<<<< HEAD
-#third
-{
-	color: #025F70;
-	margin-bottom: 30px;
-}
-
-
-=======
 /* Set the border, width, and padding for the user input field */
 input
 {
@@ -74,22 +55,16 @@ input
 	border-style: solid;
 }
 
->>>>>>> ef9210f3d03e5e0716f4c01b79f459f2df188b7d
 /* Style the button to add items to the list */
 #btnAddItem
 {
     cursor: pointer;
-	border: none;
 	padding: 5px 15px;
-	border-radius: 5px;
-<<<<<<< HEAD
-	color: #04A1BF;
-	background-color: #025F70;
-=======
+	border-radius: 4px;
+    border-color: #000000;
     border-style: solid
 	color: #605d60;
 	background-color: #515151;
->>>>>>> ef9210f3d03e5e0716f4c01b79f459f2df188b7d
 	transition: all 0.75s ease;
 	-webkit-transition: all 0.75s ease;
 	-moz-transition: all 0.75s ease;
@@ -101,24 +76,14 @@ input
 /* Add a hover effect to the add items button */
 #btnAddItem:hover
 {
-<<<<<<< HEAD
-	background-color: #02798F;
-=======
 	background-color: #c972c9;
->>>>>>> ef9210f3d03e5e0716f4c01b79f459f2df188b7d
-	color: #FFCD5D;
 }
 
 /* Set the alignment and margin for the list */
 ul
 {
-<<<<<<< HEAD
-	text-align: left;
-	margin-top: 20px;
-=======
     text-align: left;
     margin-top: 20px;
->>>>>>> ef9210f3d03e5e0716f4c01b79f459f2df188b7d
 }
 
 /* Style the individual list items */
@@ -127,15 +92,6 @@ li
     cursor: pointer;
 	list-style: none;
 	padding: 10px 20px;
-<<<<<<< HEAD
-	color: #ffffff;
-	text-transform: capitalize;
-	font-weight: 600;
-	border: 2px solid #025f70;
-	border-radius: 5px;
-	margin-bottom: 10px;
-	background: #4EB9CD;
-=======
 	color: #000000;
 	text-transform: capitalize;
 	font-weight: 600;
@@ -143,7 +99,6 @@ li
 	border-radius: 5px;
 	margin-bottom: 10px;
 	background: #c972c9;
->>>>>>> ef9210f3d03e5e0716f4c01b79f459f2df188b7d
 	transition: all 0.75s ease;
 	-webkit-transition: all 0.5s ease;
 	-moz-transition: all 0.5s ease;
@@ -160,11 +115,7 @@ li
 /* Add a hover effect to the individual list items */
 li:hover
 {
-<<<<<<< HEAD
-	background: #76CFE0;
-=======
 	background: #aa5aaa;
->>>>>>> ef9210f3d03e5e0716f4c01b79f459f2df188b7d
 }
 
 /* Style the delete item button assigned to each list item */
@@ -172,33 +123,15 @@ li > button
 {
 	font-weight: normal;
 	background: none;
-<<<<<<< HEAD
-	border: none;
-	float: right;
-	color: #025f70;
-=======
     border: none;
 	float: right;
 	color: #000000;
->>>>>>> ef9210f3d03e5e0716f4c01b79f459f2df188b7d
 	font-weight: 800;
     cursor: pointer;
 }
 
-<<<<<<< HEAD
-/* Set the border, width, and padding for the user input field */
-input
-{
-	border-radius: 5px;
-	min-width: 65%;
-	padding: 5px;
-	border: none;
-}
-
-=======
->>>>>>> ef9210f3d03e5e0716f4c01b79f459f2df188b7d
 /* Set list items to have a strikethrough when marked completed by the user*/
-.checked
+.completed
 {
 	background: #888 !important;
 	color: #ddd;
