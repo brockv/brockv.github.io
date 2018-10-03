@@ -1,6 +1,7 @@
+// Needed to stop the script from freaking out about getting information from the document
 /*eslint-env browser*/
 
-// Initialize variables used for maintaining the to do list
+// Initialize variables used for maintaining the to-do list
 var toDoList      = document.querySelector("ul"),
     item          = document.getElementsByTagName("li"),
     userInput     = document.getElementById("userInput"),
@@ -12,13 +13,13 @@ function userInputLength() {
     return userInput.value.length;
 }
 
-// Helper function that gets the length of the to do list
+// Helper function that gets the length of the to-do list
 function toDoListLength() {
     "use strict";
     return item.length;
 }
 
-// Function that handles actions related to the to do list
+// Function that handles actions related to the to-do list
 function addNewItem() {
     "use strict";
     // Create a new list item
@@ -28,7 +29,7 @@ function addNewItem() {
     // Assign the user's input to the new list item
     li.appendChild(document.createTextNode(userInput.value));
     
-    // Append the new list item to the to do list
+    // Append the new list item to the to-do list
     toDoList.appendChild(li);
     
     // Reset the text field for the user's convenience
