@@ -134,8 +134,9 @@ li > button
 .completed
 {
 	background: #888 !important;
-	color: #ddd;
+	color: #000000;
     text-decoration: line-through;
+    opacity: 0.5;
 }
 
 /* Hide individual list items deleted by the user */

@@ -231,4 +231,69 @@ All that was left was a way to show a list item as completed, and to "remove" de
 
 ### **IV: Writing the JavaScript and jQuery**
 
-One of the goals of this assignment was to alter the page somehow in response to user interaction, and we were to use JavaScript and jQuery to accomplish this.
+One of the goals of this assignment was to alter the page somehow in response to user interaction, and we were to use JavaScript and jQuery to accomplish this. There were a few ways of doing this with the current design. Allowing the user to add new items to their list either by clicking the button or pressing 'Enter' was the obvious one. There was also allowing the user to mark an item as complete, and also deleting items from the list.
+
+In order to let the user add items to the list, I first needed to setup the event handlers and listeners for both the button and the keypress.
+
+```js
+// Called when the user clicks the button to add an item
+$("#btnAddItem").on('click', function () {
+    if (userInputLength() > 0) {
+    addNewItem();
+    }
+});
+
+// Called when the user presses 'Enter' to add an item
+$("#userInput").keypress(function () {
+    if (userInputLength() > 0 && event.which === 13) {
+    addNewItem();
+    }
+});
+```
+Next was making it so the user could mark items as complete, and showing that visually. To do this I toggled a class from my style sheet (shown above) on the item. The class changes the color and applies a strikethrough effect to the text in order to make it very obivous that something has changed.
+
+```js
+// Add the 'completed' class to newly created items
+function markCompleted() {
+    li.classList.toggle("completed");
+    }
+
+// Add an event listener to each newly created item for toggling completion
+$(li).click(function () {
+    markCompleted();
+});
+```
+
+The last thing to do was provide the user a way to delete items from their list. I didn't want extra stuff such as buttons cluttering the page, so I decided to place the 'delete' option directly on the list items. This resulted in a much cleaner look, and makes it very apparent what the button will do.
+
+```js
+// Add the delete button to newly created items, and bind the event listener for it
+$(btnDeleteItem).append(document.createTextNode("X"));
+$(li).append(btnDeleteItem);
+$(btnDeleteItem).click(function () {
+    deleteListItem();
+});
+```
+
+### **V: Making Sure Everything Works**
+
+With everything in place and the individual parts tested, it was time to make sure it all played nice together and functioned properly. I loaded the HTML file, successfully created some items for my to-do list, and was able to both mark them as completed and delete them with no problems. Success!
+
+#### **The final result:**
+
+```
+PUT GIF HERE
+```
+
+### **VI: Merging Back Into the Master Branch**
+
+The last step in all of this was to merge the feature branch back into the main branch. In order to do that, I first needed to switch back to the master branch, then merge the feature branch into it. After a final commit, I used the following commands to accomplish that:
+
+```bash
+git checkout master
+git merge HWK2
+git push -u origin master
+```
+
+
+

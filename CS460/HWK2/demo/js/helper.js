@@ -3,7 +3,7 @@
 /*global $ */
 
 // Grab the input field from the form for later use
-var    userInput     = document.getElementById("userInput");
+var userInput = document.getElementById("userInput");
 
 // Helper function that gets the length of the user's input
 function userInputLength() {
@@ -54,14 +54,14 @@ function addNewItem() {
 // Called once the page is loaded
 function main() {
     "use strict";
-    // Add an event handler for when the user clicks the button to add an item
+    // Called when the user clicks the button to add an item
     $("#btnAddItem").on('click', function () {
         if (userInputLength() > 0) {
             addNewItem();
         }
     });
     
-    // Add an event handler for when the user presses 'Enter' to add an item
+    // Called when the user presses 'Enter' to add an item
     $("#userInput").keypress(function () {
         if (userInputLength() > 0 && event.which === 13) {
             addNewItem();
@@ -69,6 +69,6 @@ function main() {
     });
 }
 
-// Call the main function once the page is loaded
+// Call main() once the page is fully loaded
 $(document).ready(main);
 
