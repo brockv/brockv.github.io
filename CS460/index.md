@@ -13,6 +13,9 @@ Computer Science program.
 ## **Software Engineering III**
 - TBA
 
+## **Notes**
+- Coming soon!
+
 ### **Contact Information**
 - Email: vancebrock22@gmail.com
 - All of my academic work resides on [GitHub](https://github.com/brockv)
