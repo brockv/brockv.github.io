@@ -281,9 +281,11 @@ With everything in place and the individual parts tested, it was time to make su
 
 #### **The final result:**
 
-```
-PUT GIF HERE
-```
+![](images/create_items.gif?raw=true)
+
+![](images/mark_complete.gif?raw=true)
+
+![](images/delete_items.gif?raw=true)
 
 ### **VI: Merging Back Into the Master Branch**
 
