@@ -63,7 +63,7 @@ function addNewItem() {
     "use strict";
     
     /* Create a new list item and a button to delete it */
-    var li            = document.createElement("li");
+    var li = document.createElement("li");
     
     /* Assign the text from the input to the new list item */
     $(li).append(document.createTextNode($("#userInput").val()));
@@ -98,7 +98,7 @@ function addNewItem() {
   * Show a custom context menu when the user right clicks on an item
   * in the "To-DO" portion of their list.
   */
-$("body").on("contextmenu", "#incompleteTasks li", function (event) {
+$("body").on("contextmenu", "li", function (event) {
     /* Enabled to shut the editor up */
     "use strict";
     
@@ -107,6 +107,22 @@ $("body").on("contextmenu", "#incompleteTasks li", function (event) {
     
     /* Get the id of the list item the user clicked on */
     selectedListItem = "#" + $(this).attr("id");
+    
+    /* Control which menu actions can be performed in each list */
+    var temp = "";
+    if ($(this).parent().attr("id") === "completedTasks") {
+        temp = document.getElementById("editTaskOption");
+        temp.setAttribute("state", "disabled");
+        
+        temp = document.getElementById("deleteTaskOption");
+        temp.setAttribute("state", "");
+    } else {
+        temp = document.getElementById("editTaskOption");
+        temp.setAttribute("state", "");
+        
+        temp = document.getElementById("deleteTaskOption");
+        temp.setAttribute("state", "");
+    }
     
     /* Fade the context menu in */
     $("#contextMenu").finish().toggle(100).
@@ -140,43 +156,51 @@ $("#contextMenu item").click(function (e) {
     /* Enabled to shut the editor up */
     "use strict";
 
-    /* This is the triggered action name */
+    /* Perform the appropriate action */
     switch ($(this).attr("action")) {
-    /* A case for each action. Your actions here */
+    /* Edit the list item */
     case "editTask":
-        /* Enable editing of the selected list item and give it focus */
-        $(selectedListItem).attr('contenteditable', 'true');
-        $(selectedListItem).focus();
-            
-        /* Disable editing if the current list item loses focus */
-        $(selectedListItem).focusout(function () {
-            $(selectedListItem).attr('contenteditable', 'false');
-            if ($(selectedListItem).text() === "") {
-                $(selectedListItem).addClass("delete");
-            }
-        });
-            
-        /* Disable editing if the user presses 'Enter' */
-        $(selectedListItem).keypress(function () {
-            if (event.which === 13) {
+        /* Only allow editing of incomplete tasks. No cheating! */
+        var temp = document.getElementById("editTaskOption");
+        if (temp.getAttribute("state") !== "disabled") {
+            /* Enable editing of the selected list item and give it focus */
+            $(selectedListItem).attr('contenteditable', 'true');
+            $(selectedListItem).focus();
+
+            /* Disable editing if the current list item loses focus */
+            $(selectedListItem).focusout(function () {
                 $(selectedListItem).attr('contenteditable', 'false');
+                /* If there's no text when it loses focus, delete it */
                 if ($(selectedListItem).text() === "") {
                     $(selectedListItem).addClass("delete");
                 }
-            }
-        });
+            });
+
+            /* Disable editing if the user presses 'Enter' */
+            $(selectedListItem).keypress(function () {
+                if (event.which === 13) {
+                    $(selectedListItem).attr('contenteditable', 'false');
+                    /* If there's no text when the key is pressed, delete it */
+                    if ($(selectedListItem).text() === "") {
+                        $(selectedListItem).addClass("delete");
+                    }
+                }
+            });
+        }
         break;
+    /* Delete the list item */
     case "deleteTask":
-        $(selectedListItem).addClass("delete");
+        if ($(this).attr("state") !== "disabled") {
+            $(selectedListItem).addClass("delete");
+        }
         break;
+    /* Do nothing -- Close the context menu */
     default:
         break;
     }
   
     /* Hide it AFTER the action was triggered */
     $("#contextMenu").hide(100);
-    
-
 });
 
 ///////////////////////////////////////////////////////
