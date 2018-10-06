@@ -23,7 +23,7 @@
         
         <!-- Apply our custom style sheet to the page -->
         <link rel="stylesheet" href="css/style.css">
-        
+         
     </head>
     
     <body>
@@ -73,7 +73,7 @@
             <div class="row">
                 <div class="listItems col-12">
                     <figure>
-                        <figcaption>Completed Tasks:<hr/></figcaption>
+                        <figcaption>Completed:<hr/></figcaption>
                         <ul id="completedTasks" class="col-12 offset-0 col-sm-8 offset-sm-2">
                         </ul>
                     </figure>
@@ -82,9 +82,17 @@
 
         </div>
            
+        <div id="contextMenu">
+          <item data-action = "first">First thing</item>
+          <item data-action = "second">Second thing</item>
+          <item data-action = "third">Third thing</item>
+        </div>
+        
         <!-- Link the JS file to the page -->
         <script src="js/helper.js"></script>
         
+        
     </body>
+    
     
 </html>

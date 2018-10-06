@@ -62,7 +62,7 @@ input
 	padding: 5px 15px;
 	border-radius: 4px;
     border-color: #000000;
-    border-style: solid
+    border-style: solid;
 	color: #605d60;
 	background-color: #515151;
 	transition: all 0.75s ease;
@@ -157,3 +157,65 @@ li > button
 {    
 	display: none;
 }
+
+#contextMenu
+{
+    display: none;
+    position: absolute;
+    
+
+    background-color: rgba(235, 230, 235, 0.7);
+    color: #ffffff;
+    font-weight: bold;
+    background-color: #515151;
+    border-radius:5px;
+    border-color: #000000;
+    
+	padding: 5px;
+	border-style: solid;
+}
+
+item
+{
+    font-family:'Arial', sans-serif;
+    font-weight: bold;
+    font-size: 13px;
+    text-align: left;
+    line-height: 12px;
+    display: block;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+item:not([state*="gray"]):hover
+{
+    color: #000000;
+    background-color: #51DF70;
+    cursor: pointer;
+}
+
+/*
+.custom-menu {
+    display: none;
+    z-index: 1000;
+    position: absolute;
+    overflow: hidden;
+    border: 1px solid #CCC;
+    white-space: nowrap;
+    font-family: sans-serif;
+    background: #FFF;
+    color: #333;
+    border-radius: 5px;
+}
+
+.custom-menu li {
+    padding: 8px 12px;
+    cursor: pointer;
+}
+
+.custom-menu li:hover {
+    background-color: #DEF;
+}
+*/

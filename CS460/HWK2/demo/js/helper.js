@@ -2,82 +2,177 @@
 /*jslint browser: true*/
 /*global $*/
 
-// Grab the input field from the form for later use
-var userInput = document.getElementById("userInput");
 
-// Helper function that gets the length of the user's input
+/* GENERATE NUMBER AND APPEND TO A PREFIX */
+/* ASSIGN THAT TO NEW LIST ITEMS AS THE ID */
+
+var listItemPrefix = "li_";
+var listItemID = 0;
+
+///////////////////////////////////////////////////////
+//                HELPER FUNCTIONS                   //
+///////////////////////////////////////////////////////
+/**
+  * Grab the length of the user's input
+  */
 function userInputLength() {
-    // Enabled to shut the editor up
+    /* Enabled to shut the editor up */
     "use strict";
     
-    // Return the length of the input
-    return userInput.value.length;
+    /* Return the length of the input */
+    return $("#userInput").val().length;
 }
 
-// Move items between the two lists
+///////////////////////////////////////////////////////
+//               TOGGLE ITEM START                   //
+///////////////////////////////////////////////////////
+/**
+  * Called when the user left-clicks on an item in their list
+  */
 function toggleCompleted(li) {
-    // Enabled to shut the editor up
+    /* Enabled to shut the editor up */
     "use strict";
 
-    // Toggle the visuals for incomplete / completed items
+    /* Toggle the visuals for incomplete / completed items */
     li.classList.toggle("completed");
 
-    // Move the item to the appropriate list
+    /* Move the item to the appropriate list */
     if ($(li).hasClass("completed")) {
         $(li).appendTo("#completedTasks");
     } else {
         $(li).appendTo("#incompleteTasks");
     }
 }
+///////////////////////////////////////////////////////
+//               TOGGLE ITEM END                     //
+///////////////////////////////////////////////////////
 
-// Function that handles actions related to the to-do list
+
+///////////////////////////////////////////////////////
+//                  ADD ITEM START                   //
+///////////////////////////////////////////////////////
+/**
+  * Called when the user adds an item to their list 
+  */
 function addNewItem() {
-    // Enabled to shut the editor up
+    /* Enabled to shut the editor up */
     "use strict";
-    // Create a new list item and a button to delete it
+    
+    /* Create a new list item and a button to delete it */
     var li            = document.createElement("li"),
         btnDeleteItem = document.createElement("button");
     
-    // Assign the user's input to the new list item
-    $(li).append(document.createTextNode(userInput.value));
+    /* Assign the text from the input to the new list item */
+    $(li).append(document.createTextNode($("#userInput").val()));
     
-    // Append the new list item to the to-do list
-    $("#incompleteTasks").append(li);
+    /* Append the new list item to the to-do list */
+    //$("#incompleteTasks").append(li);
     
-    // Reset the text field for the user's convenience
+    /* Reset the text field and give it focus for the user's convenience */
     $("#userInput").val("");
-        
-    // Add an event listener to each newly created item for toggling completion
+    $("#userInput").focus();
+    
+    li.classList.add("context-menu-one");
+    $(li).attr("id", listItemPrefix + listItemID);
+    listItemID = listItemID + 1;
+    
+    /* Add an event listener to each newly created item for toggling completion */
     $(li).click(function () {
         toggleCompleted(li);
     });
     
-    // Add the 'delete' class to newly created items
+    /* Add the 'delete' class to newly created items */
 	function deleteListItem() {
 		li.classList.add("delete");
 	}
     
-    // Add the delete button to newly created items, and bind the event listener for it
+    /* Add the delete button to newly created items, and bind the event listener for it */
     $(btnDeleteItem).append(document.createTextNode("X"));
 	$(li).append(btnDeleteItem);
     $(btnDeleteItem).click(function () {
         deleteListItem();
     });
+    
+    /* Append the new list item to the to-do list */
+    $("#incompleteTasks").append(li);
 
 }
+///////////////////////////////////////////////////////
+//                  ADD ITEM END                     //
+///////////////////////////////////////////////////////
 
-// Called once the page is loaded
+
+///////////////////////////////////////////////////////
+//               CONTEXT MENU START                  //
+///////////////////////////////////////////////////////
+
+/**
+  * Show a custom context menu when the user right clicks on an item
+  * in the "To-DO" portion of their list.
+  */
+$("body").on("contextmenu", "#incompleteTasks li", function (event) {
+    
+    // Avoid the real one
+    event.preventDefault();
+    
+    // Show contextmenu
+    $("#contextMenu").finish().toggle(100).
+    
+    // In the right position (the mouse)
+    css({
+        top: event.pageY + "px",
+        left: event.pageX + "px"
+    });
+});
+
+
+// If the document is clicked somewhere
+$(document).bind("mousedown", function (e) {
+    
+    // If the clicked element is not the menu
+    if (!$(e.target).parents("#contextMenu").length > 0) {
+        
+        // Hide it
+        $("#contextMenu").hide(100);
+    }
+});
+
+
+// If the menu element is clicked
+$("#contextMenu item").click(function(){
+    
+    // This is the triggered action name
+    switch($(this).attr("data-action")) {
+        
+        // A case for each action. Your actions here
+        case "first": $("#userInput").val("IT WORKED");; break;
+        case "second": alert("second"); break;
+        case "third": alert("third"); break;
+    }
+  
+    // Hide it AFTER the action was triggered
+    $("#contextMenu").hide(100);
+});
+///////////////////////////////////////////////////////
+//               CONTEXT MENU END                    //
+///////////////////////////////////////////////////////
+
+
+///////////////////////////////////////////////////////
+//                      MAIN                         //
+///////////////////////////////////////////////////////
 function main() {
-    // Enabled to shut the editor up
+    /* Enabled to shut the editor up */
     "use strict";
-    // Called when the user clicks the button to add an item
+    
+    /* Called when the user clicks the button to add an item */
     $("#btnAddItem").on('click', function () {
         if (userInputLength() > 0) {
             addNewItem();
         }
     });
     
-    // Called when the user presses 'Enter' to add an item
+    /* Called when the user presses 'Enter' to add an item */
     $("#userInput").keypress(function () {
         if (userInputLength() > 0 && event.which === 13) {
             addNewItem();
@@ -85,6 +180,6 @@ function main() {
     });
 }
 
-// Call main() once the page is fully loaded
+/* Call main() once the page is fully loaded */
 $(document).ready(main);
 
