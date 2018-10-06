@@ -6,8 +6,12 @@
 /* GENERATE NUMBER AND APPEND TO A PREFIX */
 /* ASSIGN THAT TO NEW LIST ITEMS AS THE ID */
 
+/* Initialize variables for generating id's for dynamically created list items */
 var listItemPrefix = "li_";
 var listItemID = 0;
+
+/* Initialize a variable for storing clicked list items */
+var selectedListItem = "";
 
 ///////////////////////////////////////////////////////
 //                HELPER FUNCTIONS                   //
@@ -59,14 +63,10 @@ function addNewItem() {
     "use strict";
     
     /* Create a new list item and a button to delete it */
-    var li            = document.createElement("li"),
-        btnDeleteItem = document.createElement("button");
+    var li            = document.createElement("li");
     
     /* Assign the text from the input to the new list item */
     $(li).append(document.createTextNode($("#userInput").val()));
-    
-    /* Append the new list item to the to-do list */
-    //$("#incompleteTasks").append(li);
     
     /* Reset the text field and give it focus for the user's convenience */
     $("#userInput").val("");
@@ -79,18 +79,6 @@ function addNewItem() {
     /* Add an event listener to each newly created item for toggling completion */
     $(li).click(function () {
         toggleCompleted(li);
-    });
-    
-    /* Add the 'delete' class to newly created items */
-	function deleteListItem() {
-		li.classList.add("delete");
-	}
-    
-    /* Add the delete button to newly created items, and bind the event listener for it */
-    $(btnDeleteItem).append(document.createTextNode("X"));
-	$(li).append(btnDeleteItem);
-    $(btnDeleteItem).click(function () {
-        deleteListItem();
     });
     
     /* Append the new list item to the to-do list */
@@ -111,48 +99,86 @@ function addNewItem() {
   * in the "To-DO" portion of their list.
   */
 $("body").on("contextmenu", "#incompleteTasks li", function (event) {
+    /* Enabled to shut the editor up */
+    "use strict";
     
-    // Avoid the real one
+    /* Prevent the default context menu from being used */
     event.preventDefault();
     
-    // Show contextmenu
-    $("#contextMenu").finish().toggle(100).
+    /* Get the id of the list item the user clicked on */
+    selectedListItem = "#" + $(this).attr("id");
     
-    // In the right position (the mouse)
-    css({
-        top: event.pageY + "px",
-        left: event.pageX + "px"
-    });
+    /* Fade the context menu in */
+    $("#contextMenu").finish().toggle(100).
+        /* Make sure it is by the mouse */
+        css({
+            top: event.pageY + "px",
+            left: event.pageX + "px"
+        });
 });
 
 
-// If the document is clicked somewhere
+/*
+ * Hide the context menu if the use clicks off of it
+ */
 $(document).bind("mousedown", function (e) {
+    /* Enabled to shut the editor up */
+    "use strict";
     
-    // If the clicked element is not the menu
+    /* If the clicked element is not the menu */
     if (!$(e.target).parents("#contextMenu").length > 0) {
         
-        // Hide it
+        /* Hide it */
         $("#contextMenu").hide(100);
     }
 });
 
+/*
+ * Handle context menu actions
+ */
+$("#contextMenu item").click(function (e) {
+    /* Enabled to shut the editor up */
+    "use strict";
 
-// If the menu element is clicked
-$("#contextMenu item").click(function(){
-    
-    // This is the triggered action name
-    switch($(this).attr("data-action")) {
-        
-        // A case for each action. Your actions here
-        case "first": $("#userInput").val("IT WORKED");; break;
-        case "second": alert("second"); break;
-        case "third": alert("third"); break;
+    /* This is the triggered action name */
+    switch ($(this).attr("action")) {
+    /* A case for each action. Your actions here */
+    case "editTask":
+        /* Enable editing of the selected list item and give it focus */
+        $(selectedListItem).attr('contenteditable', 'true');
+        $(selectedListItem).focus();
+            
+        /* Disable editing if the current list item loses focus */
+        $(selectedListItem).focusout(function () {
+            $(selectedListItem).attr('contenteditable', 'false');
+            if ($(selectedListItem).text() === "") {
+                $(selectedListItem).addClass("delete");
+            }
+        });
+            
+        /* Disable editing if the user presses 'Enter' */
+        $(selectedListItem).keypress(function () {
+            if (event.which === 13) {
+                $(selectedListItem).attr('contenteditable', 'false');
+                if ($(selectedListItem).text() === "") {
+                    $(selectedListItem).addClass("delete");
+                }
+            }
+        });
+        break;
+    case "deleteTask":
+        $(selectedListItem).addClass("delete");
+        break;
+    default:
+        break;
     }
   
-    // Hide it AFTER the action was triggered
+    /* Hide it AFTER the action was triggered */
     $("#contextMenu").hide(100);
+    
+
 });
+
 ///////////////////////////////////////////////////////
 //               CONTEXT MENU END                    //
 ///////////////////////////////////////////////////////
