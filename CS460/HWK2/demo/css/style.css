@@ -175,19 +175,7 @@ li > button
 	border-style: solid;
 }
 
-.enabled:hover
-{
-    color: #000000;
-    background-color: #51DF70;
-    cursor: pointer;
-}
-
-.disbled
-{
-    color: #727272;
-    opacity: 0.5;
-}
-
+/* Overall styling of the items */
 item
 {
     font-family:'Arial', sans-serif;
@@ -202,15 +190,18 @@ item
     padding-bottom: 10px;
 }
 
+/* Gray out disabled items */
 item[state*="disabled"] {
     color: #AAA;
 }
 
+/* Change the cursor to a point over enabled menu items */
 item:not([state*="disabled"]):hover
 {
     cursor: pointer;
 }
 
+/* Change the cursor, text color, and background color when over enabled menu items*/
 item:not([state*="disabled"]):hover
 {
     color: #000000;

@@ -72,6 +72,7 @@ function addNewItem() {
     $("#userInput").val("");
     $("#userInput").focus();
     
+    /* Assign an id to each newly created list item */
     li.classList.add("context-menu-one");
     $(li).attr("id", listItemPrefix + listItemID);
     listItemID = listItemID + 1;

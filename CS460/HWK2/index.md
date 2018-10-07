@@ -236,14 +236,14 @@ One of the goals of this assignment was to alter the page somehow in response to
 In order to let the user add items to the list, I first needed to setup the event handlers and listeners for both the button and the keypress.
 
 ```js
-// Called when the user clicks the button to add an item
+/* Called when the user clicks the button to add an item */
 $("#btnAddItem").on('click', function () {
     if (userInputLength() > 0) {
     addNewItem();
     }
 });
 
-// Called when the user presses 'Enter' to add an item
+/* Called when the user presses 'Enter' to add an item */
 $("#userInput").keypress(function () {
     if (userInputLength() > 0 && event.which === 13) {
     addNewItem();
@@ -253,12 +253,12 @@ $("#userInput").keypress(function () {
 Next was making it so the user could mark items as complete, and showing that visually. To do this I toggled a class from my style sheet (shown above) on the item. The class changes the color and applies a strikethrough effect to the text in order to make it very obivous that something has changed.
 
 ```js
-// Add the 'completed' class to newly created items
+/* Add the 'completed' class to newly created items */
 function markCompleted() {
     li.classList.toggle("completed");
     }
 
-// Add an event listener to each newly created item for toggling completion
+/* Add an event listener to each newly created item for toggling completion */
 $(li).click(function () {
     markCompleted();
 });
@@ -267,7 +267,7 @@ $(li).click(function () {
 The last thing to do was provide the user a way to delete items from their list. I didn't want extra stuff such as buttons cluttering the page, so I decided to place the 'delete' option directly on the list items. This resulted in a much cleaner look, and makes it very apparent what the button will do.
 
 ```js
-// Add the delete button to newly created items, and bind the event listener for it
+/* Add the delete button to newly created items, and bind the event listener for it */
 $(btnDeleteItem).append(document.createTextNode("X"));
 $(li).append(btnDeleteItem);
 $(btnDeleteItem).click(function () {
@@ -297,5 +297,283 @@ git merge HWK2
 git push -u origin master
 ```
 
+# **Addition Feature Revisions**
 
+A little while after completing the assignment and submitting it, I started to feel like there was more I could have done with the webpage. So I pulled it up and started to think.
+
+### **I: Separating the Completed Tasks From the Incomplete Tasks**
+
+Right off the bat I realized that there wasn't enough of a difference between completed and incomplete tasks. The color difference was nice, but a large enough list could become an unorganized mess very quickly. The first thing to do was create a separate list to hold completed tasks. Then, I gave each section a title so there would be no confusion as to which list was for what.
+
+```html
+<!-- Create an empty list for the user to add items to -->
+<div class="row">
+    <div class="listItems col-12">
+        <figure>
+            <figcaption>To-Do:<hr/></figcaption>
+            <ul id="incompleteTasks" class="col-12 offset-0 col-sm-8 offset-sm-2">
+            </ul>
+        </figure>
+    </div>
+</div>
+
+<!-- Create an empty list for completed tasks to be moved to -->
+<div class="row">
+    <div class="listItems col-12">
+        <figure>
+            <figcaption>Completed:<hr/></figcaption>
+            <ul id="completedTasks" class="col-12 offset-0 col-sm-8 offset-sm-2">
+            </ul>
+        </figure>
+    </div>
+</div>
+```
+
+Next up was moving the tasks between lists. This required a refactoring of the existing code that marked tasks as completed. This:
+
+```js
+/* Add the 'completed' class to newly created items */
+function markCompleted() {
+    li.classList.toggle("completed");
+    }
+
+/* Add an event listener to each newly created item for toggling completion */
+$(li).click(function () {
+    markCompleted();
+});
+```
+Became this:
+
+```js
+/**
+  * Called when the user left-clicks on an item in their list
+  */
+function toggleCompleted(li) {
+    /* Enabled to shut the editor up */
+    "use strict";
+
+    /* Toggle the visuals for incomplete / completed items */
+    li.classList.toggle("completed");
+
+    /* Move the item to the appropriate list */
+    if ($(li).hasClass("completed")) {
+        $(li).appendTo("#completedTasks");
+    } else {
+        $(li).appendTo("#incompleteTasks");
+    }
+}
+
+/* Add an event listener to each newly created item for toggling completion */
+$(li).click(function () {
+    toggleCompleted(li);
+});
+```
+
+This allowed for tasks to move between the lists when the user clicked on them when marking them complete / incomplete.
+
+### **II: Creating and Displaying a Custom Context Menu**
+
+Another feature I wanted to add was a custom context menu. This was beyond the requirements of the assignment, and was done purely as a learning experience. I did a lot of reading on sites such as [Stack Exchange](https://stackoverflow.com/), [W3Schools](https://www.w3schools.com), and poked around in the documentation [here](https://api.jquery.com/contextmenu/) as well. At first it seemed like everyone was using some version of a plugin (such as [this one](https://swisnl.github.io/jQuery-contextMenu/)) to implement and manage their context menus. While that would have been convenient, it would have defeated the purpose of this learning exercise, and that's not what I wanted at all. I dug through tutorial after tutorial, and every forum thread I could find, and once I had a decent understanding of the mechanics I got to work. The first thing I needed to do was show the custom context menu when right-clicking on a list item...
+
+```js
+/**
+  * Show a custom context menu when the user right clicks on an item
+  * in the "To-DO" portion of their list.
+  */
+$("body").on("contextmenu", "li", function (event) {
+    /* Enabled to shut the editor up */
+    "use strict";
+    
+    /* Prevent the default context menu from being used */
+    event.preventDefault();
+    
+    /* Fade the context menu in */
+    $("#contextMenu").finish().toggle(100).
+        /* Make sure it is by the mouse */
+        css({
+            top: event.pageY + "px",
+            left: event.pageX + "px"
+        });
+});
+```
+... and to hide it when clicking outside of it.
+
+```js
+/*
+ * Hide the context menu if the use clicks off of it
+ */
+$(document).bind("mousedown", function (e) {
+    /* Enabled to shut the editor up */
+    "use strict";
+    
+    /* If the clicked element is not the menu */
+    if (!$(e.target).parents("#contextMenu").length > 0) {
+        
+        /* Hide it */
+        $("#contextMenu").hide(100);
+    }
+});
+```
+
+Next, I needed a way to perform an action when a menu item is clicked on.
+
+```js
+/*
+ * Handle context menu actions
+ */
+$("#contextMenu item").click(function (e) {
+    /* Enabled to shut the editor up */
+    "use strict";
+
+    /* Perform the appropriate action */
+    switch ($(this).attr("action")) {
+    /* Edit the list item */
+    case "editTask":
+        /* Only allow editing of incomplete tasks. No cheating! */
+        var temp = document.getElementById("editTaskOption");
+        if (temp.getAttribute("state") !== "disabled") {
+            /* Enable editing of the selected list item and give it focus */
+            $(selectedListItem).attr('contenteditable', 'true');
+            $(selectedListItem).focus();
+
+            /* Disable editing if the current list item loses focus */
+            $(selectedListItem).focusout(function () {
+                $(selectedListItem).attr('contenteditable', 'false');
+                /* If there's no text when it loses focus, delete it */
+                if ($(selectedListItem).text() === "") {
+                    $(selectedListItem).addClass("delete");
+                }
+            });
+
+            /* Disable editing if the user presses 'Enter' */
+            $(selectedListItem).keypress(function () {
+                if (event.which === 13) {
+                    $(selectedListItem).attr('contenteditable', 'false');
+                    /* If there's no text when the key is pressed, delete it */
+                    if ($(selectedListItem).text() === "") {
+                        $(selectedListItem).addClass("delete");
+                    }
+                }
+            });
+        }
+        break;
+    /* Delete the list item */
+    case "deleteTask":
+        if ($(this).attr("state") !== "disabled") {
+            $(selectedListItem).addClass("delete");
+        }
+        break;
+    /* Do nothing -- Close the context menu */
+    default:
+        break;
+    }
+  
+    /* Hide it AFTER the action was triggered */
+    $("#contextMenu").hide(100);
+});
+```
+
+This uses a switch statement to determine which action should be performed. The two options I currently have in my context menu are 'Edit Task' and 'Delete Task', and both are handled in this function. This, however, had a flaw in that it would effect every instance of li on the page instead of just the one that was clicked on. In order to resolve that I needed a way to assign id's to the list items as they were being created. To accomplish that I needed a counter.
+
+```js
+/* Initialize variables for generating id's for dynamically created list items */
+var listItemPrefix = "li_";
+var listItemID = 0;
+```
+
+And to use it to generate the id for every new item added to the user's list.
+```js
+/* Assign an id to each newly created list item */
+li.classList.add("context-menu-one");
+$(li).attr("id", listItemPrefix + listItemID);
+listItemID = listItemID + 1;
+```
+
+Once I had a way to assign id's to every new list item. I had a way to manipulate them. First, I grabbed the id of the list item the user right-clicked, and prepend a '#' to make match the syntax later on.
+
+```js
+/* Get the id of the list item the user clicked on */
+selectedListItem = "#" + $(this).attr("id");
+```
+
+Using that I was able to allow the user to edit an existing task:
+```js
+/* Enable editing of the selected list item and give it focus */
+$(selectedListItem).attr('contenteditable', 'true');
+$(selectedListItem).focus();
+
+/* Disable editing if the current list item loses focus */
+$(selectedListItem).focusout(function () {
+    $(selectedListItem).attr('contenteditable', 'false');
+    /* If there's no text when it loses focus, delete it */
+    if ($(selectedListItem).text() === "") {
+        $(selectedListItem).addClass("delete");
+    }
+});
+
+/* Disable editing if the user presses 'Enter' */
+$(selectedListItem).keypress(function () {
+    if (event.which === 13) {
+        $(selectedListItem).attr('contenteditable', 'false');
+        /* If there's no text when the key is pressed, delete it */
+        if ($(selectedListItem).text() === "") {
+            $(selectedListItem).addClass("delete");
+        }
+    }
+});
+```
+And also allow them to delete individual items in their lists:
+```js
+$(selectedListItem).addClass("delete");
+```
+
+### **III: Styling the Context Menu**
+
+I added the following to my style sheet to fit the context menu into the theme of my page, and to help indicate to the user which items were enabled / disabled.
+
+```css
+/* Overall styling of the items */
+item
+{
+    font-family:'Arial', sans-serif;
+    font-weight: bold;
+    font-size: 13px;
+    text-align: left;
+    line-height: 12px;
+    display: block;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+/* Gray out disabled items */
+item[state*="disabled"] {
+    color: #AAA;
+}
+
+/* Change the cursor to a point over enabled menu items */
+item:not([state*="disabled"]):hover
+{
+    cursor: pointer;
+}
+
+/* Change the cursor, text color, and background color when over enabled menu items*/
+item:not([state*="disabled"]):hover
+{
+    color: #000000;
+    background-color: #51DF70;
+    cursor: pointer;
+}
+```
+
+### **IV: The New Working Page**
+
+In the end, the result was better than I had expected. It wasn't anything fancy, but it worked and I learned a lot in the process, which was the goal. So I was very pleased with the results.
+
+![](images/new_create_items.gif?raw=true)
+
+![](images/new_edit_items.gif?raw=true)
+
+![](images/new_delete_items.gif?raw=true)
 
