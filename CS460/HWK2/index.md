@@ -297,7 +297,7 @@ git merge HWK2
 git push -u origin master
 ```
 
-# **Addition Feature Revisions**
+# **Additional Feature Revisions**
 
 A little while after completing the assignment and submitting it, I started to feel like there was more I could have done with the webpage. So I pulled it up and started to think.
 
