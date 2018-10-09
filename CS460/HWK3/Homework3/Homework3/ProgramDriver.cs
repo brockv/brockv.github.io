@@ -22,7 +22,7 @@ namespace Homework3
         static LinkedList<string> GenerateBinaryRepresentationList(int n)
         {
             /** Create an empty queue of strings with which to perform the traversal */
-            LinkedQueue<StringBuilder> q = new LinkedQueue<StringBuilder>();
+            LinkedQueue<StringBuilder> theQueue = new LinkedQueue<StringBuilder>();
 
             /** A list for returning the binary values */
             LinkedList<string> output = new LinkedList<string>();
@@ -36,13 +36,13 @@ namespace Homework3
             }
 
             /** Enqueue the first binary number. Use a dynamic string to avoid string concat */
-            q.Push(new StringBuilder("1"));
+            theQueue.Push(new StringBuilder("1"));
 
             /** BFS */
             while (n-- > 0)
             {
                 /** Print the front of the queue */
-                StringBuilder sb = q.Pop();
+                StringBuilder sb = theQueue.Pop();
                 output.AddLast(sb.ToString());
 
                 /** Make a copy */
@@ -50,11 +50,11 @@ namespace Homework3
 
                 /** Left child */
                 sb.Append('0');
-                q.Push(sb);
+                theQueue.Push(sb);
 
                 /** Right child */
                 sbc.Append('1');
-                q.Push(sbc);
+                theQueue.Push(sbc);
             }
 
             return output;
@@ -75,10 +75,13 @@ namespace Homework3
             }
 
             /**
-             * Attempt to parse the input passed in
-             */
+              * Handle the command line arguments
+              */
             try
             {
+                /**
+                  * Attempt to parse the input passed in
+                  */
                 n = int.Parse(args[0]);
 
                 /** Don't attempt to process negative numbers */
