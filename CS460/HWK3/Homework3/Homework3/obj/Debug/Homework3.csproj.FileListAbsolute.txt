@@ -1,0 +1,7 @@
+C:\Users\Brock Vance\Documents\WOU\CS460\brockv.github.io\CS460\HWK3\Homework3\Homework3\bin\Debug\Homework3.exe.config
+C:\Users\Brock Vance\Documents\WOU\CS460\brockv.github.io\CS460\HWK3\Homework3\Homework3\bin\Debug\Homework3.exe
+C:\Users\Brock Vance\Documents\WOU\CS460\brockv.github.io\CS460\HWK3\Homework3\Homework3\bin\Debug\Homework3.pdb
+C:\Users\Brock Vance\Documents\WOU\CS460\brockv.github.io\CS460\HWK3\Homework3\Homework3\obj\Debug\Homework3.csprojAssemblyReference.cache
+C:\Users\Brock Vance\Documents\WOU\CS460\brockv.github.io\CS460\HWK3\Homework3\Homework3\obj\Debug\Homework3.csproj.CoreCompileInputs.cache
+C:\Users\Brock Vance\Documents\WOU\CS460\brockv.github.io\CS460\HWK3\Homework3\Homework3\obj\Debug\Homework3.exe
+C:\Users\Brock Vance\Documents\WOU\CS460\brockv.github.io\CS460\HWK3\Homework3\Homework3\obj\Debug\Homework3.pdb
