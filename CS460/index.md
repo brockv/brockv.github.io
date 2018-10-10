@@ -6,6 +6,7 @@ Computer Science program.
 ## **Software Engineering I**
 - [Homework I](https://brockv.github.io/CS460/HWK1/): HTML, CSS, and Bootstrap
 - [Homework II](https://brockv.github.io/CS460/HWK2/): JavaScript and jQuery
+- [Homework III](https://brockv.github.io/CS460/HWK3/): Translating Java to C#
 
 ## **Software Engineering II**
 - TBA
