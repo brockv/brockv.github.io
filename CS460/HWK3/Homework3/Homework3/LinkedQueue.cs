@@ -20,6 +20,11 @@ namespace Homework3
             Rear = null;
         }
 
+        /// <summary>
+        /// Inserts a given node into a linked list.
+        /// </summary>
+        /// <param name="element">The value to assign the node.</param>
+        /// <returns>The value of the node.</returns>
         public T Push(T element)
         {
             /** Throw an exception on a null value */
@@ -46,24 +51,29 @@ namespace Homework3
             return element;
         }
 
+        /// <summary>
+        /// Removes a node from a linked list.
+        /// </summary>
+        /// <returns>The value of the last node in the list.</returns>
         public T Pop()
         {
             T temp = default(T);
 
+            /** If the queue is empty, report to the user and return immediately */
             if (IsEmpty())
             {
                 throw new QueueUnderflowException("The queue was empty when pop was invoked.");
             }
+            /** One item in the queue */
             else if (Front == Rear)
-            {
-                /** One item in the queue */
+            {                
                 temp = Front.Data;
                 Front = null;
                 Rear = null;
             }
+            /** General case */
             else
-            {
-                /** General case */
+            {                
                 temp = Front.Data;
                 Front = Front.Next;
             }
@@ -71,6 +81,10 @@ namespace Homework3
             return temp;
         }
 
+        /// <summary>
+        /// Checks if a queue contains any nodes.
+        /// </summary>
+        /// <returns>True if there are no nodes; false otherwise.</returns>
         public bool IsEmpty()
         {
             if (Front == null && Rear == null)

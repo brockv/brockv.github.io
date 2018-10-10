@@ -14,14 +14,12 @@ This step was halfway done as I already had Visual Studio setup on both my deskt
 
 ### **II: Starting the Conversion to C#**
 
-As was suggested in the homework assignment, I started with Node.js:
+As was suggested in the homework assignment, I started with Node, then QueueInterface, QueueUnderflowException, LinkedQueue, and finally Main.
 
-# ****Node.js --> Node.cs ****
+# ****Node.java --> Node.cs ****
 
 There weren't many changes to make to this file other than minor changes to capitalization.
 
-```java
-```
 
 ```c#
 namespace Homework3
@@ -51,12 +49,10 @@ namespace Homework3
 
 Next up was QueueInterface.js:
 
-# ****QueueInterface.js --> QueueInterface.cs****
+# ****QueueInterface.java --> QueueInterface.cs****
 
 As with the previous file, there wasn't much to do here other than adjusting names to match C# standards.
 
-```java
-```
 
 ```c#
 using System;
@@ -92,12 +88,10 @@ namespace Homework3
 }
 ```
 
-# ****QueueUnderflowException.js --> QueueUnderflowException.cs****
+# ****QueueUnderflowException.java --> QueueUnderflowException.cs****
 
 The major change in this file was moving from using 'super' to 'base', and restructuring the method signatures to match standards.
 
-```java
-```
 
 ```c#
 using System;
@@ -123,29 +117,257 @@ namespace Homework3
 }
 ```
 
-# ****LinkedQueue.js --> LinkedQueue.cs****
+# ****LinkedQueue.java --> LinkedQueue.cs****
 
-```java
-```
-
-```c#
-```
-
-# ****Main.js --> ProgramDriver.cs****
-
-```java
-```
+Other than adding XML comments, there wasn't much to change in this file.
 
 ```c#
+using System;
+
+namespace Homework3
+{
+    /// <summary>
+    /// Defines a linked queue.
+    /// </summary>
+    /// <typeparam name="T">The element type of the linked queue.</typeparam>
+    public class LinkedQueue<T> : IQueueInterface<T>
+    {
+        private Node<T> Front;
+        private Node<T> Rear;
+
+        /// <summary>
+        /// Default no-argument constructor.
+        /// </summary>
+        public LinkedQueue()
+        {
+            Front = null;
+            Rear = null;
+        }
+
+        /// <summary>
+        /// Inserts a given node into a linked list.
+        /// </summary>
+        /// <param name="element">The value to assign the node.</param>
+        /// <returns>The value of the node.</returns>
+        public T Push(T element)
+        {
+            /** Throw an exception on a null value */
+            if (element == null)
+            {
+                throw new NullReferenceException();
+            }
+
+            /** If the queue is empty, insert this at the beginning */
+            if (IsEmpty())
+            {
+                Node<T> temp = new Node<T>(element, null);
+                Rear = Front = temp;
+            }
+            /** Insert the node at the end of the linked queue */
+            else
+            {
+                /** General case */
+                Node<T> temp = new Node<T>(element, null);
+                Rear.Next = temp;
+                Rear = temp;
+            }
+
+            return element;
+        }
+
+        /// <summary>
+        /// Removes a node from a linked list.
+        /// </summary>
+        /// <returns>The value of the last node in the list.</returns>
+        public T Pop()
+        {
+            T temp = default(T);
+
+            /** If the queue is empty, report to the user and return immediately */
+            if (IsEmpty())
+            {
+                throw new QueueUnderflowException("The queue was empty when pop was invoked.");
+            }
+            /** One item in the queue */
+            else if (Front == Rear)
+            {                
+                temp = Front.Data;
+                Front = null;
+                Rear = null;
+            }
+            /** General case */
+            else
+            {                
+                temp = Front.Data;
+                Front = Front.Next;
+            }
+
+            return temp;
+        }
+
+        /// <summary>
+        /// Checks if a queue contains any nodes.
+        /// </summary>
+        /// <returns>True if there are no nodes; false otherwise.</returns>
+        public bool IsEmpty()
+        {
+            if (Front == null && Rear == null)
+            {
+                return true;
+            }
+
+            return false;
+        }
+    }
+}
+```
+
+# ****Main.java --> ProgramDriver.cs****
+
+Other than adding XML style comments, the only other significant change I made was a check for negative numbers and preventing them from being processed.
+
+```c#
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace Homework3
+{
+    /**
+     * Print the binary representation of all numbers from 1 up to n.
+     * This is accomplished by using a FIFO queue to perform a level 
+     * order (i.e. BFS) traversal of a virtual binary tree that 
+     * looks like this:
+     *                 1
+     *             /       \
+     *            10       11
+     *           /  \     /  \
+     *         100  101  110  111
+     *          etc.
+     * and then storing each "value" in a list as it is "visited".
+     */
+    class ProgramDriver
+    {
+        /// <summary>
+        /// Generates a linked list of binary representations of integers.
+        /// </summary>
+        /// <param name="n">The number of integers to convert.</param>
+        /// <returns>A linked list of the converted integers.</returns>
+        static LinkedList<string> GenerateBinaryRepresentationList(int n)
+        {
+            /** Create an empty queue of strings with which to perform the traversal */
+            LinkedQueue<StringBuilder> TheQueue = new LinkedQueue<StringBuilder>();
+
+            /** A list for returning the binary values */
+            LinkedList<string> output = new LinkedList<string>();
+
+            if (n < 1)
+            {
+                /** Binary representation of negative values is not supported. Return
+                 *  an empty list.
+                 */
+                return output;
+            }
+
+            /** Enqueue the first binary number. Use a dynamic string to avoid string concat */
+            TheQueue.Push(new StringBuilder("1"));
+
+            /** BFS */
+            while (n-- > 0)
+            {
+                /** Print the front of the queue */
+                StringBuilder sBuilder = TheQueue.Pop();
+                output.AddLast(sBuilder.ToString());
+
+                /** Make a copy */
+                StringBuilder sBuilderCopy = new StringBuilder(sBuilder.ToString());
+
+                /** Left child */
+                sBuilder.Append('0');
+                TheQueue.Push(sBuilder);
+
+                /** Right child */
+                sBuilderCopy.Append('1');
+                TheQueue.Push(sBuilderCopy);
+            }
+
+            return output;
+        }
+
+        /** Driver program to test the above function */
+        static void Main(string[] args)
+        {
+            /** Show how to invoke the application if the parameter is missing */
+            int n = 10;
+            if (args.Length < 1)
+            {
+                Console.WriteLine("Please invoke with the max value to print binary up to, like this:");
+                Console.WriteLine("\t Main 12");
+                return;
+            }
+
+            /** Handle the command line arguments */
+            try
+            {
+                /** Attempt to parse the input passed in */
+                n = int.Parse(args[0]);
+
+                /** Don't attempt to process negative numbers */
+                if (n < 0)
+                {
+                    Console.WriteLine("\nPlease use non-negative integers.\n");
+                    return;
+                }
+            }
+            catch (FormatException)
+            {
+                /** Don't attempt to process non numeric input */
+                Console.WriteLine("\nI'm sorry, I can't understand the number: " + args[0] + "\n");
+                return;
+            }
+
+            /** Generate the output */
+            LinkedList<string> output = GenerateBinaryRepresentationList(n);
+
+            /** Whitespace for improved readability */
+            Console.WriteLine();
+
+            /** 
+             * Print the output right justified. Longest string is the last one. Make sure to
+             * print enough spaces to move it over the correct distance.
+             */
+            int maxLength = output.Last.Value.Length;
+            foreach (string s in output)
+            {
+                for (int i = 0; i < maxLength - s.Length; i++)
+                {
+                    Console.Write(" ");
+                }
+                Console.WriteLine(s);
+            }
+
+            /** Whitespace for improved readability */
+            Console.WriteLine();
+        }
+    }
+}
 ```
 
 ### **V: Making Sure Everything Works**
 
+Once all of the files had been translated into C#, it was time to build and test it out.
 
+![](images/test_one.png?raw=true)
+
+![](images/test_two.png?raw=true)
+
+![](images/test_three.png?raw=true)
+
+Everything worked! One more pass through the files to make sure my comments were sufficient and it was good to be pushed to my remote repository.
 
 ### **VI: Merging Back Into the Master Branch**
 
-The last step in all of this was to merge the feature branch back into the main branch. In order to do that, I first needed to switch back to the master branch, then merge the feature branch into it. After a final commit, I used the following commands to accomplish that:
+The last step in all of this was to merge the feature branch back into the main branch, and it's done the same way as in the previous assignment. Move back to master, merge the feature branch in, then push to the repository.
 
 ```bash
 git checkout master

@@ -19,10 +19,15 @@ namespace Homework3
      */
     class ProgramDriver
     {
+        /// <summary>
+        /// Generates a linked list of binary representations of integers.
+        /// </summary>
+        /// <param name="n">The number of integers to convert.</param>
+        /// <returns>A linked list of the converted integers.</returns>
         static LinkedList<string> GenerateBinaryRepresentationList(int n)
         {
             /** Create an empty queue of strings with which to perform the traversal */
-            LinkedQueue<StringBuilder> theQueue = new LinkedQueue<StringBuilder>();
+            LinkedQueue<StringBuilder> TheQueue = new LinkedQueue<StringBuilder>();
 
             /** A list for returning the binary values */
             LinkedList<string> output = new LinkedList<string>();
@@ -36,25 +41,25 @@ namespace Homework3
             }
 
             /** Enqueue the first binary number. Use a dynamic string to avoid string concat */
-            theQueue.Push(new StringBuilder("1"));
+            TheQueue.Push(new StringBuilder("1"));
 
             /** BFS */
             while (n-- > 0)
             {
                 /** Print the front of the queue */
-                StringBuilder sb = theQueue.Pop();
-                output.AddLast(sb.ToString());
+                StringBuilder sBuilder = TheQueue.Pop();
+                output.AddLast(sBuilder.ToString());
 
                 /** Make a copy */
-                StringBuilder sbc = new StringBuilder(sb.ToString());
+                StringBuilder sBuilderCopy = new StringBuilder(sBuilder.ToString());
 
                 /** Left child */
-                sb.Append('0');
-                theQueue.Push(sb);
+                sBuilder.Append('0');
+                TheQueue.Push(sBuilder);
 
                 /** Right child */
-                sbc.Append('1');
-                theQueue.Push(sbc);
+                sBuilderCopy.Append('1');
+                TheQueue.Push(sBuilderCopy);
             }
 
             return output;
@@ -63,9 +68,7 @@ namespace Homework3
         /** Driver program to test the above function */
         static void Main(string[] args)
         {
-            /**
-             * Show how to invoke the application if the parameter is missing
-             */
+            /** Show how to invoke the application if the parameter is missing */
             int n = 10;
             if (args.Length < 1)
             {
@@ -74,14 +77,10 @@ namespace Homework3
                 return;
             }
 
-            /**
-              * Handle the command line arguments
-              */
+            /** Handle the command line arguments */
             try
             {
-                /**
-                  * Attempt to parse the input passed in
-                  */
+                /** Attempt to parse the input passed in */
                 n = int.Parse(args[0]);
 
                 /** Don't attempt to process negative numbers */
@@ -100,6 +99,9 @@ namespace Homework3
 
             /** Generate the output */
             LinkedList<string> output = GenerateBinaryRepresentationList(n);
+
+            /** Whitespace for improved readability */
+            Console.WriteLine();
 
             /** 
              * Print the output right justified. Longest string is the last one. Make sure to
