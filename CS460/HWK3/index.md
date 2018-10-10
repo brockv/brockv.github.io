@@ -357,11 +357,11 @@ namespace Homework3
 
 Once all of the files had been translated into C#, it was time to build and test it out.
 
-![](images/test_one.png?raw=true)
+![](images/test_one.PNG?raw=true)
 
-![](images/test_two.png?raw=true)
+![](images/test_two.PNG?raw=true)
 
-![](images/test_three.png?raw=true)
+![](images/test_three.PNG?raw=true)
 
 Everything worked! One more pass through the files to make sure my comments were sufficient and it was good to be pushed to my remote repository.
 
