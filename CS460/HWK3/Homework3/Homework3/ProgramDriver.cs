@@ -91,7 +91,7 @@ namespace Homework3
                     return;
                 }
             }
-            catch (FormatException e)
+            catch (FormatException)
             {
                 /** Don't attempt to process non numeric input */
                 Console.WriteLine("\nI'm sorry, I can't understand the number: " + args[0] + "\n");
@@ -115,6 +115,8 @@ namespace Homework3
                 Console.WriteLine(s);
             }
 
+            /** Whitespace for improved readability */
+            Console.WriteLine();
         }
     }
 }

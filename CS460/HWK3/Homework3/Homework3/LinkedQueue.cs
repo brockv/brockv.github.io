@@ -1,71 +1,84 @@
 ﻿using System;
 
-public class LinkedQueue<T> : QueueInterface<T>
+namespace Homework3
 {
-    private Node<T> front;
-    private Node<T> rear;
-
-    public LinkedQueue()
+    /// <summary>
+    /// Defines a linked queue.
+    /// </summary>
+    /// <typeparam name="T">The element type of the linked queue.</typeparam>
+    public class LinkedQueue<T> : IQueueInterface<T>
     {
-        front = null;
-        rear = null;
-    }
+        private Node<T> Front;
+        private Node<T> Rear;
 
-    public T Push(T element)
-    {
-        if (element == null)
+        /// <summary>
+        /// Default no-argument constructor.
+        /// </summary>
+        public LinkedQueue()
         {
-            throw new NullReferenceException();
+            Front = null;
+            Rear = null;
         }
 
-        if (IsEmpty())
+        public T Push(T element)
         {
-            Node<T> temp = new Node<T>(element, null);
-            rear = front = temp;
-        }
-        else
-        {
-            /** General case */
-            Node<T> temp = new Node<T>(element, null);
-            rear.next = temp;
-            rear = temp;
-        }
+            /** Throw an exception on a null value */
+            if (element == null)
+            {
+                throw new NullReferenceException();
+            }
 
-        return element;
-    }
+            /** If the queue is empty, insert this at the beginning */
+            if (IsEmpty())
+            {
+                Node<T> temp = new Node<T>(element, null);
+                Rear = Front = temp;
+            }
+            /** Insert the node at the end of the linked queue */
+            else
+            {
+                /** General case */
+                Node<T> temp = new Node<T>(element, null);
+                Rear.Next = temp;
+                Rear = temp;
+            }
 
-    public T Pop()
-    {
-        T temp = default(T);
-
-        if (IsEmpty())
-        {
-            throw new QueueUnderflowException("The queue was empty when pop was invoked.");
-        }
-        else if (front == rear)
-        {
-            /** One item in the queue */
-            temp = front.data;
-            front = null;
-            rear = null;
-        }
-        else
-        {
-            /** General case */
-            temp = front.data;
-            front = front.next;
+            return element;
         }
 
-        return temp;
-    }
-
-    public bool IsEmpty()
-    {
-        if (front == null && rear == null)
+        public T Pop()
         {
-            return true;
+            T temp = default(T);
+
+            if (IsEmpty())
+            {
+                throw new QueueUnderflowException("The queue was empty when pop was invoked.");
+            }
+            else if (Front == Rear)
+            {
+                /** One item in the queue */
+                temp = Front.Data;
+                Front = null;
+                Rear = null;
+            }
+            else
+            {
+                /** General case */
+                temp = Front.Data;
+                Front = Front.Next;
+            }
+
+            return temp;
         }
 
-        return false;
+        public bool IsEmpty()
+        {
+            if (Front == null && Rear == null)
+            {
+                return true;
+            }
+
+            return false;
+        }
     }
 }
