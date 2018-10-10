@@ -353,7 +353,7 @@ namespace Homework3
 }
 ```
 
-### **V: Making Sure Everything Works**
+### **III: Making Sure Everything Works**
 
 Once all of the files had been translated into C#, it was time to build and test it out.
 
@@ -365,7 +365,7 @@ Once all of the files had been translated into C#, it was time to build and test
 
 Everything worked! One more pass through the files to make sure my comments were sufficient and it was good to be pushed to my remote repository.
 
-### **VI: Merging Back Into the Master Branch**
+### **IV: Merging Back Into the Master Branch**
 
 The last step in all of this was to merge the feature branch back into the main branch, and it's done the same way as in the previous assignment. Move back to master, merge the feature branch in, then push to the repository.
 
