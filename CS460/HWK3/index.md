@@ -1,4 +1,4 @@
-# **Homework II**
+# **Homework III**
 
 The task for this assignment was to learn the C# language by translating a Java application into a C# console application, using Visual Studio for our IDE. Having a strong background in both C++ and Java coming into this sequence, this particular assignment was straightforward and fairly simple.
 
@@ -16,7 +16,7 @@ This step was halfway done as I already had Visual Studio setup on both my deskt
 
 As was suggested in the homework assignment, I started with Node, then QueueInterface, QueueUnderflowException, LinkedQueue, and finally Main.
 
-# ****Node.java --> Node.cs ****
+### **Node.java --> Node.cs**
 
 There weren't many changes to make to this file other than minor changes to capitalization.
 
@@ -49,7 +49,7 @@ namespace Homework3
 
 Next up was QueueInterface.js:
 
-# ****QueueInterface.java --> QueueInterface.cs****
+### **QueueInterface.java --> QueueInterface.cs**
 
 As with the previous file, there wasn't much to do here other than adjusting names to match C# standards.
 
@@ -88,7 +88,7 @@ namespace Homework3
 }
 ```
 
-# ****QueueUnderflowException.java --> QueueUnderflowException.cs****
+### **QueueUnderflowException.java --> QueueUnderflowException.cs**
 
 The major change in this file was moving from using 'super' to 'base', and restructuring the method signatures to match standards.
 
@@ -117,7 +117,7 @@ namespace Homework3
 }
 ```
 
-# ****LinkedQueue.java --> LinkedQueue.cs****
+### **LinkedQueue.java --> LinkedQueue.cs**
 
 Other than adding XML comments, there wasn't much to change in this file.
 
@@ -222,7 +222,7 @@ namespace Homework3
 }
 ```
 
-# ****Main.java --> ProgramDriver.cs****
+### **Main.java --> ProgramDriver.cs**
 
 Other than adding XML style comments, the only other significant change I made was a check for negative numbers and preventing them from being processed.
 
@@ -302,7 +302,7 @@ namespace Homework3
             if (args.Length < 1)
             {
                 Console.WriteLine("Please invoke with the max value to print binary up to, like this:");
-                Console.WriteLine("\t Main 12");
+                Console.WriteLine("\t Homework3 10");
                 return;
             }
 
@@ -353,19 +353,19 @@ namespace Homework3
 }
 ```
 
-### **V: Making Sure Everything Works**
+### **III: Making Sure Everything Works**
 
 Once all of the files had been translated into C#, it was time to build and test it out.
 
-![](images/test_one.png?raw=true)
+![](images/test_one.PNG?raw=true)
 
-![](images/test_two.png?raw=true)
+![](images/test_two.PNG?raw=true)
 
-![](images/test_three.png?raw=true)
+![](images/test_three.PNG?raw=true)
 
 Everything worked! One more pass through the files to make sure my comments were sufficient and it was good to be pushed to my remote repository.
 
-### **VI: Merging Back Into the Master Branch**
+### **IV: Merging Back Into the Master Branch**
 
 The last step in all of this was to merge the feature branch back into the main branch, and it's done the same way as in the previous assignment. Move back to master, merge the feature branch in, then push to the repository.
 
