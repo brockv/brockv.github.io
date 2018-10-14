@@ -1,4 +1,5 @@
-﻿body {
+﻿/* Set the padding for the body */
+body {
     padding-top: 50px;
     padding-bottom: 20px;
 }
@@ -16,7 +17,20 @@ textarea {
     max-width: 280px;
 }
 
+/* Set the background and text colors for the page header */
 .jumbotron {
-    background: #191b1c;
-    color: #fff;
+    background: #252526;
+    color: #ffffff;
+}
+
+/* Set the background and text colors for the navigation bar */
+.navbar {
+    background: #252526;
+    color: #ffffff;
+}
+
+/* Set the width and margin for columns */
+.col-md-4 {
+    width: 70%;
+    margin: 0 auto;
 }

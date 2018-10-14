@@ -6,6 +6,8 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <!-- CUSTOM STYLE SHEET -->
+    <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
     <script src="~/Scripts/modernizr-2.6.2.js"></script>
 </head>
 <body>
@@ -17,13 +19,13 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Homework IV", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Homework IV", "Home", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Converter", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Color Mixer", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Home", "Home", "Home")</li>
+                    <li>@Html.ActionLink("Converter", "Converter", "Home")</li>
+                    <li>@Html.ActionLink("Color Mixer", "ColorMixer", "Home")</li>
                 </ul>
             </div>
         </div>
@@ -33,7 +35,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <p>&copy; @DateTime.Now.Year - Brock Vance</p>
         </footer>
     </div>
 
