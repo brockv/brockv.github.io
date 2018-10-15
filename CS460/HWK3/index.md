@@ -49,11 +49,7 @@ namespace Homework3
 
 Next up was QueueInterface.js:
 
-<<<<<<< HEAD
-### **QueueInterface.java --> QueueInterface.cs**
-=======
 ### **QueueInterface.java --> IQueueInterface.cs**
->>>>>>> 2e7b04bfbc176ee9ed98f0ef6eac4280d3638f1e
 
 As with the previous file, there wasn't much to do here other than adjusting names to match C# standards.
 

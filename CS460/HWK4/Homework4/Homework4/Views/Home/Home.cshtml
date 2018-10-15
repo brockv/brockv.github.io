@@ -2,22 +2,34 @@
     ViewBag.Title = "Home Page";
 }
 
-<div class="jumbotron">
-    <h1>CS460 Homework IV</h1>
-    <p class="lead">This is the main page for the fourth homework assignment in CS460.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">View repository &raquo;</a></p>
-</div>
+<head>
+    <!-- Applying stylesheet here because it wasn't being applied from _Layout.cshtml -->
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+</head>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Miles to Metric Converter</h2>
-        <p>Converter utilizing query strings to send information to the server where the calculations are performed.</p>
-        <p><a class="btn btn-default" href="http://localhost:53616/Home/Converter">Continue &raquo;</a></p>
+<body>
+    <!-- Page header -->
+    <div class="jumbotron text-center">
+        <h1>CS460 Homework IV</h1>
+        <p class="lead">This is the main page for the fourth homework assignment in CS460.</p>
+        <p><a id="btnViewRepo" href="https://asp.net" class="btn btn-primary btn-lg">&raquo; View repository &laquo;</a></p>
     </div>
 
-    <div class="col-md-4">
-        <h2>Color Mixer</h2>
-        <p>Alternative to color pickers that make sense.</p>
-        <p><a class="btn btn-default" href="http://localhost:53616/Home/ColorMixer">Continue &raquo;</a></p>
+    <div class="container">
+        <div class="row">
+            <div class="boxes">
+                <div class="box-container col-md-4 col-xs-12">
+                    <h2>Miles to Metric Converter</h2>
+                    <p>Converter utilizing query strings to send information to the server where the calculations are performed.</p>
+                    <p><a class="btn btn-default" href="http://localhost:53616/Home/Converter">&raquo; Converter &laquo;</a></p>
+                </div>
+
+                <div class="box-container col-md-4 col-xs-12">
+                    <h2>Color Mixer</h2>
+                    <p>Combine two HTML color codes to create an exciting new color!</p>
+                    <p><a class="btn btn-default" href="http://localhost:53616/Home/ColorMixer">&raquo; Color Mixer &laquo;</a></p>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
+</body>

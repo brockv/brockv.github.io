@@ -17,6 +17,16 @@ textarea {
     max-width: 280px;
 }
 
+/* Set the style and appearance for h1 elements */
+h1 {
+    text-align: center;
+}
+
+/* Set the style and appearance for the lead class elements */
+.lead {
+    text-align: center;
+}
+
 /* Set the background and text colors for the page header */
 .jumbotron {
     background: #252526;
@@ -30,7 +40,77 @@ textarea {
 }
 
 /* Set the width and margin for columns */
-.col-md-4 {
-    width: 70%;
+.boxes {
+    text-align: center;
+}
+
+/* Set the width and margin for columns */
+.box-container {
+    float: none;
+    display: inline-block;
+}
+
+/* Set the style and appearance of the repository button in the page header */
+#btnViewRepo {
     margin: 0 auto;
+}
+
+/* Set style and appearance for the user input field */
+#userInput {
+    border-radius: 5px;
+    border-style: solid;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 5px;
+    width: 400px;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    position: relative;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+/* Set style and appearance for the convert button */
+#btnConvert {
+    border-radius: 5px;
+    border-style: solid;
+    padding: 7px;
+    background: #252526;
+    color: #ffffff;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    height: 36px;
+    width: 200px;
+    position: relative;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+/* Set style and appearance for the convert button */
+#btnConvert:hover {
+    background: #515151;
+    color: #ffffff;
+}
+
+/* Set the style and appearance for the group legends */
+legend {
+    background: #252526;
+    color: #ffffff;
+    padding: 3px 6px;
+    text-align: center;
+}
+
+/* Set the style and appearance of the radio buttons */
+#radioButtons {
+    text-align: justify;
+    vertical-align: top;
+    margin-left: 50px;
+}
+
+input[type="radio"] {
+    margin-left: 120px;
 }
