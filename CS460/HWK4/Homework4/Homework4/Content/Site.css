@@ -22,6 +22,19 @@ h1 {
     text-align: center;
 }
 
+h4 {
+    font-weight: bolder;
+}
+
+label {
+    font-size: 18px;
+    margin-top: 12px;
+}
+
+.color-prompts {
+    text-align: center;
+}
+
 /* Set the style and appearance for the lead class elements */
 .lead {
     text-align: center;
@@ -50,6 +63,10 @@ h1 {
     display: inline-block;
 }
 
+.col-md-4 {
+    margin-left: auto;
+    margin-right: auto;
+}
 /* Set the style and appearance of the repository button in the page header */
 #btnViewRepo {
     margin: 0 auto;
@@ -90,11 +107,16 @@ h1 {
     transform: translateY(-50%);
 }
 
-/* Set style and appearance for the convert button */
-#btnConvert:hover {
-    background: #515151;
-    color: #ffffff;
-}
+    /* Set style and appearance for the convert button */
+    #btnConvert:hover {
+        background: #515151;
+        color: #ffffff;
+    }
+
+    #btnConvert:active {
+        background: #252526;
+        color: #ffffff;
+    }
 
 /* Set the style and appearance for the group legends */
 legend {
@@ -108,9 +130,68 @@ legend {
 #radioButtons {
     text-align: justify;
     vertical-align: top;
-    margin-left: 50px;
+    margin-bottom: 50px;
 }
 
 input[type="radio"] {
     margin-left: 120px;
 }
+
+    input[type="radio"] + label {
+        margin-left: 10px;
+    }
+
+        input[type="radio"] + label:after {
+            content: '';
+            display: block;
+        }
+
+#conversionResults {
+    font-size: 18px;
+    color: #ff0000;
+}
+
+#btnSubmitColors {
+    border-radius: 5px;
+    border-style: solid;
+    margin-top: 50px;
+    padding: 7px;
+    background: #252526;
+    color: #ffffff;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    height: 36px;
+    width: 200px;
+    position: relative;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+    /* Set style and appearance for the convert button */
+    #btnSubmitColors:hover {
+        background: #515151;
+        color: #ffffff;
+    }
+
+    #btnSubmitColors:active {
+        background: #252526;
+        color: #ffffff;
+    }
+
+.form-control {
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border-style: solid;
+}
+
+    .form-control:required:valid {
+        border-color: #55cf25;
+        border-width: 3px;
+    }
+
+    .form-control:required:invalid {
+        border-color: #C00000;
+        border-width: 3px;
+    }

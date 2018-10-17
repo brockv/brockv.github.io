@@ -1,0 +1,61 @@
+﻿@{
+    ViewBag.Title = "ColorMixer";
+}
+
+<!DOCTYPE html>
+
+<html>
+
+<body>
+    <div class="jumbotron">
+        <h1>Color Mixer</h1>
+    </div>
+
+    <h4>Enter two color codes in HTML hexadecimal format (#AABBCC):</h4>
+
+    @using (@Html.BeginForm("ColorMixer", "Color", FormMethod.Post))
+    {
+        <div class="container">
+            <div class="col-md-4 col-xs-12">
+                <div>
+                    <!--<h2 class="color-prompts">First Color:</h2> -->
+                    @Html.Label("First color:")
+                    @Html.TextBox("firstColor", "", new
+               {
+                   @class = "form-control",
+                   id = "firstColor",
+                   placeholder = "#AABBCC",
+                   name = "firstColor",
+                   pattern = "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$",
+                   title = "HTML hexadecimal color code (#AABBCC)",
+                   required = "required",
+                   autocomplete = "off"
+               })
+                </div>
+                <div>
+                    <!--<h2 class="color-prompts">Second Color:</h2> -->
+                    @Html.Label("Second color:")
+                    @Html.TextBox("secondColor", "", new
+               {
+                   @class = "form-control",
+                   id = "secondColor",
+                   placeholder = "#AABBCC",
+                   name = "secondColor",
+                   pattern = "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$",
+                   title = "HTML hexadecimal color code (#AABBCC)",
+                   required = "required",
+                   autocomplete = "off"
+               })
+                </div>
+                <div>
+                    <input id="btnSubmitColors" class="btn btn-default submitted" type="submit" value="Mix Colors" />
+                </div>
+            </div>
+        </div>
+
+        <div>@ViewBag.FirstColor</div>
+        <div>@ViewBag.SecondColor</div>
+        <div>@ViewBag.FinalColor</div>
+    }
+</body>
+</html>
