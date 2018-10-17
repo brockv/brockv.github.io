@@ -7,18 +7,20 @@
 <html>
 
 <body>
+    <!-- Page header -->
     <div class="jumbotron">
         <h1>Color Mixer</h1>
     </div>
 
+    <!-- Prompt with instructions for the user -->
     <h4>Enter two color codes in HTML hexadecimal format (#AABBCC):</h4>
 
     @using (@Html.BeginForm("ColorMixer", "Color", FormMethod.Post))
     {
         <div class="container">
             <div class="col-md-4 col-xs-12">
+                <!-- Prompt for the first color -->
                 <div>
-                    <!--<h2 class="color-prompts">First Color:</h2> -->
                     @Html.Label("First color:")
                     @Html.TextBox("firstColor", "", new
                {
@@ -32,8 +34,9 @@
                    autocomplete = "off"
                })
                 </div>
+
+                <!-- Prompt for the second color -->
                 <div>
-                    <!--<h2 class="color-prompts">Second Color:</h2> -->
                     @Html.Label("Second color:")
                     @Html.TextBox("secondColor", "", new
                {
@@ -47,15 +50,21 @@
                    autocomplete = "off"
                })
                 </div>
+
+                <!-- Submit button for mixing the two colors provided by the user -->
                 <div>
                     <input id="btnSubmitColors" class="btn btn-default submitted" type="submit" value="Mix Colors" />
                 </div>
             </div>
         </div>
 
-        <div>@ViewBag.FirstColor</div>
-        <div>@ViewBag.SecondColor</div>
-        <div>@ViewBag.FinalColor</div>
+        <!-- If the flag has been set to true, show the color boxes -->
+        if (ViewBag.ShowBoxes)
+        {
+            <div style="@ViewBag.FirstColor"></div>
+            <div style="@ViewBag.SecondColor"></div>
+            <div style="@ViewBag.FinalColor"></div>
+        }
     }
 </body>
 </html>
