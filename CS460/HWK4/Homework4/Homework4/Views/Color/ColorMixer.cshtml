@@ -9,7 +9,7 @@
 <body>
     <!-- Page header -->
     <div class="jumbotron">
-        <h1>Color Mixer</h1>
+        <h1>Mix Two Colors Together</h1>
     </div>
 
     <!-- Prompt with instructions for the user -->
@@ -18,52 +18,89 @@
     @using (@Html.BeginForm("ColorMixer", "Color", FormMethod.Post))
     {
         <div class="container">
-            <div class="col-md-4 col-xs-12">
-                <!-- Prompt for the first color -->
-                <div>
-                    @Html.Label("First color:")
-                    @Html.TextBox("firstColor", "", new
-               {
-                   @class = "form-control",
-                   id = "firstColor",
-                   placeholder = "#AABBCC",
-                   name = "firstColor",
-                   pattern = "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$",
-                   title = "HTML hexadecimal color code (#AABBCC)",
-                   required = "required",
-                   autocomplete = "off"
-               })
+                    <div class="box-container col-md-4 col-xs-12">
+                        <!-- Prompt for the first color -->
+                        <div>
+                            @Html.Label("First color:")
+                            @Html.TextBox("firstColor", "", new
+                       {
+                           @class = "form-control",
+                           id = "firstColor",
+                           placeholder = "#AABBCC",
+                           name = "firstColor",
+                           pattern = "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$",
+                           title = "HTML hexadecimal color code (#AABBCC)",
+                           required = "required",
+                           autocomplete = "off"
+                       })
+                        </div>
+
+
+                        <!-- Prompt for the second color -->
+                        <div>
+                            @Html.Label("Second color:")
+                            @Html.TextBox("secondColor", "", new
+                       {
+                           @class = "form-control",
+                           id = "secondColor",
+                           placeholder = "#AABBCC",
+                           name = "secondColor",
+                           pattern = "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$",
+                           title = "HTML hexadecimal color code (#AABBCC)",
+                           required = "required",
+                           autocomplete = "off"
+                       })
+                        </div>
+                    </div>
+
+                    <div class="box-container col-md-4 col-xs-12">
+                        <!--<label>Easy color chooser:</label> -->
+                        @Html.Label("Easy color picker:")
+                        <input type="color" id="firstColorChooser" onchange="setFirstColor(this)" onkeyup="setFirstColor(this)"
+                               class="btn btn-default" value="#ff0000" style="width:85%;">
+
+                        <!--<label>Easy color chooser:</label> -->
+                        @Html.Label("Easy color picker:")
+                        <input type="color" id="secondColorChooser" onchange="setSecondColor(this)" onkeyup="setSecondColor(this)"
+                               class="btn btn-default" value="#ff0000" style="width:85%;">
+                    </div>
+
+                    <!-- Submit button for mixing the two colors provided by the user -->
+                    <div>
+                        <input id="btnSubmitColors" class="btn btn-default submitted" type="submit" value="Mix Colors" />
+                    </div>
+
+                    <!--
+                    @if (ViewBag.ShowBoxes)
+                    {
+                        <box class="colorBox" style="@ViewBag.FirstColorBox"></box>
+                        <label class="colorBoxLabel">+</label>
+                        <div class="colorBox" style="@ViewBag.SecondColorBox"></div>
+                        <label class="colorBoxLabel">=</label>
+                        <div class="colorBox" style="@ViewBag.FinalColorBox"></div>
+                    }
+                    -->
+
                 </div>
 
-                <!-- Prompt for the second color -->
-                <div>
-                    @Html.Label("Second color:")
-                    @Html.TextBox("secondColor", "", new
-               {
-                   @class = "form-control",
-                   id = "secondColor",
-                   placeholder = "#AABBCC",
-                   name = "secondColor",
-                   pattern = "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$",
-                   title = "HTML hexadecimal color code (#AABBCC)",
-                   required = "required",
-                   autocomplete = "off"
-               })
-                </div>
+        <script>
+            function setFirstColor(colorValue) {
+                document.getElementById("firstColor").value = colorValue.value;
+            }
 
-                <!-- Submit button for mixing the two colors provided by the user -->
-                <div>
-                    <input id="btnSubmitColors" class="btn btn-default submitted" type="submit" value="Mix Colors" />
-                </div>
-            </div>
-        </div>
+            function setSecondColor(colorValue) {
+                document.getElementById("secondColor").value = colorValue.value;
+            }
+        </script>
 
         <!-- If the flag has been set to true, show the color boxes -->
         if (ViewBag.ShowBoxes)
         {
-            <div style="@ViewBag.FirstColor"></div>
-            <div style="@ViewBag.SecondColor"></div>
-            <div style="@ViewBag.FinalColor"></div>
+            <box class="colorBox" style="@ViewBag.FirstColorBox"></box>
+            <label class="colorBoxLabel">+</label>
+            <div class="colorBox" style="@ViewBag.SecondColorBox"></div>
+            <label class="colorBoxLabel">=</label>
+            <div class="colorBox" style="@ViewBag.FinalColorBox"></div>
         }
     }
 </body>

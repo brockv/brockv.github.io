@@ -22,17 +22,17 @@ h1 {
     text-align: center;
 }
 
+/* Set the style and appearance for h4 elements */
 h4 {
     font-weight: bolder;
+    margin-left: 30px;
 }
 
+/* Set the style and appearance for label elements */
 label {
     font-size: 18px;
-    margin-top: 12px;
-}
-
-.color-prompts {
-    text-align: center;
+    float: left;
+    margin-top: 20px;
 }
 
 /* Set the style and appearance for the lead class elements */
@@ -63,10 +63,6 @@ label {
     display: inline-block;
 }
 
-.col-md-4 {
-    margin-left: auto;
-    margin-right: auto;
-}
 /* Set the style and appearance of the repository button in the page header */
 #btnViewRepo {
     margin: 0 auto;
@@ -113,6 +109,7 @@ label {
         color: #ffffff;
     }
 
+    /* Set style and appearance for the convert button when clicked */
     #btnConvert:active {
         background: #252526;
         color: #ffffff;
@@ -133,28 +130,34 @@ legend {
     margin-bottom: 50px;
 }
 
+/* Radio buttons continued... */
 input[type="radio"] {
     margin-left: 120px;
 }
 
+    /* Radio buttons continued... */
     input[type="radio"] + label {
         margin-left: 10px;
     }
-
+        /* Radio buttons continued... */
         input[type="radio"] + label:after {
             content: '';
             display: block;
         }
 
+/* Set the style and appearance for the label that holds the conversion results */
 #conversionResults {
     font-size: 18px;
     color: #ff0000;
 }
 
+/* Set the style and appearance for the submit colors button */
 #btnSubmitColors {
     border-radius: 5px;
     border-style: solid;
     margin-top: 50px;
+    margin-bottom: 30px;
+    margin-left: 20px;
     padding: 7px;
     background: #252526;
     color: #ffffff;
@@ -169,29 +172,71 @@ input[type="radio"] {
     transform: translateY(-50%);
 }
 
-    /* Set style and appearance for the convert button */
+    /* Submit colors button continued... */
     #btnSubmitColors:hover {
         background: #515151;
         color: #ffffff;
     }
 
+    /* Submit colors button continued... */
     #btnSubmitColors:active {
         background: #252526;
         color: #ffffff;
     }
 
+/* Set the style and appearance for the textboxes used to collect the color codes */
 .form-control {
-    margin-bottom: 20px;
+    margin-top: 10px;
+    margin-bottom: 30px;
     border-radius: 5px;
     border-style: solid;
+    float: left;
 }
 
+    /* Color code textboxes continued... */
     .form-control:required:valid {
         border-color: #55cf25;
         border-width: 3px;
     }
 
-    .form-control:required:invalid {
-        border-color: #C00000;
-        border-width: 3px;
-    }
+/* Set the style and appearance for the labels between the color boxes */
+.colorBoxLabel {
+    font-weight: bolder;
+    font-size: 24px;
+    padding-bottom: 100px;
+    margin-bottom: 40px;
+    margin-left: 30px;
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+}
+
+/* Set the style and appearance for the color boxes */
+.colorBox {
+    width: 140px;
+    height: 140px;
+    margin-left: 30px;
+    border: 2px solid #000000;
+    border-radius: 5px;
+    display: inline-block;
+}
+
+#firstColorChooser {
+    margin-top: 10px;
+    margin-bottom: 30px;
+    border-radius: 5px;
+    border-style: solid;
+    float: left;
+    height: 36px;
+    width: 200px;
+}
+
+#secondColorChooser {
+    margin-top: 10px;
+    margin-bottom: 30px;
+    border-radius: 5px;
+    border-style: solid;
+    float: left;
+    height: 36px;
+    width: 200px;
+}
