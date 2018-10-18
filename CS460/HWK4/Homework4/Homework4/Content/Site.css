@@ -11,7 +11,6 @@ body {
 }
 
 /* Set width on the form input elements since they're 100% wide by default */
-input,
 select,
 textarea {
     max-width: 280px;
@@ -106,7 +105,7 @@ label {
     margin-top: 20px;
     margin-bottom: 20px;
     padding: 5px;
-    width: 400px;
+    width: 280px;
     -moz-appearance: none;
     -webkit-appearance: none;
     position: relative;
@@ -126,7 +125,7 @@ label {
     -moz-appearance: none;
     -webkit-appearance: none;
     height: 36px;
-    width: 200px;
+    width: 280px;
     position: relative;
     top: 50%;
     -webkit-transform: translateY(-50%);
@@ -199,7 +198,7 @@ input[type="radio"] {
     border-style: solid;
     margin-top: 50px;
     margin-bottom: 30px;
-    margin-left: 20px;
+    margin-left: 15px;
     padding: 7px;
     background: #252526;
     color: #ffffff;
@@ -232,7 +231,7 @@ input[type="radio"] {
     margin-bottom: 30px;
     border-radius: 5px;
     border-style: solid;
-    float: left;
+    position: relative;
 }
 
     /* Color code textboxes continued... */
@@ -247,7 +246,7 @@ input[type="radio"] {
     font-size: 24px;
     padding-bottom: 100px;
     margin-bottom: 40px;
-    margin-left: 30px;
+    margin-left: 20px;
     display: inline-block;
     vertical-align: middle;
     float: none;
@@ -256,8 +255,10 @@ input[type="radio"] {
 /* Set the style and appearance for the color boxes */
 .colorBox {
     width: 140px;
+    max-width: 140px;
     height: 140px;
-    margin-left: 30px;
+    max-height: 140px;
+    margin-left: 25px;
     border: 2px solid #000000;
     border-radius: 5px;
     display: inline-block;
@@ -269,7 +270,5 @@ input[type="color"] {
     margin-bottom: 30px;
     border-radius: 5px;
     border-style: solid;
-    float: left;
     height: 36px;
-    vertical-align: middle;
 }

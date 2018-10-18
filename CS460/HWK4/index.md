@@ -18,7 +18,7 @@ To get this going, I added a method to the HomeController, and generated a View 
 
 The first thing I added to the page was an input field for the user to enter the number of miles they'd like to convert, and a button for them to submit the value for conversion.
 
-```c#
+```html
 <div>
     <!-- Create the input field, set a default a prompt, and limit input length -->
     <input id="userInput" type="text" name="miles_to_convert" pattern="^[0-9]\d*(\.\d+)?$" autocomplete="off"
@@ -29,7 +29,7 @@ The first thing I added to the page was an input field for the user to enter the
 
 The next thing I needed was a way for the user to select which metric unit they wanted to convert their value into. The obvious choice for this was radio buttons in a single group.
 
-```c#
+```html
 <div id="radioButtons" class="box-container col-md-4 col-xs-12">
     <fieldset>
         <legend>Select unit to convert to:</legend>
@@ -59,7 +59,7 @@ The next thing I needed was a way for the user to select which metric unit they 
 
 The last thing needed for this page was a way to display the conversion results to the user. A simple label near the bottom of the page worked perfectly.
 
-```c#
+```html
 <label id="conversionResults">@ViewBag.Message</label>
 ```
 
@@ -106,11 +106,11 @@ As with the previous step, the first thing I needed to do was create a Controlle
 
 The first thing I needed was a place for the user to enter the color codes. I used the following to accomplish that:
 
-```c#
+```html
 <!-- Prompt for the first color -->
 <div>
     @Html.Label("First color:")
-    @Html.TextBox("firstColor", "", new
+    @Html.TextBox("firstColor", "@Request["firstColor"]", new
 {
    @class = "form-control",
    id = "firstColor",
@@ -126,7 +126,7 @@ The first thing I needed was a place for the user to enter the color codes. I us
 <!-- Prompt for the second color -->
 <div>
     @Html.Label("Second color:")
-    @Html.TextBox("secondColor", "", new
+    @Html.TextBox("secondColor", "@Request["secondColor"]", new
 {
    @class = "form-control",
    id = "secondColor",
@@ -146,7 +146,7 @@ Now that I had the inputs, I needed a button for the user to submit the colors, 
 
 The following code snippet shows / hides the color boxes based on a bool that is set in the Controller:
 
-```c#
+```html
 <!-- If the flag has been set to true in the controller, show the color boxes -->
 if (ViewBag.ShowBoxes)
 {
@@ -171,6 +171,8 @@ if (firstColor != null || secondColor != null)
     /* COnvert the strings into Color objects so we can add them together */
     Color rgbColorOne = ColorTranslator.FromHtml(firstColor);
     Color rgbColorTwo = ColorTranslator.FromHtml(secondColor);
+ 
+ ...
 ```
 
 Once they were converted to Color objects, I broke them down into their individual channels and added them together. The instructions were to keep any values produced at maximum value of 255 (or FF). To do this, I used Math.Min and Math.Max to clamp the values between 0 and 255. After doing that, I constructed the final color using ColorTranslator.
@@ -198,7 +200,56 @@ ViewBag.FinalColorBox = "background: " + finalColor + ";";
 ViewBag.ShowBoxes = true;
 ```
 
-### **IV: Merging Into the Master Branch**
+#### **Additional Feature**
+
+Just for fun, (and also because I got annoyed with having to switch windows to get color codes), I decided to add color pickers to this page. This allows the user to either manually enter color codes into the textboxes, or they can choose a color from the popup dialog and the color code will transfer to the appropriate textbox.
+
+```html
+<!-- Create a color picker under the first color box -->
+<input type="color" onchange="setFirstColor(this)" onkeyup="setFirstColor(this)"
+       class="btn btn-default" value="@Request["firstColor"]" style="width: 300px;">
+
+<!-- Create a color picker under the second color box -->
+<input type="color" onchange="setSecondColor(this)" onkeyup="setSecondColor(this)"
+       class="btn btn-default" value="@Request["secondColor"]" style="width: 300px;">
+
+<!-- Function calls to handle setting textbox values from the above color pickers. -->
+<script>
+    function setFirstColor(colorValue) {
+        document.getElementById("firstColor").value = colorValue.value;
+    }
+
+    function setSecondColor(colorValue) {
+        document.getElementById("secondColor").value = colorValue.value;
+    }
+</script>
+```
+
+### **IV: The Working Pages**
+
+#### **Home Page**
+
+![](images/homepage.PNG?raw=true)
+
+#### **Miles to Metric Converter**
+
+![](images/converter_one.PNG?raw=true)
+
+![](images/converter_two.PNG?raw=true)
+
+
+#### **Color Mixer**
+
+![](images/colormixer_one.PNG?raw=true)
+
+![](images/colormixer_two.PNG?raw=true)
+
+![](images/colormixer_three.PNG?raw=true)
+
+![](images/colormixer_four.PNG?raw=true)
+
+
+### **V: Merging Into the Master Branch**
 
 With everything working as intended, it was time to merge the feature branch into the master branch.
 
