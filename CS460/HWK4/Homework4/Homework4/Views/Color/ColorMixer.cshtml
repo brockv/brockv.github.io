@@ -18,82 +18,76 @@
     @using (@Html.BeginForm("ColorMixer", "Color", FormMethod.Post))
     {
         <div class="container">
-                    <div class="box-container col-md-4 col-xs-12">
-                        <!-- Prompt for the first color -->
-                        <div>
-                            @Html.Label("First color:")
-                            @Html.TextBox("firstColor", "", new
-                       {
-                           @class = "form-control",
-                           id = "firstColor",
-                           placeholder = "#AABBCC",
-                           name = "firstColor",
-                           pattern = "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$",
-                           title = "HTML hexadecimal color code (#AABBCC)",
-                           required = "required",
-                           autocomplete = "off"
-                       })
-                        </div>
-
-
-                        <!-- Prompt for the second color -->
-                        <div>
-                            @Html.Label("Second color:")
-                            @Html.TextBox("secondColor", "", new
-                       {
-                           @class = "form-control",
-                           id = "secondColor",
-                           placeholder = "#AABBCC",
-                           name = "secondColor",
-                           pattern = "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$",
-                           title = "HTML hexadecimal color code (#AABBCC)",
-                           required = "required",
-                           autocomplete = "off"
-                       })
-                        </div>
-                    </div>
-
-                    <div class="box-container col-md-4 col-xs-12">
-                        <!--<label>Easy color chooser:</label> -->
-                        @Html.Label("Easy color picker:")
-                        <input type="color" id="firstColorChooser" onchange="setFirstColor(this)" onkeyup="setFirstColor(this)"
-                               class="btn btn-default" value="#ff0000" style="width:85%;">
-
-                        <!--<label>Easy color chooser:</label> -->
-                        @Html.Label("Easy color picker:")
-                        <input type="color" id="secondColorChooser" onchange="setSecondColor(this)" onkeyup="setSecondColor(this)"
-                               class="btn btn-default" value="#ff0000" style="width:85%;">
-                    </div>
-
-                    <!-- Submit button for mixing the two colors provided by the user -->
-                    <div>
-                        <input id="btnSubmitColors" class="btn btn-default submitted" type="submit" value="Mix Colors" />
-                    </div>
-
-                    <!--
-                    @if (ViewBag.ShowBoxes)
-                    {
-                        <box class="colorBox" style="@ViewBag.FirstColorBox"></box>
-                        <label class="colorBoxLabel">+</label>
-                        <div class="colorBox" style="@ViewBag.SecondColorBox"></div>
-                        <label class="colorBoxLabel">=</label>
-                        <div class="colorBox" style="@ViewBag.FinalColorBox"></div>
-                    }
-                    -->
-
+            <div class="box-container col-md-4 col-xs-12">
+                <!-- Prompt for the first color -->
+                <div>
+                    @Html.Label("First color:")
+                    @Html.TextBox("firstColor", "", new
+               {
+                   @class = "form-control",
+                   id = "firstColor",
+                   placeholder = "#AABBCC",
+                   name = "firstColor",
+                   pattern = "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$",
+                   title = "HTML hexadecimal color code (#AABBCC)",
+                   required = "required",
+                   autocomplete = "off"
+               })
                 </div>
 
-        <script>
-            function setFirstColor(colorValue) {
-                document.getElementById("firstColor").value = colorValue.value;
-            }
+                <!-- Prompt for the second color -->
+                <div>
+                    @Html.Label("Second color:")
+                    @Html.TextBox("secondColor", "", new
+               {
+                   @class = "form-control",
+                   id = "secondColor",
+                   placeholder = "#AABBCC",
+                   name = "secondColor",
+                   pattern = "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$",
+                   title = "HTML hexadecimal color code (#AABBCC)",
+                   required = "required",
+                   autocomplete = "off"
+               })
+                </div>
+            </div>
 
-            function setSecondColor(colorValue) {
-                document.getElementById("secondColor").value = colorValue.value;
-            }
-        </script>
+            <!-- THIS PART WAS DONE ENTIRELY FOR FUN / EDUCATIONAL PURPOSES
 
-        <!-- If the flag has been set to true, show the color boxes -->
+                This code adds two inputs of type color  that allows the user to select
+                a color from the color picker dialogue. It uses a function call on changes,
+                then sends the hexadecimal value over to the appropriate textbox where it's
+                set as the value for that color.
+            -->
+            <div class="box-container col-md-4 col-xs-12">
+                @Html.Label("Easy color picker:")
+                <input type="color" onchange="setFirstColor(this)" onkeyup="setFirstColor(this)"
+                       class="btn btn-default" value="#252526" style="width:85%;">
+
+                @Html.Label("Easy color picker:")
+                <input type="color" onchange="setSecondColor(this)" onkeyup="setSecondColor(this)"
+                       class="btn btn-default" value="#252526" style="width:85%;">
+            </div>
+
+            <!-- Function calls to handle setting textbox values from the color picker dialogues -->
+            <script>
+                function setFirstColor(colorValue) {
+                    document.getElementById("firstColor").value = colorValue.value;
+                }
+
+                function setSecondColor(colorValue) {
+                    document.getElementById("secondColor").value = colorValue.value;
+                }
+            </script>
+            <!-- END OF FUN / EDUCATIONAL EXERCISE -->
+            <!-- Submit button for mixing the two colors provided by the user -->
+            <div>
+                <input id="btnSubmitColors" class="btn btn-default submitted" type="submit" value="Mix Colors" />
+            </div>
+
+        </div>
+
+        <!-- If the flag has been set to true in the controller, show the color boxes -->
         if (ViewBag.ShowBoxes)
         {
             <box class="colorBox" style="@ViewBag.FirstColorBox"></box>

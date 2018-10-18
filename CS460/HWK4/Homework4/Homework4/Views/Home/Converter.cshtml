@@ -9,54 +9,50 @@
 
     <!-- Set up the containers in order to position the elements how we want them -->
     <div class="container">
-        <div class="row">
-            <div class="boxes">
-                <form method="get" action="Converter">
-                    <div class="box-container col-md-4 col-xs-12">
-                        <fieldset>
-                            <legend>Miles:</legend>
-                            <div>
-                                <!-- Create the input field, set a default a prompt, and limit input length -->
-                                <input id="userInput" type="text" name="miles_to_convert" pattern="^[0-9]\d*(\.\d+)?$" autocomplete="off"
-                                       title="A positive number." placeholder="Enter a positive integer..." maxlength="27">
-                                <button id="btnConvert" class="btn btn-default">&raquo; Convert &laquo;</button>
-                            </div>
-                        </fieldset>
+        <form method="get" action="Converter">
+            <div class="box-container col-md-4 col-xs-12">
+                <fieldset>
+                    <legend>Miles:</legend>
+                    <div>
+                        <!-- Create the input field, set a default a prompt, and limit input length -->
+                        <input id="userInput" type="text" name="miles_to_convert" pattern="^[0-9]\d*(\.\d+)?$" autocomplete="off"
+                               required="required" title="A positive number." placeholder="Enter a positive integer..." maxlength="27">
+                        <button id="btnConvert" class="btn btn-default">&raquo; Convert &laquo;</button>
                     </div>
-
-                    <!-- RADIO BUTTONS START -->
-                    <div id="radioButtons" class="box-container col-md-4 col-xs-12">
-                        <fieldset>
-                            <legend>Select unit to convert to:</legend>
-                            <div>
-                                <input type="radio" id="millimeters"
-                                       name="units" value="millimeters" checked />
-                                <label for="millimeters">Millimeters</label>
-                            </div>
-                            <div>
-                                <input type="radio" id="centimeters"
-                                       name="units" value="centimeters" />
-                                <label for="centimeters">Centimeters</label>
-                            </div>
-                            <div>
-                                <input type="radio" id="meters"
-                                       name="units" value="meters" />
-                                <label for="meters">Meters</label>
-                            </div>
-                            <div>
-                                <input type="radio" id="kilometers"
-                                       name="units" value="kilometers" />
-                                <label for="kilometers">Kilometers</label>
-                            </div>
-                        </fieldset>
-                    </div>
-                    <!-- RADIO BUTTONS END -->
-                </form>
-
-                <label id="conversionResults">@ViewBag.Message</label>
-
+                </fieldset>
             </div>
-        </div>
+
+            <!-- RADIO BUTTONS START -->
+            <div id="radioButtons" class="box-container col-md-4 col-xs-12">
+                <fieldset>
+                    <legend>Select unit to convert to:</legend>
+                    <div>
+                        <input type="radio" id="millimeters"
+                               name="units" value="millimeters" checked />
+                        <label class="radioLabel" for="millimeters">Millimeters</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="centimeters"
+                               name="units" value="centimeters" />
+                        <label class="radioLabel" for="centimeters">Centimeters</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="meters"
+                               name="units" value="meters" />
+                        <label class="radioLabel" for="meters">Meters</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="kilometers"
+                               name="units" value="kilometers" />
+                        <label class="radioLabel" for="kilometers">Kilometers</label>
+                    </div>
+                </fieldset>
+            </div>
+            <!-- RADIO BUTTONS END -->
+        </form>
+
+        <label id="conversionResults">@ViewBag.Message</label>
+
     </div>
 
 </body>

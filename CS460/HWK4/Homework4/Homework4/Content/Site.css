@@ -31,8 +31,8 @@ h4 {
 /* Set the style and appearance for label elements */
 label {
     font-size: 18px;
-    float: left;
     margin-top: 20px;
+    float: left;
 }
 
 /* Set the style and appearance for the lead class elements */
@@ -62,6 +62,37 @@ label {
     float: none;
     display: inline-block;
 }
+
+/* Set the style and appearance for the buttons on the main page */
+.btnGoToPages {
+    border-radius: 5px;
+    border-style: solid;
+    margin-top: 20px;
+    padding-top: 7px;
+    background: #252526;
+    color: #ffffff;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    height: 36px;
+    width: 200px;
+    position: relative;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+/* Set style and appearance for the convert button */
+    .btnGoToPages:hover {
+        background: #515151;
+        color: #ffffff;
+    }
+
+/* Set style and appearance for the convert button when clicked */
+    .btnGoToPages:active {
+        background: #252526;
+        color: #ffffff;
+    }
 
 /* Set the style and appearance of the repository button in the page header */
 #btnViewRepo {
@@ -127,20 +158,30 @@ legend {
 #radioButtons {
     text-align: justify;
     vertical-align: top;
-    margin-bottom: 50px;
+    font-size: 12px;
+}
+
+/* Radio buttons continued... */
+.radioLabel {
+    margin: 0px;
+    padding: 4px;
+    font-size: 16px;
+    float: none;
+    cursor: pointer;
 }
 
 /* Radio buttons continued... */
 input[type="radio"] {
-    margin-left: 120px;
+    margin-left: 20px;
+    cursor: pointer;
 }
 
     /* Radio buttons continued... */
-    input[type="radio"] + label {
+    input[type="radio"] + .radioLabel {
         margin-left: 10px;
     }
         /* Radio buttons continued... */
-        input[type="radio"] + label:after {
+        input[type="radio"] + .radioLabel:after {
             content: '';
             display: block;
         }
@@ -149,6 +190,7 @@ input[type="radio"] {
 #conversionResults {
     font-size: 18px;
     color: #ff0000;
+    vertical-align: middle;
 }
 
 /* Set the style and appearance for the submit colors button */
@@ -221,22 +263,13 @@ input[type="radio"] {
     display: inline-block;
 }
 
-#firstColorChooser {
+/* Set the style and appearance for the color picker inputs */
+input[type="color"] {
     margin-top: 10px;
     margin-bottom: 30px;
     border-radius: 5px;
     border-style: solid;
     float: left;
     height: 36px;
-    width: 200px;
-}
-
-#secondColorChooser {
-    margin-top: 10px;
-    margin-bottom: 30px;
-    border-radius: 5px;
-    border-style: solid;
-    float: left;
-    height: 36px;
-    width: 200px;
+    vertical-align: middle;
 }
