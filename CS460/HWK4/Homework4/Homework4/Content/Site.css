@@ -1,0 +1,275 @@
+﻿/* Body */
+body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Body content */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Form input elements */
+select,
+textarea {
+    max-width: 280px;
+}
+
+/* H1 elements */
+h1 {
+    text-align: center;
+}
+
+/* H4 elements */
+h4 {
+    font-weight: bolder;
+    margin-left: 30px;
+}
+
+/* Label elements */
+label {
+    font-size: 18px;
+    margin-top: 20px;
+    float: left;
+}
+
+/* Lead class */
+.lead {
+    text-align: center;
+}
+
+/* Jumbotron class */
+.jumbotron {
+    background: #252526;
+    color: #ffffff;
+}
+
+/* Navbar class */
+.navbar {
+    background: #252526;
+    color: #ffffff;
+}
+
+/* Boxes class */
+.boxes {
+    text-align: center;
+}
+
+/* Box-Containers class */
+.box-container {
+    float: none;
+    display: inline-block;
+}
+
+/* "Converter" and "Color Mixer" buttons */
+.btnGoToPages {
+    border-radius: 5px;
+    border-style: solid;
+    margin-top: 20px;
+    padding-top: 7px;
+    background: #252526;
+    color: #ffffff;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    height: 36px;
+    width: 200px;
+    position: relative;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+    /* "Converter" and "Color Mixer" buttons continued... */
+    .btnGoToPages:hover {
+        background: #515151;
+        color: #ffffff;
+    }
+
+/* "Converter" and "Color Mixer" buttons continued... */
+    .btnGoToPages:active {
+        background: #252526;
+        color: #ffffff;
+    }
+
+/* "View Repository" button */
+#btnViewRepo {
+    margin: 0 auto;
+}
+
+/* User input field */
+#userInput {
+    border-radius: 5px;
+    border-style: solid;
+    margin-top: 20px;
+    margin-bottom: 40px;
+    padding: 5px;
+    width: 280px;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    position: relative;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+/* Convert button */
+#btnConvert {
+    border-radius: 5px;
+    border-style: solid;
+    padding: 7px;
+    background: #252526;
+    color: #ffffff;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    height: 36px;
+    width: 280px;
+    position: relative;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+    /* Convert button continued... */
+    #btnConvert:hover {
+        background: #515151;
+        color: #ffffff;
+    }
+
+    /* Convert button continued... */
+    #btnConvert:active {
+        background: #252526;
+        color: #ffffff;
+    }
+
+/* Legends */
+legend {
+    background: #252526;
+    color: #ffffff;
+    padding: 3px 6px;
+    text-align: center;
+}
+
+/* Radio buttons */
+#radioButtons {
+    text-align: justify;
+    vertical-align: top;
+    font-size: 12px;
+}
+
+/* Radio buttons continued... */
+.radioLabel {
+    margin: 0px;
+    padding: 4px;
+    font-size: 16px;
+    float: none;
+    cursor: pointer;
+}
+
+/* Radio buttons continued... */
+input[type="radio"] {
+    margin-left: 20px;
+    cursor: pointer;
+}
+
+    /* Radio buttons continued... */
+    input[type="radio"] + .radioLabel {
+        margin-left: 10px;
+    }
+
+        /* Radio buttons continued... */
+        input[type="radio"] + .radioLabel:after {
+            content: '';
+            display: block;
+        }
+
+/* Conversion results label */
+#conversionResults {
+    font-size: 18px;
+    color: #ff0000;
+    vertical-align: middle;
+}
+
+/* Submit colors button */
+#btnSubmitColors {
+    border-radius: 5px;
+    border-style: solid;
+    margin-top: 30px;
+    margin-bottom: 35px;
+    margin-left: 15px;
+    padding: 7px;
+    background: #252526;
+    color: #ffffff;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    height: 36px;
+    width: 200px;
+    position: relative;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+    /* Submit colors button continued... */
+    #btnSubmitColors:hover {
+        background: #515151;
+        color: #ffffff;
+    }
+
+    /* Submit colors button continued... */
+    #btnSubmitColors:active {
+        background: #252526;
+        color: #ffffff;
+    }
+
+/* Color code textboxess */
+.form-control {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border-style: solid;
+    position: relative;
+    max-width: 300px;
+}
+
+    /* Color code textboxes continued... */
+    .form-control:required:valid {
+        border-color: #55cf25;
+        border-width: 3px;
+    }
+
+/* Labels between the color boxes */
+.colorBoxLabel {
+    font-weight: bolder;
+    font-size: 24px;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    margin-left: 20px;
+    display: inline-block;
+    vertical-align: top;
+    float: none;
+}
+
+/* Color boxes */
+.colorBox {
+    width: 60px;
+    height: 60px;
+    margin-left: 25px;
+    border: 2px solid #000000;
+    border-radius: 5px;
+    display: inline-block;
+}
+
+/* Color picker buttons */
+input[type="color"] {
+    margin-top: 10px;
+    margin-bottom: 30px;
+    border-radius: 5px;
+    border-style: solid;
+    height: 36px;
+    width: 300px;
+}

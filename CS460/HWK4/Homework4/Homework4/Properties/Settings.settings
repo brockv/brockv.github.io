@@ -1,0 +1,18 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Homework4.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="MILLIMETERS_PER_MILE" Type="System.Double" Scope="Application">
+      <Value Profile="(Default)">1609344</Value>
+    </Setting>
+    <Setting Name="CENTIMETERS_PER_MILE" Type="System.Double" Scope="Application">
+      <Value Profile="(Default)">160934.4</Value>
+    </Setting>
+    <Setting Name="METERS_PER_MILE" Type="System.Double" Scope="Application">
+      <Value Profile="(Default)">1609.34</Value>
+    </Setting>
+    <Setting Name="KILOMETERS_PER_MILE" Type="System.Double" Scope="Application">
+      <Value Profile="(Default)">1.60934</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

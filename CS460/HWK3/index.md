@@ -4,7 +4,7 @@ The task for this assignment was to learn the C# language by translating a Java 
 
 ## **Relevant Links**
 - [Home](https://brockv.github.io/)
-- [Assignment Page](http://www.wou.edu/~morses/classes/cs46x/assignments/HW3.html)
+- [Assignment Page](http://www.wou.edu/~morses/classes/cs46x/assignments/HW3_1819.html)
 - [Code Repository](https://github.com/brockv/brockv.github.io/tree/master/CS460/HWK3/Homework3/demo)
 
 ### **I: Setting Up the Environment and Examining the Existing Project**
@@ -49,7 +49,7 @@ namespace Homework3
 
 Next up was QueueInterface.js:
 
-### **QueueInterface.java --> QueueInterface.cs**
+### **QueueInterface.java --> IQueueInterface.cs**
 
 As with the previous file, there wasn't much to do here other than adjusting names to match C# standards.
 
