@@ -79,17 +79,17 @@ if (Double.TryParse(userInput, out miles))
     /* If we parsed it successfully, do the appropriate conversion */
     switch (unit)
     {
-        case "millimeters":
-            miles = miles * 1609344;
+        case "millimeters":                        
+            miles = miles * Properties.Settings.Default.MILLIMETERS_PER_MILE; ;
             break;
         case "centimeters":
-            miles = miles * 160934.4;
+            miles = miles * Properties.Settings.Default.CENTIMETERS_PER_MILE;
             break;
         case "meters":
-            miles = miles * 1609.34;
+            miles = miles * Properties.Settings.Default.METERS_PER_MILE;
             break;
         case "kilometers":
-            miles = miles * 1.60934;
+            miles = miles * Properties.Settings.Default.KILOMETERS_PER_MILE;
             break;
         default:
             break;
@@ -116,22 +116,6 @@ The first thing I needed was a place for the user to enter the color codes. I us
    id = "firstColor",
    placeholder = "#AABBCC",
    name = "firstColor",
-   pattern = "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$",
-   title = "HTML hexadecimal color code (#AABBCC)",
-   required = "required",
-   autocomplete = "off"
-})
-</div>
-
-<!-- Prompt for the second color -->
-<div>
-    @Html.Label("Second color:")
-    @Html.TextBox("secondColor", "@Request["secondColor"]", new
-{
-   @class = "form-control",
-   id = "secondColor",
-   placeholder = "#AABBCC",
-   name = "secondColor",
    pattern = "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$",
    title = "HTML hexadecimal color code (#AABBCC)",
    required = "required",

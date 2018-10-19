@@ -13,7 +13,7 @@
     </div>
 
     <!-- Prompt with instructions for the user -->
-    <h4>Enter two color codes in HTML hexadecimal format (#AABBCC):</h4>
+    <h4>Enter two color codes in HTML hexadecimal format (#ABC -or- #AABBCC):</h4>
 
     @using (@Html.BeginForm("ColorMixer", "Color", FormMethod.Post))
     {
@@ -36,17 +36,17 @@
                    })
                         <!-- Create a color picker under the first color box -->
                         <input type="color" onchange="setFirstColor(this)" onkeyup="setFirstColor(this)"
-                               class="btn btn-default" value="@Request["firstColor"]" style="width: 300px;">
+                               class="btn btn-default" value="@Request["firstColor"]">
                     </div>
 
-                    <br style="clear:both;" />
+                    <br style="clear: both;" />
 
                 </section>
 
                 <!-- Prompt for the second color -->
                 <section>
                     <div style="float: left;">
-                        <label for="secondColor">Second Color:</label>
+                        @Html.Label("Second color:")
                         @Html.TextBox("secondColor", @Request["secondColor"], new
                    {
                        @class = "form-control",
@@ -60,7 +60,7 @@
                    })
                         <!-- Create a color picker under the second color box -->
                         <input type="color" onchange="setSecondColor(this)" onkeyup="setSecondColor(this)"
-                               class="btn btn-default" value="@Request["secondColor"]" style="width: 300px;">
+                               class="btn btn-default" value="@Request["secondColor"]">
                     </div>
                 </section>
             </div>

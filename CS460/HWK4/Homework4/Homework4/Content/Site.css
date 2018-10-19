@@ -1,68 +1,68 @@
-﻿/* Set the padding for the body */
+﻿/* Body */
 body {
     padding-top: 50px;
     padding-bottom: 20px;
 }
 
-/* Set padding to keep content from hitting the edges */
+/* Body content */
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
 }
 
-/* Set width on the form input elements since they're 100% wide by default */
+/* Form input elements */
 select,
 textarea {
     max-width: 280px;
 }
 
-/* Set the style and appearance for h1 elements */
+/* H1 elements */
 h1 {
     text-align: center;
 }
 
-/* Set the style and appearance for h4 elements */
+/* H4 elements */
 h4 {
     font-weight: bolder;
     margin-left: 30px;
 }
 
-/* Set the style and appearance for label elements */
+/* Label elements */
 label {
     font-size: 18px;
     margin-top: 20px;
     float: left;
 }
 
-/* Set the style and appearance for the lead class elements */
+/* Lead class */
 .lead {
     text-align: center;
 }
 
-/* Set the background and text colors for the page header */
+/* Jumbotron class */
 .jumbotron {
     background: #252526;
     color: #ffffff;
 }
 
-/* Set the background and text colors for the navigation bar */
+/* Navbar class */
 .navbar {
     background: #252526;
     color: #ffffff;
 }
 
-/* Set the width and margin for columns */
+/* Boxes class */
 .boxes {
     text-align: center;
 }
 
-/* Set the width and margin for columns */
+/* Box-Containers class */
 .box-container {
     float: none;
     display: inline-block;
 }
 
-/* Set the style and appearance for the buttons on the main page */
+/* "Converter" and "Color Mixer" buttons */
 .btnGoToPages {
     border-radius: 5px;
     border-style: solid;
@@ -81,29 +81,29 @@ label {
     transform: translateY(-50%);
 }
 
-/* Set style and appearance for the convert button */
+    /* "Converter" and "Color Mixer" buttons continued... */
     .btnGoToPages:hover {
         background: #515151;
         color: #ffffff;
     }
 
-/* Set style and appearance for the convert button when clicked */
+/* "Converter" and "Color Mixer" buttons continued... */
     .btnGoToPages:active {
         background: #252526;
         color: #ffffff;
     }
 
-/* Set the style and appearance of the repository button in the page header */
+/* "View Repository" button */
 #btnViewRepo {
     margin: 0 auto;
 }
 
-/* Set style and appearance for the user input field */
+/* User input field */
 #userInput {
     border-radius: 5px;
     border-style: solid;
     margin-top: 20px;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
     padding: 5px;
     width: 280px;
     -moz-appearance: none;
@@ -115,7 +115,7 @@ label {
     transform: translateY(-50%);
 }
 
-/* Set style and appearance for the convert button */
+/* Convert button */
 #btnConvert {
     border-radius: 5px;
     border-style: solid;
@@ -133,19 +133,19 @@ label {
     transform: translateY(-50%);
 }
 
-    /* Set style and appearance for the convert button */
+    /* Convert button continued... */
     #btnConvert:hover {
         background: #515151;
         color: #ffffff;
     }
 
-    /* Set style and appearance for the convert button when clicked */
+    /* Convert button continued... */
     #btnConvert:active {
         background: #252526;
         color: #ffffff;
     }
 
-/* Set the style and appearance for the group legends */
+/* Legends */
 legend {
     background: #252526;
     color: #ffffff;
@@ -153,7 +153,7 @@ legend {
     text-align: center;
 }
 
-/* Set the style and appearance of the radio buttons */
+/* Radio buttons */
 #radioButtons {
     text-align: justify;
     vertical-align: top;
@@ -179,25 +179,26 @@ input[type="radio"] {
     input[type="radio"] + .radioLabel {
         margin-left: 10px;
     }
+
         /* Radio buttons continued... */
         input[type="radio"] + .radioLabel:after {
             content: '';
             display: block;
         }
 
-/* Set the style and appearance for the label that holds the conversion results */
+/* Conversion results label */
 #conversionResults {
     font-size: 18px;
     color: #ff0000;
     vertical-align: middle;
 }
 
-/* Set the style and appearance for the submit colors button */
+/* Submit colors button */
 #btnSubmitColors {
     border-radius: 5px;
     border-style: solid;
-    margin-top: 50px;
-    margin-bottom: 30px;
+    margin-top: 30px;
+    margin-bottom: 35px;
     margin-left: 15px;
     padding: 7px;
     background: #252526;
@@ -225,13 +226,14 @@ input[type="radio"] {
         color: #ffffff;
     }
 
-/* Set the style and appearance for the textboxes used to collect the color codes */
+/* Color code textboxess */
 .form-control {
     margin-top: 10px;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
     border-radius: 5px;
     border-style: solid;
     position: relative;
+    max-width: 300px;
 }
 
     /* Color code textboxes continued... */
@@ -240,35 +242,34 @@ input[type="radio"] {
         border-width: 3px;
     }
 
-/* Set the style and appearance for the labels between the color boxes */
+/* Labels between the color boxes */
 .colorBoxLabel {
     font-weight: bolder;
     font-size: 24px;
-    padding-bottom: 100px;
-    margin-bottom: 40px;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
     margin-left: 20px;
     display: inline-block;
-    vertical-align: middle;
+    vertical-align: top;
     float: none;
 }
 
-/* Set the style and appearance for the color boxes */
+/* Color boxes */
 .colorBox {
-    width: 140px;
-    max-width: 140px;
-    height: 140px;
-    max-height: 140px;
+    width: 60px;
+    height: 60px;
     margin-left: 25px;
     border: 2px solid #000000;
     border-radius: 5px;
     display: inline-block;
 }
 
-/* Set the style and appearance for the color picker inputs */
+/* Color picker buttons */
 input[type="color"] {
     margin-top: 10px;
     margin-bottom: 30px;
     border-radius: 5px;
     border-style: solid;
     height: 36px;
+    width: 300px;
 }

@@ -13,7 +13,7 @@ namespace Homework4.Controllers
         {
             return View();
         }
-
+        
         /// <summary>
         /// GET for Converter.cshtml
         /// </summary>
@@ -30,17 +30,17 @@ namespace Homework4.Controllers
                 /* If we parsed it successfully, do the appropriate conversion */
                 switch (unit)
                 {
-                    case "millimeters":
-                        miles = miles * 1609344;
+                    case "millimeters":                        
+                        miles = miles * Properties.Settings.Default.MILLIMETERS_PER_MILE; ;
                         break;
                     case "centimeters":
-                        miles = miles * 160934.4;
+                        miles = miles * Properties.Settings.Default.CENTIMETERS_PER_MILE;
                         break;
                     case "meters":
-                        miles = miles * 1609.34;
+                        miles = miles * Properties.Settings.Default.METERS_PER_MILE;
                         break;
                     case "kilometers":
-                        miles = miles * 1.60934;
+                        miles = miles * Properties.Settings.Default.KILOMETERS_PER_MILE;
                         break;
                     default:
                         break;
