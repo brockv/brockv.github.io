@@ -159,17 +159,25 @@ if (firstColor != null || secondColor != null)
  ...
 ```
 
-Once they were converted to Color objects, I broke them down into their individual channels and added them together. The instructions were to keep any values produced at maximum value of 255 (or FF). To do this, I used Math.Min and Math.Max to clamp the values between 0 and 255. After doing that, I constructed the final color using ColorTranslator.
+Once they were converted to Color objects, I broke them down into their individual channels and added them together. Once I had the values for each of the final color's channels, I subtracted 255 from any that were greater than 255. This effectively wrapped the values around from 0, allowing for more color combinations that didn't turn out all white.
 
 ```c#
-/* Add each channel from the two colors, clamping the ranges from 0 to 255 */
-int finalColorAlpha = Math.Min(Math.Max(rgbColorOne.A + rgbColorTwo.A, 0), 255);
-int finalColorRed = Math.Min(Math.Max(rgbColorOne.R + rgbColorTwo.R, 0), 255);
-int finalColorGreen = Math.Min(Math.Max(rgbColorOne.G + rgbColorTwo.G, 0), 255);
-int finalColorBlue = Math.Min(Math.Max(rgbColorOne.B + rgbColorTwo.B, 0), 255);
+/* Add each channel together from the two colors */
+int finalColorRed = rgbColorOne.R + rgbColorTwo.R;
+int finalColorGreen = rgbColorOne.G + rgbColorTwo.G;
+int finalColorBlue = rgbColorOne.B + rgbColorTwo.B;
+
+/* 
+ * Subtract 255 from any values greater than 255, effectively 
+ * wrapping around from 0. This allows for more color combinations
+ * that don't result in plain white.
+ */
+if (finalColorRed > 255) finalColorRed -= 255;
+if (finalColorGreen > 255) finalColorGreen -= 255;
+if (finalColorBlue > 255) finalColorBlue -= 255;
 
 /* Construct the mixture using the channels we just calculated */
-string finalColor = ColorTranslator.ToHtml(Color.FromArgb(finalColorAlpha, finalColorRed, finalColorGreen, finalColorBlue));
+string finalColor = ColorTranslator.ToHtml(Color.FromArgb(finalColorRed, finalColorGreen, finalColorBlue));
 ```
 
 The last thing to do was send the colors back to the View for displaying the color boxes, and setting the bool flag.
