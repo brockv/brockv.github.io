@@ -1,6 +1,6 @@
 # **Homework IV**
 
-This weeks assignment was to write a simple, multi-page MVC web application that does not utilize a database. We were to demonstrate knowledge of GET, POST, and Request objects, as well as learn the basics of the Razor view engine by creating a "Mile to Metric Converter" page, and a "Color Mixer" page.
+This weeks assignment was to write a simple, multi-page MVC web application that does not utilize a database. We were to demonstrate knowledge of GET, POST, and Request objects, as well as learn the basics of the Razor view engine by creating a "Miles to Metric Converter" page, and a "Color Mixer" page.
 
 ## **Relevant Links**
 - [Home](https://brockv.github.io/)
