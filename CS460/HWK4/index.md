@@ -1,6 +1,6 @@
 # **Homework IV**
 
-This weeks assignment was to write a simple, multi-page MVC web application that does not utilize a database. We were to demonstrate knowledge of GET, POST, and Request objects, as well as learn the basics of the Razor view engine by creating a "Mile to Metric Converter" page, and a "Color Mixer" page.
+This weeks assignment was to write a simple, multi-page MVC web application that does not utilize a database. We were to demonstrate knowledge of GET, POST, and Request objects, as well as learn the basics of the Razor view engine by creating a "Miles to Metric Converter" page, and a "Color Mixer" page.
 
 ## **Relevant Links**
 - [Home](https://brockv.github.io/)
@@ -12,7 +12,7 @@ This weeks assignment was to write a simple, multi-page MVC web application that
 I began by creating a new, empty MVC project in Visual Studio, which gave me just the bare bones to get started. Then I created a Controller and a View associated with it to handle the Home page. Once the Home page was built, it was time to get started on the first of the required pages.
 
 
-### **II: Creating the Converter Page#**
+### **II: Creating the Converter Page**
 
 To get this going, I added a method to the HomeController, and generated a View associated with it. This would be used for my Converter page. For this page we were instructed to use raw HTML only.
 
@@ -152,7 +152,7 @@ string secondColor = Request.Form["secondColor"];
 /* Make sure the fields aren't null before proceeding */
 if (firstColor != null || secondColor != null)
 {
-    /* COnvert the strings into Color objects so we can add them together */
+    /* Convert the strings into Color objects so we can add them together */
     Color rgbColorOne = ColorTranslator.FromHtml(firstColor);
     Color rgbColorTwo = ColorTranslator.FromHtml(secondColor);
  
