@@ -142,21 +142,21 @@ if (ViewBag.ShowBoxes)
 }
 ```
 
-With the page all set, I moved back to the Controller. After grabbing the color codes from the form, and a quick check to make sure neither value was null, I converted the strings into Color  objects so they could be added together.
+With the page all set, I moved back to the Controller. After a quick check to make sure neither value was null, I converted the strings into Color  objects so they could be added together.
 
 ```c#
-/* Grab the color codes from the text boxes */
-string firstColor = Request.Form["firstColor"];
-string secondColor = Request.Form["secondColor"];
-
-/* Make sure the fields aren't null before proceeding */
-if (firstColor != null || secondColor != null)
+[HttpPost]
+public ActionResult ColorMixer(string firstColor, string secondColor)
 {
-    /* Convert the strings into Color objects so we can add them together */
-    Color rgbColorOne = ColorTranslator.FromHtml(firstColor);
-    Color rgbColorTwo = ColorTranslator.FromHtml(secondColor);
- 
- ...
+    /* Set the flag to show the boxes to false initially */
+    ViewBag.ShowBoxes = false;
+
+    /* Make sure the fields aren't null before proceeding */
+    if (firstColor != null && secondColor != null)
+    {
+        /* Convert the strings into Color objects so we can add them together */
+        Color rgbColorOne = ColorTranslator.FromHtml(firstColor);
+        Color rgbColorTwo = ColorTranslator.FromHtml(secondColor);
 ```
 
 Once they were converted to Color objects, I broke them down into their individual channels and added them together. Once I had the values for each of the final color's channels, I subtracted 255 from any that were greater than 255. This effectively wrapped the values around from 0, allowing for more color combinations that didn't turn out all white.
