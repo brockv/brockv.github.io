@@ -6,6 +6,7 @@ This weeks assignment was to write a simple, multi-page MVC web application that
 - [Home](https://brockv.github.io/)
 - [Assignment Page](http://www.wou.edu/~morses/classes/cs46x/assignments/HW4_1819.html)
 - [Code Repository](https://github.com/brockv/brockv.github.io/tree/master/CS460/HWK4/Homework4)
+- [Demo Video](https://www.youtube.com/watch?v=gU08EzVVw60&feature=youtu.be)
 
 ### **I: Setting Up the Project**
 
