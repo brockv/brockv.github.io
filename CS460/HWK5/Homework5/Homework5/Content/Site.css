@@ -16,9 +16,59 @@
     white-space: normal;
 }
 
-/* Set width on the form input elements since they're 100% wide by default */
-input,
-select,
-textarea {
-    max-width: 280px;
+/* H1 elements */
+h1 {
+    text-align: center;
 }
+
+/* Lead class */
+.lead {
+    text-align: center;
+}
+
+/* Form Title class */
+.formTitle {
+    font-size: 58px;
+}
+
+/* Jumbotron class */
+.jumbotron {
+    background: #252526;
+    color: #ffffff;
+}
+
+/* Navbar class */
+.navbar {
+    background: #252526;
+    color: #ffffff;
+}
+
+/* View Repository button */
+#btnViewRepo {
+    margin: 0 auto;
+}
+
+/* Request Description textarea */
+#requestDescription {
+    resize: none;
+    margin-top: 40px;
+    width: 97%;
+    border-radius: 5px;
+    border: 2px solid #000000;
+}
+
+/* Request Form textboxes */
+.form-control {
+    margin-left: 20px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 2px solid #000000;
+    position: relative;
+    max-width: 300px;
+}
+
+/* Request Form textbox labels */
+.inputLabels {
+    margin-left: 20px;
+}
+

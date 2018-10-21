@@ -15,7 +15,7 @@ namespace Homework5.Controllers
 
         public ActionResult RequestForm()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = "Tennant Request Form";
 
             return View();
         }

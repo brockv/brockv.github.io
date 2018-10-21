@@ -1,17 +1,83 @@
 ﻿@{
-    ViewBag.Title = "Request Form";
+    ViewBag.Title = "Campus Apartments";
 }
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
+<h1 class="formTitle">@ViewBag.Title</h1>
+<h1>@ViewBag.Message</h1>
 
-<address>
-    One Microsoft Way<br />
-    Redmond, WA 98052-6399<br />
-    <abbr title="Phone">P:</abbr>
-    425.555.0100
-</address>
+@using (@Html.BeginForm("RequestLog", "Home", FormMethod.Post))
+{
+    <div class="container">
+        <div class="col-md-4">
+            <label class="inputLabels">First Name:</label>
+            @Html.TextBox("firstName", "", new
+       {
+           @class = "form-control",
+           id = "firstName",
+           name = "firstName",
+           required = "required",
+           autocomplete = "off"
+       })
 
-<address>
-    <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
-    <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-</address>
+            <label class="inputLabels">Apartment Name:</label>
+            @Html.TextBox("apartmentName", "", new
+       {
+           @class = "form-control",
+           id = "appartmentName",
+           name = "appartmentName",
+           required = "required",
+           autocomplete = "off"
+       })
+        </div>
+        <div class="col-md-4">
+
+            <label class="inputLabels">Last Name:</label>
+            @Html.TextBox("lastName", "", new
+       {
+           @class = "form-control",
+           id = "lastName",
+           name = "lastName",
+           required = "required",
+           autocomplete = "off"
+       })
+        </div>
+        <div class="col-md-4">
+
+            <label class="inputLabels">Phone Number:</label>
+            @Html.TextBox("phoneNumber", "", new
+       {
+           @class = "form-control",
+           id = "phoneNumber",
+           name = "phoneNumber",
+           pattern = "^(\\+0?1\\s)?\\(?\\d{3}\\)?[\\s.-]\\d{3}[\\s.-]\\d{4}$",
+           title = "10-Digit US phone number",
+           required = "required",
+           autocomplete = "off"
+       })
+
+            <label class="inputLabels">Unit Number:</label>
+            @Html.TextBox("unitNumber", "", new
+       {
+           @class = "form-control",
+           id = "unitNumber",
+           name = "unitNumber",
+           required = "required",
+           autocomplete = "off"
+       })
+        </div>
+
+
+        <div id="requestContainer" class="container">
+            @Html.TextArea("request", "", new
+       {
+           placeholder = "Explanation of request, maintenance required, or complaint. Please be specific.",
+           id = "requestDescription",
+           name = "requestDescription",
+           required = "required",
+           autocomplete = "off",
+           rows = "20",
+           columns = "400"
+       })
+
+        </div>
+    </div>
+}
