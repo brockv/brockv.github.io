@@ -72,3 +72,48 @@ h1 {
     margin-left: 20px;
 }
 
+/* Submit Form button */
+#btnSubmitForm {
+    margin-top: 60px;
+    margin-left: 200px;
+    border-radius: 5px;
+    border-style: solid;
+    padding: 7px;
+    background: #252526;
+    color: #ffffff;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    height: 36px;
+    width: 280px;
+    position: relative;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+    /* Submit button continued... */
+    #btnSubmitForm:hover {
+        background: #515151;
+        color: #ffffff;
+    }
+
+    /* Submit button continued... */
+    #btnSubmitForm:active {
+        background: #252526;
+        color: #ffffff;
+    }
+
+input[type="checkbox"] {
+    margin-left: 150px;
+    margin-top: 20px;
+}
+/* Checkbox for allowing entry */
+#allowEntryLabel {
+    width: 350px;
+    margin-top: 40px;
+    margin-left: 10px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
