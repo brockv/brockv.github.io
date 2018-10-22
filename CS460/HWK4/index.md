@@ -1,18 +1,19 @@
 # **Homework IV**
 
-This weeks assignment was to write a simple, multi-page MVC web application that does not utilize a database. We were to demonstrate knowledge of GET, POST, and Request objects, as well as learn the basics of the Razor view engine by creating a "Mile to Metric Converter" page, and a "Color Mixer" page.
+This weeks assignment was to write a simple, multi-page MVC web application that does not utilize a database. We were to demonstrate knowledge of GET, POST, and Request objects, as well as learn the basics of the Razor view engine by creating a "Miles to Metric Converter" page, and a "Color Mixer" page.
 
 ## **Relevant Links**
 - [Home](https://brockv.github.io/)
 - [Assignment Page](http://www.wou.edu/~morses/classes/cs46x/assignments/HW4_1819.html)
 - [Code Repository](https://github.com/brockv/brockv.github.io/tree/master/CS460/HWK4/Homework4)
+- [Demo Video](https://www.youtube.com/watch?v=gU08EzVVw60&feature=youtu.be)
 
 ### **I: Setting Up the Project**
 
 I began by creating a new, empty MVC project in Visual Studio, which gave me just the bare bones to get started. Then I created a Controller and a View associated with it to handle the Home page. Once the Home page was built, it was time to get started on the first of the required pages.
 
 
-### **II: Creating the Converter Page#**
+### **II: Creating the Converter Page**
 
 To get this going, I added a method to the HomeController, and generated a View associated with it. This would be used for my Converter page. For this page we were instructed to use raw HTML only.
 
@@ -142,34 +143,42 @@ if (ViewBag.ShowBoxes)
 }
 ```
 
-With the page all set, I moved back to the Controller. After grabbing the color codes from the form, and a quick check to make sure neither value was null, I converted the strings into Color  objects so they could be added together.
+With the page all set, I moved back to the Controller. After a quick check to make sure neither value was null, I converted the strings into Color  objects so they could be added together.
 
 ```c#
-/* Grab the color codes from the text boxes */
-string firstColor = Request.Form["firstColor"];
-string secondColor = Request.Form["secondColor"];
-
-/* Make sure the fields aren't null before proceeding */
-if (firstColor != null || secondColor != null)
+[HttpPost]
+public ActionResult ColorMixer(string firstColor, string secondColor)
 {
-    /* COnvert the strings into Color objects so we can add them together */
-    Color rgbColorOne = ColorTranslator.FromHtml(firstColor);
-    Color rgbColorTwo = ColorTranslator.FromHtml(secondColor);
- 
- ...
+    /* Set the flag to show the boxes to false initially */
+    ViewBag.ShowBoxes = false;
+
+    /* Make sure the fields aren't null before proceeding */
+    if (firstColor != null && secondColor != null)
+    {
+        /* Convert the strings into Color objects so we can add them together */
+        Color rgbColorOne = ColorTranslator.FromHtml(firstColor);
+        Color rgbColorTwo = ColorTranslator.FromHtml(secondColor);
 ```
 
-Once they were converted to Color objects, I broke them down into their individual channels and added them together. The instructions were to keep any values produced at maximum value of 255 (or FF). To do this, I used Math.Min and Math.Max to clamp the values between 0 and 255. After doing that, I constructed the final color using ColorTranslator.
+Once they were converted to Color objects, I broke them down into their individual channels and added them together. Once I had the values for each of the final color's channels, I subtracted 255 from any that were greater than 255. This effectively wrapped the values around from 0, allowing for more color combinations that didn't turn out all white.
 
 ```c#
-/* Add each channel from the two colors, clamping the ranges from 0 to 255 */
-int finalColorAlpha = Math.Min(Math.Max(rgbColorOne.A + rgbColorTwo.A, 0), 255);
-int finalColorRed = Math.Min(Math.Max(rgbColorOne.R + rgbColorTwo.R, 0), 255);
-int finalColorGreen = Math.Min(Math.Max(rgbColorOne.G + rgbColorTwo.G, 0), 255);
-int finalColorBlue = Math.Min(Math.Max(rgbColorOne.B + rgbColorTwo.B, 0), 255);
+/* Add each channel together from the two colors */
+int finalColorRed = rgbColorOne.R + rgbColorTwo.R;
+int finalColorGreen = rgbColorOne.G + rgbColorTwo.G;
+int finalColorBlue = rgbColorOne.B + rgbColorTwo.B;
+
+/* 
+ * Subtract 255 from any values greater than 255, effectively 
+ * wrapping around from 0. This allows for more color combinations
+ * that don't result in plain white.
+ */
+if (finalColorRed > 255) finalColorRed -= 255;
+if (finalColorGreen > 255) finalColorGreen -= 255;
+if (finalColorBlue > 255) finalColorBlue -= 255;
 
 /* Construct the mixture using the channels we just calculated */
-string finalColor = ColorTranslator.ToHtml(Color.FromArgb(finalColorAlpha, finalColorRed, finalColorGreen, finalColorBlue));
+string finalColor = ColorTranslator.ToHtml(Color.FromArgb(finalColorRed, finalColorGreen, finalColorBlue));
 ```
 
 The last thing to do was send the colors back to the View for displaying the color boxes, and setting the bool flag.
