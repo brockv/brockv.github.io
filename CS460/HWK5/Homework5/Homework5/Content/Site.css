@@ -75,7 +75,7 @@ h1 {
 /* Submit Form button */
 #btnSubmitForm {
     margin-top: 60px;
-    margin-left: 200px;
+    margin-bottom: 20px;
     border-radius: 5px;
     border-style: solid;
     padding: 7px;
@@ -104,16 +104,18 @@ h1 {
         color: #ffffff;
     }
 
-input[type="checkbox"] {
-    margin-left: 150px;
-    margin-top: 20px;
-}
 /* Checkbox for allowing entry */
 #allowEntryLabel {
-    width: 350px;
-    margin-top: 40px;
-    margin-left: 10px;
-    display: inline-block;
+    width: 250px;
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-bottom: 20px;
     vertical-align: middle;
 }
+
+#apartmentName {
+    width: 400px;
+}
+
+
 

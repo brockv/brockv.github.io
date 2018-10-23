@@ -7,8 +7,8 @@
 
 @using (@Html.BeginForm("RequestLog", "Home", FormMethod.Post))
 {
-    <div class="container">
-        <div class="col-md-4">
+    <div class="container" style="margin-top: 40px;">
+        <div class="col-md-4" style="float: left;">
             <label class="inputLabels">First Name:</label>
             @Html.TextBox("firstName", "", new
        {
@@ -18,18 +18,8 @@
            required = "required",
            autocomplete = "off"
        })
-
-            <label class="inputLabels">Apartment Name:</label>
-            @Html.TextBox("apartmentName", "", new
-       {
-           @class = "form-control",
-           id = "appartmentName",
-           name = "appartmentName",
-           required = "required",
-           autocomplete = "off"
-       })
         </div>
-        <div class="col-md-4">
+        <div class="col-md-4" style="float: left;">
 
             <label class="inputLabels">Last Name:</label>
             @Html.TextBox("lastName", "", new
@@ -41,7 +31,7 @@
            autocomplete = "off"
        })
         </div>
-        <div class="col-md-4">
+        <div class="col-md-4" style="float: left;">
 
             <label class="inputLabels">Phone Number:</label>
             @Html.TextBox("phoneNumber", "", new
@@ -55,6 +45,20 @@
            autocomplete = "off"
        })
 
+        </div>
+        <div class="col-md-4" style="float: left;">
+            <label class="inputLabels">Apartment Name:</label>
+            @Html.TextBox("apartmentName", "", new
+       {
+           @class = "form-control",
+           id = "appartmentName",
+           name = "appartmentName",
+           required = "required",
+           autocomplete = "off",
+           width = "600px",
+            })
+        </div>
+        <div class="col-md-4" style="float: left;">
             <label class="inputLabels">Unit Number:</label>
             @Html.TextBox("unitNumber", "", new
        {
@@ -84,10 +88,8 @@
             </div>
 
             <div>
-                <span>
-                    <input type="checkbox" value="allowEntry">
-                    <label id="allowEntryLabel">@ViewBag.CheckBox</label>
-                </span>
+                <input type="checkbox" value="allowEntry">
+                <label id="allowEntryLabel">@ViewBag.CheckBox</label>
             </div>
 
         </div>
