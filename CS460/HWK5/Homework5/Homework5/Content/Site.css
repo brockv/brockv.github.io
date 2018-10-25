@@ -60,7 +60,6 @@ h1 {
 /* Request Form textboxes */
 .form-control {
     margin-left: 20px;
-    margin-bottom: 10px;
     border-radius: 5px;
     border: 2px solid #000000;
     position: relative;
@@ -68,7 +67,8 @@ h1 {
 }
 
 /* Request Form textbox labels */
-.inputLabels {
+.control-label,
+.text-danger {
     margin-left: 20px;
 }
 
@@ -87,7 +87,7 @@ h1 {
     width: 280px;
     position: relative;
     top: 50%;
-    -webkit-transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);    
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
 }
@@ -105,16 +105,12 @@ h1 {
     }
 
 /* Checkbox for allowing entry */
-#allowEntryLabel {
+.allow-entry-label {
     width: 250px;
     margin-top: 20px;
     margin-left: 20px;
     margin-bottom: 20px;
     vertical-align: middle;
-}
-
-#apartmentName {
-    width: 400px;
 }
 
 

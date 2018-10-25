@@ -1,98 +1,95 @@
-﻿@{
+﻿@model Homework5.Models.ServiceRequestForm
+
+@{
     ViewBag.Title = "Campus Apartments";
-    ViewBag.CheckBox = "Select here to give permission for the landlord or representative to enter your unit to perform the requested maintenance. We will call first.";
+    ViewBag.CheckBox = "Select here to give permission for the landlord or representative" +
+                " to enter your unit to perform the requested maintenance. We will call first.";
 }
+
 <h1 class="formTitle">@ViewBag.Title</h1>
 <h1>@ViewBag.Message</h1>
 
-@using (@Html.BeginForm("RequestLog", "Home", FormMethod.Post))
+@using (Html.BeginForm())
 {
+    @Html.AntiForgeryToken()
+
     <div class="container" style="margin-top: 40px;">
-        <div class="col-md-4" style="float: left;">
-            <label class="inputLabels">First Name:</label>
-            @Html.TextBox("firstName", "", new
-       {
-           @class = "form-control",
-           id = "firstName",
-           name = "firstName",
-           required = "required",
-           autocomplete = "off"
-       })
-        </div>
-        <div class="col-md-4" style="float: left;">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-            <label class="inputLabels">Last Name:</label>
-            @Html.TextBox("lastName", "", new
-       {
-           @class = "form-control",
-           id = "lastName",
-           name = "lastName",
-           required = "required",
-           autocomplete = "off"
-       })
-        </div>
-        <div class="col-md-4" style="float: left;">
+        <div class="col-md-4" style="float: left; margin-bottom: 10px;">
+            <div class="form-group">
 
-            <label class="inputLabels">Phone Number:</label>
-            @Html.TextBox("phoneNumber", "", new
-       {
-           @class = "form-control",
-           id = "phoneNumber",
-           name = "phoneNumber",
-           pattern = "^(\\+0?1\\s)?\\(?\\d{3}\\)?[\\s.-]\\d{3}[\\s.-]\\d{4}$",
-           title = "10-Digit US phone number",
-           required = "required",
-           autocomplete = "off"
-       })
+                @Html.LabelFor(model => model.FirstName, "First Name:", htmlAttributes: new { @class = "control-label" })
+                @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+            </div>
+        </div>
 
+
+        <div class="col-md-4" style="float: left; margin-bottom: 10px;">
+            <div class="form-group">
+                @Html.LabelFor(model => model.LastName, "Last Name:", htmlAttributes: new { @class = "control-label" })
+                @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+            </div>
         </div>
-        <div class="col-md-4" style="float: left;">
-            <label class="inputLabels">Apartment Name:</label>
-            @Html.TextBox("apartmentName", "", new
-       {
-           @class = "form-control",
-           id = "appartmentName",
-           name = "appartmentName",
-           required = "required",
-           autocomplete = "off",
-           width = "600px",
-            })
+
+        <div class="col-md-4" style="float: left; margin-bottom: 10px;">
+            <div class="form-group">
+                @Html.LabelFor(model => model.PhoneNumber, "Phone Number", htmlAttributes: new { @class = "control-label" })
+                @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+            </div>
         </div>
-        <div class="col-md-4" style="float: left;">
-            <label class="inputLabels">Unit Number:</label>
-            @Html.TextBox("unitNumber", "", new
-       {
-           @class = "form-control",
-           id = "unitNumber",
-           name = "unitNumber",
-           required = "required",
-           autocomplete = "off"
-       })
+
+        <div class="col-md-4" style="float: left; margin-bottom: 10px;">
+            <div class="form-group">
+                @Html.LabelFor(model => model.ApartmentName, "Apartment Name:", htmlAttributes: new { @class = "control-label" })
+                @Html.EditorFor(model => model.ApartmentName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ApartmentName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="col-md-4" style="float: left; margin-bottom: 10px;">
+            <div class="form-group">
+                @Html.LabelFor(model => model.UnitNumber, "Unit Number:", htmlAttributes: new { @class = "control-label" })
+
+                @Html.EditorFor(model => model.UnitNumber, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.UnitNumber, "", new { @class = "text-danger" })
+
+            </div>
         </div>
 
 
         <div class="container">
-            @Html.TextArea("request", "", new
-       {
-           placeholder = "Explanation of request, maintenance required, or complaint. Please be specific.",
-           id = "requestDescription",
-           name = "requestDescription",
-           required = "required",
-           autocomplete = "off",
-           rows = "20",
-           columns = "400"
-       })
+            <div class="form-group">
+                @Html.TextAreaFor(model => model.RequestDescription, new
+           {
+               htmlAttributes = new { @class = "form-control" },
+               id = "requestDescription",
+               placeholder = "Explanation of request, maintenance required, or complaint. Please be specific.",
+               autocomplete = "off",
+               rows = "20",
+               columns = "400"
+           })
+                @Html.ValidationMessageFor(model => model.RequestDescription, "", new { @class = "text-danger" })
 
-            <div class="col-md-4">
-                <input id="btnSubmitForm" class="btn btn-default submitted" type="submit" value="Submit Request" />
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <input id="btnSubmitForm" class="btn btn-default submitted" type="submit" value="Submit Request" />
+                        @Html.HiddenFor(model => model.RequestTimestamp, new { @Value = System.DateTime.Now })
+                    </div>
+                </div>
+
+                <div>
+                    @Html.CheckBoxFor(model => model.AllowEntry)
+                    @Html.LabelFor(model => model.AllowEntry, "Select here to give permission for the landlord" +
+                       " or representative to enter your uniit to perform the requested maintenance. We will call first.",
+                       htmlAttributes: new { @class = "allow-entry-label" })
+                </div>
+
             </div>
-
-            <div>
-                <input type="checkbox" value="allowEntry">
-                <label id="allowEntryLabel">@ViewBag.CheckBox</label>
-            </div>
-
         </div>
-    </div>
 
+    </div>
 }
