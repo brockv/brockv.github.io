@@ -9,7 +9,7 @@ namespace Homework5.DAL
 {
     public class ServiceRequestFormContext : DbContext
     {
-        public ServiceRequestFormContext() { }
+        public ServiceRequestFormContext() : base("name=RequestsDatabase") { }
 
         public virtual DbSet<ServiceRequestForm> RequestForms { get; set; }
     }

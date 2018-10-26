@@ -11,7 +11,7 @@ namespace Homework5.Controllers
 {
     public class HomeController : Controller
     {
-        ServiceRequestFormContext requestFormDatabase = new ServiceRequestFormContext();
+        private ServiceRequestFormContext requestFormDatabase = new ServiceRequestFormContext();
 
         [HttpGet]
         public ActionResult Home()
@@ -29,9 +29,11 @@ namespace Homework5.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult RequestForm([Bind(Include = "ID, FirstName, LastName, PhoneNumber, ApartmentName," +
-            "UnitNumber, RequestDescription, AllowEntry")] ServiceRequestForm newRequestForm)
+        public ActionResult RequestForm(ServiceRequestForm newRequestForm)
         {
+
+            //newRequestForm.EntryAllowed = ? "YES" : "NO";
+
             /* Check if the model was handed to us in a valid state */
             if (ModelState.IsValid)
             {
@@ -39,7 +41,9 @@ namespace Homework5.Controllers
                  * If the model is in a valid state (i.e., all form elements have valid input), 
                  * add it to the list of requests
                  */
+                //newRequestForm.RequestTimestamp = DateTime.Now;
                 requestFormDatabase.RequestForms.Add(newRequestForm);
+                requestFormDatabase.SaveChanges();
 
                 foreach (ServiceRequestForm x in requestFormDatabase.RequestForms)
                 {
@@ -57,9 +61,9 @@ namespace Homework5.Controllers
         [HttpGet]
         public ActionResult RequestLog()
         {
-            ViewBag.Message = "Current Service Requests";
+            ViewBag.Message = "Service Request Log";
 
-            return View(requestFormDatabase.RequestForms.ToList());
+            return View(requestFormDatabase.RequestForms.ToList().OrderBy(x => x.RequestTimestamp));
         }
 
 

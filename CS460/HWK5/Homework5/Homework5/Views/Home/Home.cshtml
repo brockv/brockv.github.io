@@ -2,20 +2,25 @@
     ViewBag.Title = "Home Page";
 }
 
-<div class="jumbotron">
-    <h1>Homework V</h1>
-    <p class="lead" style="text-align: center;">This is the main page for CS460's fifth homework assignment.</p>
-    <!-- Insert a button to the project's repository -->
-    <p><a id="btnViewRepo" class="btn btn-primary btn-lg" href="https://github.com/brockv/brockv.github.io/tree/master/CS460/HWK5">&raquo; View repository &laquo;</a></p>
+<body>
+    <!-- Page header -->
+    <div class="jumbotron text-center">
+        <h1>CS460 Homework V</h1>
+        <p class="lead">This is the main page for the fifth homework assignment in CS460.</p>
+        <!-- Insert a button to the project's repository -->
+        <p><a id="btnViewRepo" href="https://github.com/brockv/brockv.github.io/tree/master/CS460/HWK5" class="btn btn-primary btn-lg">&raquo; View repository &laquo;</a></p>
     </div>
 
     <div class="row">
         <div class="col-md-4">
+            <!-- Section to hold information for the Converter -->
             <h2>Current Tennants</h2>
-            <p><a class="btn btn-default" href="http://localhost:50237/Home/RequestForm">&raquo; Submit a Service Request &laquo;</a></p>
+            <p><a class="btn btn-default btnGoToPages" href="http://localhost:56053/Home/RequestForm">&raquo; Submit Request &laquo;</a></p>
         </div>
         <div class="col-md-4">
-            <h2>Landlords</h2>
-            <p><a class="btn btn-default" href="http://localhost:50237/Home/RequestLog">&raquo; View Service Requests &laquo;</a></p>
+            <!-- Section to hold information for the Color Mixer -->
+            <h2>Building Managers</h2>
+            <p><a class="btn btn-default btnGoToPages" href="http://localhost:56053/Color/RequestLog">&raquo; View Request Log &laquo;</a></p>
         </div>
     </div>
+</body>

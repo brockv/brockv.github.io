@@ -8,7 +8,7 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{F49D654C-DF82-4709-B895-4BCD0A41D95E}</ProjectGuid>
+    <ProjectGuid>{D0171A3F-3256-4C45-8898-A6BBDCDAE945}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -163,9 +163,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\down.sql" />
-    <Content Include="App_Data\ServiceRequestsDatabase.mdf" />
-    <Content Include="App_Data\ServiceRequestsDatabase_log.ldf">
-      <DependentUpon>ServiceRequestsDatabase.mdf</DependentUpon>
+    <Content Include="App_Data\RequestsDatabase.mdf" />
+    <Content Include="App_Data\RequestsDatabase_log.ldf">
+      <DependentUpon>RequestsDatabase.mdf</DependentUpon>
     </Content>
     <Content Include="App_Data\up.sql" />
     <Content Include="Content\bootstrap-theme.css" />
@@ -204,9 +204,10 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\RequestLog.cshtml" />
-    <Content Include="Views\Home\Home.cshtml" />
     <Content Include="Views\Home\RequestForm.cshtml" />
+    <Content Include="Views\Home\Home.cshtml" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -219,9 +220,6 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Migrations\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -239,9 +237,9 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>50237</DevelopmentServerPort>
+          <DevelopmentServerPort>56053</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:50237/</IISUrl>
+          <IISUrl>http://localhost:56053/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

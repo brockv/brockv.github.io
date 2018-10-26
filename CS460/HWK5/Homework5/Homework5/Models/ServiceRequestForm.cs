@@ -12,37 +12,34 @@ namespace Homework5.Models
         public int ID { get; set; }
 
         [Required(ErrorMessage = "Please enter your first name"), StringLength(20)]
+        [Display(Name ="First Name")]
         public string FirstName { get; set; }
 
         [Required(ErrorMessage = "Please enter your last name"), StringLength(20)]
+        [Display(Name = "Last Name")]
         public string LastName { get; set; }
 
         [Required(ErrorMessage = "Please enter your phone number"), StringLength(20)]
+        [Display(Name = "Phone Number")]
         public string PhoneNumber { get; set; }
 
         [Required(ErrorMessage = "Please enter your apartment name"), StringLength(20)]
+        [Display(Name = "Apartments")]
         public string ApartmentName { get; set; }
 
         [Required(ErrorMessage = "Please enter your unit number")]
+        [Display(Name = "Unit Number")]
         public int UnitNumber { get; set; }
 
         [Required(ErrorMessage = "Please describe your request"), StringLength(250)]
+        [Display(Name = "Request Description")]
         public string RequestDescription { get; set; }
 
-        /* 
-         * This is the value for the checkbox. This, paired with IntValue,
-         * will convert the standard bool value of the checkbox to an int
-         * so that I can store it in the database. (1 is true, 0 is false)
-         */
-        public bool AllowEntry
-        {
-            get { return IntValue == 1; }
-            set { IntValue = value ? 1 : 0; }
-        }
+        /* Convert the checkbox to a value we can store in the database */
+        [Display(Name = "Entry Allowed?")]
+        public bool AllowEntry { get; set; }
 
-        /* Returns 0 or 1, based on the bool value of the checkbox */
-        public int IntValue { get; set; }
-
+        [Display(Name = "Date Submitted")]
         public DateTime RequestTimestamp { get; set; }
 
         public override string ToString()
