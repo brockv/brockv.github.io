@@ -2,10 +2,12 @@
 
 @{
     ViewBag.Title = "Campus Apartments";
+    ViewBag.Message = "Tennant Request Form";
 }
 
 <h1 class="formTitle">@ViewBag.Title</h1>
 <h1>@ViewBag.Message</h1>
+<h1 id="successMessage"><strong>@ViewData["Success"]</strong></h1>
 
 @using (Html.BeginForm())
 {
@@ -67,14 +69,15 @@
                id = "requestDescription",
                placeholder = "Explanation of request, maintenance required, or complaint. Please be specific.",
                autocomplete = "off",
-               rows = "20",
-               columns = "400"
-           })
+               rows = "5",
+               columns = "100",
+               maxlength = 250
+                })
                 @Html.ValidationMessageFor(model => model.RequestDescription, "", new { @class = "text-danger" })
 
                 <div class="form-group">
-                    <div class="col-md-4">
-                        <input id="btnSubmitForm" class="btn btn-default submitted" type="submit" value="Submit Request" />
+                    <div class="col-md-4">                        
+                        <input id="btnSubmitForm" class="btn btn-default submitted" type="submit" value="Submit Request"/>
                         @Html.HiddenFor(model => model.RequestTimestamp, new { @Value = System.DateTime.Now })
                     </div>
                 </div>
@@ -88,6 +91,5 @@
 
             </div>
         </div>
-
     </div>
 }

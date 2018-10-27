@@ -23,6 +23,7 @@ h1 {
 
 /* Lead class */
 .lead {
+    color: #ffffff;
     text-align: center;
 }
 
@@ -48,6 +49,43 @@ h1 {
     margin: 0 auto;
 }
 
+/* Tennant and Manager buttons */
+.btnGoToPages {
+    border-radius: 5px;
+    border-style: solid;
+    margin-top: 20px;
+    padding-top: 7px;
+    background: #252526;
+    color: #ffffff;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    height: 36px;
+    width: 200px;
+    position: relative;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+    /* Tennant and Manager buttons continued... */
+    .btnGoToPages:hover {
+        background: #515151;
+        color: #ffffff;
+    }
+
+    /* Tennant and Manager buttons continued... */
+    .btnGoToPages:active {
+        background: #252526;
+        color: #ffffff;
+    }
+
+/* Form submission success message */
+#successMessage {
+    font-weight: bolder;
+    color: #51DF70;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+}
 /* Request Description textarea */
 #requestDescription {
     resize: none;

@@ -6,24 +6,26 @@ using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI;
 
 namespace Homework5.Controllers
 {
     public class HomeController : Controller
     {
+        /* Initialize the list we'll store user's forms in */
         private ServiceRequestFormContext requestFormDatabase = new ServiceRequestFormContext();
 
         [HttpGet]
         public ActionResult Home()
         {
+            /* Return the view for the Home page */
             return View();
         }
 
         [HttpGet]
         public ActionResult RequestForm()
-        {
-            ViewBag.Message = "Tennant Request Form";
-
+        {          
+            /* Return the view for the Request Form page */
             return View();
         }
 
@@ -31,30 +33,19 @@ namespace Homework5.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult RequestForm(ServiceRequestForm newRequestForm)
         {
-
-            //newRequestForm.EntryAllowed = ? "YES" : "NO";
-
             /* Check if the model was handed to us in a valid state */
             if (ModelState.IsValid)
             {
-                /* 
-                 * If the model is in a valid state (i.e., all form elements have valid input), 
-                 * add it to the list of requests
-                 */
-                //newRequestForm.RequestTimestamp = DateTime.Now;
+                /* Add the service request to the database and save the changes */
                 requestFormDatabase.RequestForms.Add(newRequestForm);
                 requestFormDatabase.SaveChanges();
 
-                foreach (ServiceRequestForm x in requestFormDatabase.RequestForms)
-                {
-                    Debug.WriteLine(x);
-                }
-
-                /* TO-DO -- Redirect to "Thank you" page */
-                return RedirectToAction("Home");
+                /* Set a success message (displayed on the view), and redirect after a short delay */
+                ViewData["Success"] = "Submitted successfully! You will now be redirected...";
+                Response.AddHeader("REFRESH", "3;URL=http://localhost:56053/Home/RequestLog");
             }
 
-            /* If the model wasn't in a valid state, just return the view */
+            /* If the model wasn't in a valid state, just return the view, keeping all input already present */
             return View(newRequestForm);
         }
 
@@ -63,6 +54,7 @@ namespace Homework5.Controllers
         {
             ViewBag.Message = "Service Request Log";
 
+            /* Generates a list of all the requests, ordered by oldest to newest request */
             return View(requestFormDatabase.RequestForms.ToList().OrderBy(x => x.RequestTimestamp));
         }
 
