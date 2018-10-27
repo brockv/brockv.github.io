@@ -28,6 +28,7 @@ namespace Homework5.Models
         public string ApartmentName { get; set; }
 
         [Required(ErrorMessage = "Please enter your unit number")]
+        [RegularExpression("([1-9][0-9]*)", ErrorMessage = "Unit Number must be positive")]
         [Display(Name = "Unit Number")]
         public int UnitNumber { get; set; }
 
@@ -35,7 +36,6 @@ namespace Homework5.Models
         [Display(Name = "Request Description")]
         public string RequestDescription { get; set; }
 
-        /* Convert the checkbox to a value we can store in the database */
         [Display(Name = "Entry Allowed?")]
         public bool AllowEntry { get; set; }
 

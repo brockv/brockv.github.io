@@ -44,9 +44,11 @@ h1 {
     color: #ffffff;
 }
 
-/* View Repository button */
-#btnViewRepo {
-    margin: 0 auto;
+/* Force the table into a particular style */
+.table th {
+    table-layout: fixed;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 /* Tennant and Manager buttons */
@@ -84,7 +86,6 @@ h1 {
 #successMessage {
     font-weight: bolder;
     color: #51DF70;
-    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
 /* Request Description textarea */
 #requestDescription {

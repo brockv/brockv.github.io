@@ -44,8 +44,8 @@
 
         <div class="col-md-4" style="float: left; margin-bottom: 10px;">
             <div class="form-group">
-                @Html.LabelFor(model => model.ApartmentName, "Apartment Name:", htmlAttributes: new { @class = "control-label" })
-                @Html.EditorFor(model => model.ApartmentName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.LabelFor(model => model.ApartmentName, "Apartment Name:", htmlAttributes: new { @class = "control-label"})
+                @Html.EditorFor(model => model.ApartmentName, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
                 @Html.ValidationMessageFor(model => model.ApartmentName, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -54,7 +54,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.UnitNumber, "Unit Number:", htmlAttributes: new { @class = "control-label" })
 
-                @Html.EditorFor(model => model.UnitNumber, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.UnitNumber, new { htmlAttributes = new { @class = "form-control"} })
                 @Html.ValidationMessageFor(model => model.UnitNumber, "", new { @class = "text-danger" })
 
             </div>
