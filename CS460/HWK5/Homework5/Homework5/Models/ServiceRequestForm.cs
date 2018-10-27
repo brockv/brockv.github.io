@@ -20,6 +20,7 @@ namespace Homework5.Models
         public string LastName { get; set; }
 
         [Required(ErrorMessage = "Please enter your phone number"), StringLength(20)]
+        [RegularExpression("^\\d{3}-\\d{3}-\\d{4}$", ErrorMessage = "Please use the format: ###-###-####")]
         [Display(Name = "Phone Number")]
         public string PhoneNumber { get; set; }
 
