@@ -35,7 +35,7 @@ INSERT INTO [dbo].[ServiceRequestForms] (FirstName, LastName, PhoneNumber, Apart
 	('Ivy', 'Iverson', '503-980-5452', 'Shady Oaks', '262', 'Upstairs neighbors are too loud after quiet hours.', '0', '2018/07/06 08:17:36 AM'),
 	('Jim', 'Johnson', '503-870-0225', 'Robins Lane', '320', 'The bathroom faucet wont stop leaking', '1', '2018/08/16 11:44:47 PM'),
 	('Sue','Suzanne', '503-987-2465', 'Meadow Creek', '202', 'The shower head in the main bathroom is broken.', '0', '2018/10/03 08:22:56 AM'),
-	('Mira', 'Kuzak', '503-871-0285', 'Robins Lane', '110', 'The heaters in the bedrooms wont turn on.', '1', '2018/10/28 07:44:27 PM')
+	('Mira', 'Kuzak', '503-871-0285', 'Robins Lane', '110', 'The heaters in the bedrooms wont turn on.', '1', '2018/10/18 07:44:27 PM')
 GO
 ```
 To help manage and reset the database, another script was added that drops the table.
@@ -50,37 +50,65 @@ DROP TABLE [dbo].[ServiceRequestForms];
 Before building the view, I first created the model it would be generated from. Using the columns from my table as a reference, I added the appropriate properties to the model, setting annotations where necessary.
 
 ```c#
+/// <summary>
+/// Primary key for the table.
+/// </summary>
 [Key]
 public int ID { get; set; }
 
+/// <summary>
+/// Property to hold the tennant's first name.
+/// </summary>
 [Required(ErrorMessage = "Please enter your first name"), StringLength(20)]
 [Display(Name ="First Name")]
 public string FirstName { get; set; }
 
+/// <summary>
+/// Property to hold the tennant's last name.
+/// </summary>
 [Required(ErrorMessage = "Please enter your last name"), StringLength(20)]
 [Display(Name = "Last Name")]
 public string LastName { get; set; }
 
+/// <summary>
+/// Property to hold the tennant's phone number.
+/// </summary>
 [Required(ErrorMessage = "Please enter your phone number"), StringLength(20)]
+[RegularExpression("^\\d{3}-\\d{3}-\\d{4}$", ErrorMessage = "Please use the format: ###-###-####")]
 [Display(Name = "Phone Number")]
 public string PhoneNumber { get; set; }
 
+/// <summary>
+/// Property to hold the tennant's apartment name.
+/// </summary>
 [Required(ErrorMessage = "Please enter your apartment name"), StringLength(20)]
 [Display(Name = "Apartments")]
 public string ApartmentName { get; set; }
 
+/// <summary>
+/// Property to hold the tennant's unit number.
+/// </summary>
 [Required(ErrorMessage = "Please enter your unit number")]
 [RegularExpression("([1-9][0-9]*)", ErrorMessage = "Unit Number must be positive")]
 [Display(Name = "Unit Number")]
 public int UnitNumber { get; set; }
 
+/// <summary>
+/// Property to hold the tennant's reason for submitting the request.
+/// </summary>
 [Required(ErrorMessage = "Please describe your request"), StringLength(250)]
 [Display(Name = "Request Description")]
 public string RequestDescription { get; set; }
 
+/// <summary>
+/// Property to hold the tennant's consent for unsupervised entry.
+/// </summary>
 [Display(Name = "Entry Allowed?")]
 public bool AllowEntry { get; set; }
 
+/// <summary>
+/// Property to hold the time the tennant's form was submitted.
+/// </summary>
 [Display(Name = "Date Submitted")]
 public DateTime RequestTimestamp { get; set; }
 ```
@@ -144,9 +172,15 @@ Quite possible the most important step in this entire project was connecting the
 ```c#
 public class ServiceRequestFormContext : DbContext
 {
-    public ServiceRequestFormContext() : base("name=RequestsDatabase") { }
+        /// <summary>
+        /// Constructor which links the database to the web application
+        /// </summary>
+        public ServiceRequestFormContext() : base("name=RequestsDatabase") { }
 
-    public virtual DbSet<ServiceRequestForm> RequestForms { get; set; }
+        /// <summary>
+        /// Used to let us both query the database and save instances of it.
+        /// </summary>
+        public virtual DbSet<ServiceRequestForm> RequestForms { get; set; }
 }
 ```
 
