@@ -15,13 +15,20 @@ namespace Homework5.Controllers
         /* Initialize the list we'll store user's forms in */
         private ServiceRequestFormContext requestFormDatabase = new ServiceRequestFormContext();
 
-        [HttpGet]
+        /// <summary>
+        /// Landing page for the application.
+        /// </summary>
+        /// <returns>The view containing the landing page</returns>
         public ActionResult Home()
         {
             /* Return the view for the Home page */
             return View();
         }
 
+        /// <summary>
+        /// The GET version of the view containing the service request form.
+        /// </summary>
+        /// <returns>The view with the empty form.</returns>
         [HttpGet]
         public ActionResult RequestForm()
         {          
@@ -29,6 +36,11 @@ namespace Homework5.Controllers
             return View();
         }
 
+        /// <summary>
+        /// The POST version of the view containing the service request form.
+        /// </summary>
+        /// <param name="newRequestForm">An instance of ServiceRequestForm</param>
+        /// <returns>On success redirects to the view containing all stored service requests, else this view.</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult RequestForm(ServiceRequestForm newRequestForm)
@@ -49,6 +61,10 @@ namespace Homework5.Controllers
             return View(newRequestForm);
         }
 
+        /// <summary>
+        /// This loads the view containing the log of holding all the service requests.
+        /// </summary>
+        /// <returns>The view to display the stored service requests, listed from oldest to newest.</returns>
         [HttpGet]
         public ActionResult RequestLog()
         {
