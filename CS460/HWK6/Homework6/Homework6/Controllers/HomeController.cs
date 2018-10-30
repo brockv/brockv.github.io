@@ -12,7 +12,6 @@ namespace Homework6.Controllers
     {
         /* Initialize an instance of the database */
         private WideWorldImportersContext db = new WideWorldImportersContext();
-        private readonly Person clientDB = new Person();
 
         public ActionResult Home()
         {
@@ -23,10 +22,12 @@ namespace Homework6.Controllers
         public ActionResult Home(string searchString)
         {
             /* Get the results of the user's search */
-            IEnumerable<Person> clients = from Person in db.People
-                                          select Person;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                return View(db.People.Where(x => x.FullName.ToUpper().Contains(searchString.ToUpper())));
+            }
 
-            return View(clients.Where(Person => Person.FullName.ToUpper().Contains(searchString.ToUpper())));
+            return View();
         }
 
         public ActionResult ViewClientDetails()

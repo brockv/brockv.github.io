@@ -28,4 +28,13 @@
             <input id="btnSearch" class="btn btn-default submitted" type="submit" value="Search" />
         </div>
     </div>
+
+    <table>
+        @foreach (var client in Model)
+        {
+            <tr>
+                <td>@client.FullName</td>
+            </tr>
+        }
+    </table>
 }
