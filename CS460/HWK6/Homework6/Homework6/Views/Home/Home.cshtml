@@ -1,0 +1,31 @@
+﻿@model IEnumerable<Homework6.Models.Person>
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="intro col-12">
+    <h1>Wide World Importers</h1>
+    <div>
+        <div class="border1"></div>
+        <div c></div>
+    </div>
+</div>
+            </div>
+
+@using (Html.BeginForm())
+{
+    <div class="row" style="margin-left: 20vw;">
+        <div class="col-12">
+            <!-- Create the search bar and search button -->
+            @Html.TextBox("searchString", @Request["searchString"], new
+       {
+           @class = "form-control",
+           id = "searchBar",
+           placeholder = "Search by client name...",
+           type = "text"
+       })
+            <input id="btnSearch" class="btn btn-default submitted" type="submit" value="Search" />
+        </div>
+    </div>
+}

@@ -1,4 +1,6 @@
 ﻿body {
+    background: #302f30;
+    color: #ffffff;
     padding-top: 50px;
     padding-bottom: 20px;
 }
@@ -9,16 +11,47 @@
     padding-right: 15px;
 }
 
-/* Override the default bootstrap behavior where horizontal description lists 
-   will truncate terms that are too long to fit in the left column 
-*/
-.dl-horizontal dt {
-    white-space: normal;
+h1 {
+    font-size: 84px;
+    font-weight: bolder;
 }
 
-/* Set width on the form input elements since they're 100% wide by default */
-input,
-select,
-textarea {
-    max-width: 280px;
+.intro {
+    margin: 30px 0px;    
+    text-align: center;
 }
+
+/* Set the border, width, and padding for the user input field */
+#searchBar {
+    border-radius: 5px;
+    max-width: 65%;
+    height: 42px;
+    padding: 5px;
+    margin-right: 10px;
+    border: 2px solid #000000;
+    float: left;
+    font-size: 18px;
+}
+
+#btnSearch {
+    float: left;
+    height: 44px;
+    cursor: pointer;
+    padding: 5px 15px;
+    border-radius: 4px;
+    border-color: #000000;
+    border: 2px solid #000000;
+    color: #ffffff;
+    background: #302f30;
+    transition: all 0.75s ease;
+    -webkit-transition: all 0.75s ease;
+    -moz-transition: all 0.75s ease;
+    -ms-transition: all 0.75s ease;
+    -o-transition: all 0.75 ease;
+    font-weight: normal;
+}
+
+/* Add a hover effect to the add items button */
+    #btnSearch:hover {
+        background-color: #515151;
+    }
