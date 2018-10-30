@@ -1,0 +1,153 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* H1 elements */
+h1 {
+    text-align: center;
+}
+
+/* Lead class */
+.lead {
+    color: #ffffff;
+    text-align: center;
+}
+
+/* Form Title class */
+.formTitle {
+    font-size: 58px;
+}
+
+/* Jumbotron class */
+.jumbotron {
+    background: #252526;
+    color: #ffffff;
+}
+
+/* Navbar class */
+.navbar {
+    background: #252526;
+    color: #ffffff;
+}
+
+/* Force the table into a particular style */
+.table th {
+    table-layout: fixed;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+/* Tennant and Manager buttons */
+.btnGoToPages {
+    border-radius: 5px;
+    border-style: solid;
+    margin-top: 20px;
+    padding-top: 7px;
+    background: #252526;
+    color: #ffffff;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    height: 36px;
+    width: 200px;
+    position: relative;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+    /* Tennant and Manager buttons continued... */
+    .btnGoToPages:hover {
+        background: #515151;
+        color: #ffffff;
+    }
+
+    /* Tennant and Manager buttons continued... */
+    .btnGoToPages:active {
+        background: #252526;
+        color: #ffffff;
+    }
+
+/* Form submission success message */
+#successMessage {
+    font-weight: bolder;
+    color: #51DF70;
+}
+/* Request Description textarea */
+#requestDescription {
+    resize: none;
+    margin-top: 40px;
+    width: 97%;
+    border-radius: 5px;
+    border: 2px solid #000000;
+}
+
+/* Request Form textboxes */
+.form-control {
+    margin-left: 20px;
+    border-radius: 5px;
+    border: 2px solid #000000;
+    position: relative;
+    max-width: 300px;
+}
+
+/* Request Form textbox labels */
+.control-label,
+.text-danger {
+    margin-left: 20px;
+}
+
+/* Submit Form button */
+#btnSubmitForm {
+    margin-top: 60px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border-style: solid;
+    padding: 7px;
+    background: #252526;
+    color: #ffffff;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    height: 36px;
+    width: 280px;
+    position: relative;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+    /* Submit button continued... */
+    #btnSubmitForm:hover {
+        background: #515151;
+        color: #ffffff;
+    }
+
+    /* Submit button continued... */
+    #btnSubmitForm:active {
+        background: #252526;
+        color: #ffffff;
+    }
+
+/* Checkbox for allowing entry */
+.allow-entry-label {
+    width: 250px;
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-bottom: 20px;
+    vertical-align: middle;
+}
