@@ -4,62 +4,60 @@
     ViewBag.Title = "View Details";
 }
 
-<h2><strong>Client Details</strong></h2>
+<h2><strong>@Html.DisplayFor(model => model.FullName)</strong></h2>
+
 
 <!-- Display information belonging to this person -->
-<div class="=row">
+<div class="row">
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.FullName)
-        </dt>
+    <div class="column">
+        <dl class="dl-horizontal" style="margin-left: 20px;">
+            <dt>
+                @Html.DisplayNameFor(model => model.PreferredName)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.FullName)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.PreferredName)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.PreferredName)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.PhoneNumber)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.PreferredName)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.PhoneNumber)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.PhoneNumber)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.FaxNumber)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.PhoneNumber)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.FaxNumber)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.FaxNumber)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.EmailAddress)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.FaxNumber)
-        </dd>
+            <dd>
+                <a href="mailto:@(Model.EmailAddress)">@Model.EmailAddress</a>
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.EmailAddress)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.ValidFrom)
+            </dt>
 
-        <dd>
-            <a href="mailto:@(Model.EmailAddress)">@Model.EmailAddress</a>
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.ValidFrom)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ValidFrom)
-        </dt>
+        </dl>
 
-        <dd>
-            @Html.DisplayFor(model => model.ValidFrom)
-        </dd>
+    </div>
 
-    </dl>
-    
-        @Html.DisplayFor(model => model.Photo)
-    
+    <div class="column">
+        <img src="~/Content/images/no_image_available.jpeg" style="width: 200px; height: 200px;" />
+    </div>
 </div>
+
