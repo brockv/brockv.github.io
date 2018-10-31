@@ -1,7 +1,13 @@
 ﻿@model Homework6.Models.Person
 
-<div>
-    <h4>Person</h4>
+@{
+    ViewBag.Title = "View Details";
+}
+
+<h2><strong>Client Details</strong></h2>
+
+<!-- Display information belonging to this person -->
+<div class="=row">
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -41,15 +47,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.EmailAddress)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Photo)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Photo)
+            <a href="mailto:@(Model.EmailAddress)">@Model.EmailAddress</a>
         </dd>
 
         <dt>
@@ -61,4 +59,7 @@
         </dd>
 
     </dl>
+    
+        @Html.DisplayFor(model => model.Photo)
+    
 </div>

@@ -58,11 +58,11 @@ namespace Homework6.Models
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int PersonID { get; set; }
 
-        [Required]
+        [Required, Display(Name = "Full Name:")]
         [StringLength(50)]
         public string FullName { get; set; }
 
-        [Required]
+        [Required, Display(Name = "Preferred Name:")]
         [StringLength(50)]
         public string PreferredName { get; set; }
 
@@ -88,13 +88,13 @@ namespace Homework6.Models
 
         public string UserPreferences { get; set; }
 
-        [StringLength(20)]
+        [StringLength(20), Display(Name = "Phone Number:")]
         public string PhoneNumber { get; set; }
 
-        [StringLength(20)]
+        [StringLength(20), Display(Name = "Fax Number:")]
         public string FaxNumber { get; set; }
 
-        [StringLength(256)]
+        [StringLength(256), Display(Name = "Email Address:")]
         public string EmailAddress { get; set; }
 
         public byte[] Photo { get; set; }
@@ -106,7 +106,7 @@ namespace Homework6.Models
 
         public int LastEditedBy { get; set; }
 
-        [Column(TypeName = "datetime2")]
+        [Column(TypeName = "datetime2"), Display(Name = "Date Joined:")]
         public DateTime ValidFrom { get; set; }
 
         [Column(TypeName = "datetime2")]

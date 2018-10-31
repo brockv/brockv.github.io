@@ -6,15 +6,18 @@
 
 <div class="intro col-12">
     <h1>Wide World Importers</h1>
+    <hr />
     <div>
-        <div class="border1"></div>
+        <div class="border"></div>
         <div c></div>
     </div>
 </div>
             </div>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Home", "Home"))
 {
+    @Html.AntiForgeryToken()
+
     <div class="row" style="margin-left: 20vw;">
         <div class="col-12">
             <!-- Create the search bar and search button -->
@@ -29,12 +32,39 @@
         </div>
     </div>
 
-    <table>
-        @foreach (var client in Model)
-        {
-            <tr>
-                <td>@client.FullName</td>
-            </tr>
-        }
-    </table>
 }
+
+<!-- Create the table to hold the search results -->
+<div id="tableParent">
+
+    <!-- Check if we should display anything and if the search bar was empty -->
+    @if (@ViewBag.ShowSearchResults && @Request["searchString"] != "")
+    {
+        <!-- Show the appropriate message -->
+        @ViewBag.DisplayMessage
+
+        <!-- If the model isn't null, we have stuff to display to the user -->
+        if (Model != null)
+        {
+            <table>
+                <!-- Create a link to more details for each entry found in the search -->
+                @foreach (var client in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.ActionLink(
+                            @client.FullName + " (" + @client.PreferredName + ")",
+                            "ViewDetails",
+                            "People",
+                            new { id = @client.PersonID },
+                            new { @class = "btn btn-default tableChild" })
+                        </td>
+                    </tr>
+                }
+            </table>
+        }
+    }
+
+</div>
+
+
