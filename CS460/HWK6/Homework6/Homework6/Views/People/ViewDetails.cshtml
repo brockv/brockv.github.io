@@ -1,10 +1,10 @@
-﻿@model Homework6.Models.Person
+﻿@model Homework6.Models.ViewModels.MyViewModel
 
 @{
     ViewBag.Title = "View Details";
 }
 
-<h2><strong>@Html.DisplayFor(model => model.FullName)</strong></h2>
+<h2><strong>@Html.DisplayFor(model => model.MyViewModelPerson.FullName)</strong></h2>
 
 
 <!-- Display information belonging to this person -->
@@ -13,51 +13,104 @@
     <div class="column">
         <dl class="dl-horizontal" style="margin-left: 20px;">
             <dt>
-                @Html.DisplayNameFor(model => model.PreferredName)
+                @Html.DisplayNameFor(model => model.MyViewModelPerson.PreferredName)
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.PreferredName)
+                @Html.DisplayFor(model => model.MyViewModelPerson.PreferredName)
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.PhoneNumber)
+                @Html.DisplayNameFor(model => model.MyViewModelPerson.PhoneNumber)
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.PhoneNumber)
+                @Html.DisplayFor(model => model.MyViewModelPerson.PhoneNumber)
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.FaxNumber)
+                @Html.DisplayNameFor(model => model.MyViewModelPerson.FaxNumber)
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.FaxNumber)
+                @Html.DisplayFor(model => model.MyViewModelPerson.FaxNumber)
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.EmailAddress)
+                @Html.DisplayNameFor(model => model.MyViewModelPerson.EmailAddress)
             </dt>
 
             <dd>
-                <a href="mailto:@(Model.EmailAddress)">@Model.EmailAddress</a>
+                <a href="mailto:@(Model.MyViewModelPerson.EmailAddress)">@(Model.MyViewModelPerson.EmailAddress)</a>
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.ValidFrom)
+                @Html.DisplayNameFor(model => model.MyViewModelPerson.ValidFrom)
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.ValidFrom)
+                @Html.DisplayFor(model => model.MyViewModelPerson.ValidFrom)
             </dd>
 
         </dl>
 
     </div>
 
+    <!-- Display the photo for this entry -->
     <div class="column">
         <img src="~/Content/images/no_image_available.jpeg" style="width: 200px; height: 200px;" />
     </div>
 </div>
+
+@if (@ViewBag.ShowExtraStuff)
+{
+    <hr />
+    <h2><strong>Company Profile</strong></h2>
+
+    <div class="row">
+        <div class="column">
+            <dl class="dl-horizontal" style="margin-left: 20px;">
+                <dt>
+                    @Html.DisplayNameFor(model => model.MyViewModelCustomer.CustomerName)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.MyViewModelCustomer.CustomerName)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.MyViewModelCustomer.PhoneNumber)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.MyViewModelCustomer.PhoneNumber)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.MyViewModelCustomer.FaxNumber)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.MyViewModelCustomer.FaxNumber)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.MyViewModelCustomer.WebsiteURL)
+                </dt>
+
+                <dd>
+                    <a href="@(Model.MyViewModelCustomer.WebsiteURL)">@Model.MyViewModelCustomer.WebsiteURL</a>
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.MyViewModelCustomer.ValidFrom)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.MyViewModelCustomer.ValidFrom)
+                </dd>
+            </dl>
+        </div>
+    </div>
+}
 

@@ -24,7 +24,7 @@ namespace Homework6.Models
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int CustomerID { get; set; }
 
-        [Required]
+        [Required, Display(Name = "Company:")]
         [StringLength(100)]
         public string CustomerName { get; set; }
 
@@ -57,11 +57,11 @@ namespace Homework6.Models
 
         public int PaymentDays { get; set; }
 
-        [Required]
+        [Required, Display(Name = "Phone Number:")]
         [StringLength(20)]
         public string PhoneNumber { get; set; }
 
-        [Required]
+        [Required, Display(Name = "Fax Number:")]
         [StringLength(20)]
         public string FaxNumber { get; set; }
 
@@ -71,7 +71,7 @@ namespace Homework6.Models
         [StringLength(5)]
         public string RunPosition { get; set; }
 
-        [Required]
+        [Required, Display(Name = "Website:")]
         [StringLength(256)]
         public string WebsiteURL { get; set; }
 
@@ -101,7 +101,7 @@ namespace Homework6.Models
 
         public int LastEditedBy { get; set; }
 
-        [Column(TypeName = "datetime2")]
+        [Column(TypeName = "datetime2"), Display(Name = "Member Since:")]
         public DateTime ValidFrom { get; set; }
 
         [Column(TypeName = "datetime2")]
