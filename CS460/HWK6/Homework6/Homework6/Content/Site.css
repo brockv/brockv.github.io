@@ -1,32 +1,36 @@
 ﻿body {
-    background: #302f30;
+    background: #1d2731;
     color: #ffffff;
     padding-top: 50px;
     padding-bottom: 20px;
+    overflow-x: hidden;
 }
 
 /* Set padding to keep content from hitting the edges */
 footer {
     padding-left: 50px;
     padding-right: 50px;
-
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 
    will truncate terms that are too long to fit in the left column 
 */
-.dl-horizontal dt {
+.dl-horizontal dt dd {
     white-space: normal;
+}
+
+.dl-horizontal dd {
+    margin-bottom: 10px;
 }
 
 .intro {
     margin: 30px 0px;
     text-align: center;
+    font-weight: bolder;
 }
 
 hr {
-    margin-left: 50px;
-    margin-right: 50px;
+    border: 2px solid #e8e8e8;
 }
 
 h1 {
@@ -40,11 +44,9 @@ h1 {
 
 /* Set the border, width, and padding for the user input field */
 #searchBar {
-    border-radius: 5px;
     max-width: 60%;
-    height: 42px;
-    padding: 5px;
-    border: 2px solid #000000;
+    height: 44px;
+    border: 1px solid #000000;
     float: left;
     font-size: 18px;
 }
@@ -53,36 +55,42 @@ h1 {
     float: left;
     height: 44px;
     cursor: pointer;
-    padding: 5px 10px;
-    border-radius: 4px;
-    border-color: #000000;
-    border: 2px solid #000000;
+    border: 1px solid #000000;
     color: #ffffff;
-    background: #302f30;
+    background: #565656;
     font-weight: normal;
     transition: all 0.75s ease;
 }
 
-/* Add a hover effect to the add items button */
+    /* Add a hover effect to the add items button */
     #btnSearch:hover {
-        background-color: #515151;
+        background-color: #d0d0d0;
+        color: #000000;
     }
 
-#tableParent {
+.tableParent {
     margin-left: 15vw;
     margin-top: 40px;
+    padding-right: 50px;
+    padding-left: 50px;
     text-align: left;
 }
 
 .tableChild {
-    margin: 5px;
+    margin-bottom: 5px;
+    margin-top: 5px;
     text-align: left;
     color: #ffffff;
+    background-color: #6e3667;
     width: 65vw;
-    border: 2px solid #000000;
-    background-color: #515151;
+    border: 1px solid #000000;
     transition: all 0.75s ease;
 }
+
+    .tableChild:hover {
+        background-color: #e8e8e8;
+        color: #000000;
+    }
 
 #itemsPurchased {
     float: left;

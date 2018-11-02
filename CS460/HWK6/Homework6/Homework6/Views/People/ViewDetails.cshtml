@@ -162,7 +162,7 @@
         <h2 style="margin-left: 30px;"><strong>Purchase History Summary</strong></h2>
         <hr />
         <div class="column">
-            <dl class="dl-horizontal" style="margin-left: 20px;">
+            <dl class="dl-horizontal">
                 <dt>
                     @Html.Label("Orders:")
                 </dt>
@@ -193,51 +193,52 @@
 
     </div>
 
-
-    <h2><strong>Items Purchased</strong> (10 Highest by Profit)</h2>
-    <!-- Table headers -->
-    <table class="table" style="border: 2px solid #ffffff; margin-bottom: 20px;">
-        <tr>
-            <th>
-                @Html.Label("Stock Item ID")
-            </th>
-
-            <th>
-                @Html.Label("Description")
-            </th>
-
-            <th>
-                @Html.Label("Line Profit")
-            </th>
-
-            <th>
-                @Html.Label("Sales Person")
-            </th>
-        </tr>
-
-        <!-- Table rows -->
-        @foreach (var item in Model.MyViewModelInvoice)
-        {
+    <div class="row" style="border: 2px solid #ffffff; margin-bottom: 20px;">
+        <h2 style="margin-left: 30px;"><strong>Items Purchased</strong> (10 Highest by Profit)</h2>
+        <!-- Table headers -->
+        <table class="table itemsPurchased">
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.StockItemID)
-                </td>
+                <th>
+                    @Html.Label("Stock Item ID")
+                </th>
 
-                <td>
-                    @Html.DisplayFor(modelItem => item.Description)
-                </td>
+                <th>
+                    @Html.Label("Description")
+                </th>
 
-                <td>
-                    @(string.Format("{0:C}", item.LineProfit))
-                </td>
+                <th>
+                    @Html.Label("Line Profit")
+                </th>
 
-                <td>
-                    @Html.DisplayFor(modelItem => item.Invoice.Person4.FullName)
-                </td>
+                <th>
+                    @Html.Label("Sales Person")
+                </th>
             </tr>
-        }
 
-    </table>
+            <!-- Table rows -->
+            @foreach (var item in Model.MyViewModelInvoice)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StockItemID)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+
+                    <td>
+                        @(string.Format("{0:C}", item.LineProfit))
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Invoice.Person4.FullName)
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
 }
 
 <!-- Load the API for the map -->
