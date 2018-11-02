@@ -4,6 +4,7 @@
     ViewBag.Title = "Home Page";
 }
 
+
 <div class="intro col-12">
     <h1>Wide World Importers</h1>
     <hr />
@@ -12,13 +13,14 @@
         <div c></div>
     </div>
 </div>
-            </div>
+    </div>
 
 @using (Html.BeginForm("Home", "Home"))
 {
     @Html.AntiForgeryToken()
 
-    <div class="row" style="margin-left: 20vw;">
+<div class="searchArea">
+    <div class="row">
         <div class="col-12">
             <!-- Create the search bar and search button -->
             @Html.TextBox("searchString", @Request["searchString"], new
@@ -31,6 +33,7 @@
             <input id="btnSearch" class="btn btn-default submitted" type="submit" value="Search" />
         </div>
     </div>
+</div>
 
 }
 
@@ -66,5 +69,3 @@
     }
 
 </div>
-
-

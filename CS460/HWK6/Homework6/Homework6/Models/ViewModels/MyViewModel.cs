@@ -8,6 +8,9 @@ namespace Homework6.Models.ViewModels
     public class MyViewModel
     {
         public Person MyViewModelPerson { get; set; }
-        public Customer MyViewModelCustomer { get; set; }              
+        public Customer MyViewModelCustomer { get; set; }
+
+
+        public List<Invoice> MyViewModelInvoice { get; set; }
     }
 }

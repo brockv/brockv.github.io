@@ -1,7 +1,9 @@
 ﻿@model Homework6.Models.ViewModels.MyViewModel
 
 @{
-    ViewBag.Title = "View Details";
+                /**/
+
+                ViewBag.Title = "View Details";
 }
 
 <h2><strong>@Html.DisplayFor(model => model.MyViewModelPerson.FullName)</strong></h2>
@@ -58,14 +60,14 @@
 
     <!-- Display the photo for this entry -->
     <div class="column">
-        <img src="~/Content/images/no_image_available.jpeg" style="width: 200px; height: 200px;" />
+        <img src="https://via.placeholder.com/300" style="width: 300px; height: 300px;" />
     </div>
 </div>
 
 @if (@ViewBag.ShowExtraStuff)
 {
-    <hr />
     <h2><strong>Company Profile</strong></h2>
+    <hr />
 
     <div class="row">
         <div class="column">
@@ -109,8 +111,85 @@
                 <dd>
                     @Html.DisplayFor(model => model.MyViewModelCustomer.ValidFrom)
                 </dd>
+
             </dl>
+
         </div>
+
+        <!-- Display a map of the companies location -->
+        <div class="column">
+            <div id="map" style="width:300px; height:300px;"></div>
+            <script>
+                var map;
+                var locationLat = @Model.MyViewModelCustomer.DeliveryLocation.Latitude.Value;
+                var locationLng = @Model.MyViewModelCustomer.DeliveryLocation.Longitude.Value;
+                var LatLng = new google.maps.LatLng(locationLat, locationLng);
+                function initMap() {
+                    map = new google.maps.Map(document.getElementById("map"), {
+                        center: { lat: locationLat, lng: locationLng},
+                        zoom: 12
+                    });
+
+                    var marker = new google.maps.Marker({  
+                        position: { lat: locationLat, lng: locationLng },  
+                        title: "@(Model.MyViewModelCustomer.CustomerName)"  
+                    });  
+                    marker.setMap(map);
+
+                    var contentString = '<div id="content" style="text-align: center; color: #000000">'+
+                        '<label id="firstHeading" class="firstHeading">@(Model.MyViewModelCustomer.CustomerName)</label>'+
+                        '<div id="bodyContent">' +
+                        '<p>@(Model.MyViewModelCustomer.City.CityName), @(Model.MyViewModelCustomer.City.StateProvince.StateProvinceCode)</p>' +
+                        '</div>';
+                    var getInfoWindow = new google.maps.InfoWindow({ content: contentString });  
+                    getInfoWindow.open(map, marker);
+                }
+
+            </script>
+        </div>
+
     </div>
+
+    <h2><strong>Purchase History Summary</strong></h2>
+    <hr />
+
+    <div class="row">
+        <div class="column">
+            <dl class="dl-horizontal" style="margin-left: 20px;">
+                <dt>
+                    @Html.Label("Orders:")
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.MyViewModelCustomer.Orders.Count)
+                </dd>
+
+                <dt>
+                    @Html.Label("Gross Sales:")
+                </dt>
+
+                <dd>
+                    @string.Format("{0:C}", @ViewBag.GrossSales)
+                </dd>
+
+                <dt>
+                    @Html.Label("Gross Profits:")
+                </dt>
+
+                <dd>
+                    @string.Format("{0:C}", @ViewBag.GrossProfits)
+                </dd>
+
+            </dl>
+
+        </div>
+
+    </div>
+
+    <h2><strong>Items Purchased</strong> (10 Highest by Profit)</h2>
+    <hr />
 }
+
+
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBj2P8Nsc66e2ipctx8BWeb4CdsbQc7-Fs&callback=initMap" type="text/javascript"></script>
 

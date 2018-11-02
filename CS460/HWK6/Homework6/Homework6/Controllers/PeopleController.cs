@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Homework6.Models;
 using Homework6.Models.ViewModels;
 using Homework6.DAL;
+using System.Net;
 
 namespace Homework6.Controllers
 {
@@ -18,10 +19,7 @@ namespace Homework6.Controllers
             /* Initially hide the area we use to show extra information */
             ViewBag.ShowExtraStuff = false;
 
-            MyViewModel model = new MyViewModel
-            {
-                MyViewModelPerson = new Person()
-            };
+            MyViewModel model = new MyViewModel();
 
             /* See if there's an entry with the id that was passed in */
             model.MyViewModelPerson = db.People.Find(id);
@@ -33,12 +31,30 @@ namespace Homework6.Controllers
             }
 
             /* Check if this person is the PrimaryContactPerson for a company */
-            var isPrimaryContactPerson = db.Customers.Where(x => x.PrimaryContactPersonID.Equals(model.MyViewModelPerson.PersonID));
+            IQueryable<Customer> isPrimaryContactPerson = db.Customers.Where(x => x.PrimaryContactPersonID.Equals(model.MyViewModelPerson.PersonID));
 
-            /* If the query found anything, switch the flag for */
+            /* Check if the query found anything */
             if (isPrimaryContactPerson.Any())
             {
+                /* Grab the data for this customer */
                 model.MyViewModelCustomer = isPrimaryContactPerson.First();
+
+                /* Grab the invoice data for this customer */
+                ViewBag.GrossSales = model.MyViewModelCustomer.Orders.SelectMany(x => x.Invoices)
+                    .SelectMany(x => x.InvoiceLines)
+                    .Sum(x => x.ExtendedPrice);
+
+                ViewBag.GrossProfits = model.MyViewModelCustomer.Orders.SelectMany(x => x.Invoices)
+                    .SelectMany(x => x.InvoiceLines)
+                    .Sum(x => x.LineProfit);
+
+                //ViewBag.TopSales = model.MyViewModelCustomer.Orders.SelectMany(x => x.Invoices)
+                    
+
+
+                //model.MyViewModelInvoice = db.Invoices.Where(x => x.Customer.Equals(model.MyViewModelCustomer));
+
+                /* Switch the flag that controls the visibility of the extra information */
                 ViewBag.ShowExtraStuff = true;
             }
 

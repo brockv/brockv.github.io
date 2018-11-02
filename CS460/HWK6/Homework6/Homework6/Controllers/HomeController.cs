@@ -45,7 +45,7 @@ namespace Homework6.Controllers
             if (!String.IsNullOrEmpty(searchString))
             {
                 /* Find all names that contain a substring of the user's search */
-                var searchResults = db.People.Where(x => x.FullName.ToUpper().Contains(searchString.ToUpper()));              
+                IQueryable<Person> searchResults = db.People.Where(x => x.FullName.ToUpper().Contains(searchString.ToUpper()));              
 
                 /* Check to see if anything was found, and handle it appropriately */
                 if (searchResults.Count() > 0)
