@@ -39,20 +39,22 @@ namespace Homework6.Controllers
                 /* Grab the data for this customer */
                 model.MyViewModelCustomer = isPrimaryContactPerson.First();
 
-                /* Grab the invoice data for this customer */
+                /* Calculate the gross sales for this customer */
                 ViewBag.GrossSales = model.MyViewModelCustomer.Orders.SelectMany(x => x.Invoices)
                     .SelectMany(x => x.InvoiceLines)
                     .Sum(x => x.ExtendedPrice);
 
+                /* Calculate the gross profit for this customer*/
                 ViewBag.GrossProfits = model.MyViewModelCustomer.Orders.SelectMany(x => x.Invoices)
                     .SelectMany(x => x.InvoiceLines)
                     .Sum(x => x.LineProfit);
 
-                //ViewBag.TopSales = model.MyViewModelCustomer.Orders.SelectMany(x => x.Invoices)
-                    
-
-
-                //model.MyViewModelInvoice = db.Invoices.Where(x => x.Customer.Equals(model.MyViewModelCustomer));
+                /* Grab the top 10 purchases by this customer, in descending order */
+                model.MyViewModelInvoice = model.MyViewModelCustomer.Orders.SelectMany(x => x.Invoices)
+                    .SelectMany(x => x.InvoiceLines)
+                    .OrderByDescending(x => x.LineProfit)
+                    .Take(10)
+                    .ToList();
 
                 /* Switch the flag that controls the visibility of the extra information */
                 ViewBag.ShowExtraStuff = true;
