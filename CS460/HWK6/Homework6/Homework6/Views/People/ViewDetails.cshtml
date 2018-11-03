@@ -1,64 +1,63 @@
-﻿@model Homework6.Models.ViewModels.MyViewModel
+﻿@model Homework6.Models.ViewModels.WWIViewModel
 
 @{
-    /**/
-
-    /**/
-
     ViewBag.Title = "View Details";
 }
 
-<div style="margin-bottom: 50px;">
-    <h1><strong>Client Details</strong></h1>
-</div>
+<head>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css"
+          integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
+          crossorigin="" />
 
-
-
-
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js"
+            integrity="sha512-nMMmRyTVoLYqjP9hrbed9S+FzjZHW5gY1TWCHA5ckwXZBadntCNs8kEqAWdrb9O7rxbCaA4lKTIWjDXZxflOcA=="
+            crossorigin=""></script>
+</head>
 <!-- Display information belonging to this person -->
 <div class="row" style="border: 2px solid #ffffff; margin-bottom: 20px;">
-    <h2 style="margin-left: 30px;"><strong>@Html.DisplayFor(model => model.MyViewModelPerson.FullName)</strong></h2>
+    <h2 style="margin-left: 30px;"><strong>@Html.DisplayFor(model => model.VMPerson.FullName)</strong></h2>
     <hr />
     <div class="column">
         <dl class="dl-horizontal" style="margin-left: 20px;">
             <dt>
-                @Html.DisplayNameFor(model => model.MyViewModelPerson.PreferredName)
+                @Html.Label("Preferred Name:")
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.MyViewModelPerson.PreferredName)
+                @Html.DisplayFor(model => model.VMPerson.PreferredName)
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.MyViewModelPerson.PhoneNumber)
+                @Html.Label("Phone Number:")
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.MyViewModelPerson.PhoneNumber)
+                @Html.DisplayFor(model => model.VMPerson.PhoneNumber)
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.MyViewModelPerson.FaxNumber)
+                @Html.Label("Fax Number:")
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.MyViewModelPerson.FaxNumber)
+                @Html.DisplayFor(model => model.VMPerson.FaxNumber)
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.MyViewModelPerson.EmailAddress)
+                @Html.Label("Email Address:")
             </dt>
 
             <dd>
-                <a href="mailto:@(Model.MyViewModelPerson.EmailAddress)">@(Model.MyViewModelPerson.EmailAddress)</a>
+                <a href="mailto:@(Model.VMPerson.EmailAddress)">@(Model.VMPerson.EmailAddress)</a>
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.MyViewModelPerson.ValidFrom)
+                @Html.Label("Date Joined:")
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.MyViewModelPerson.ValidFrom)
+                @(Model.VMPerson.ValidFrom.ToShortDateString())
             </dd>
 
         </dl>
@@ -67,55 +66,57 @@
 
     <!-- Display the photo for this entry -->
     <div class="column">
-        <img src="https://via.placeholder.com/300" style="margin-bottom: 20px; width: 300px; height: 300px;" />
+        <img src="https://via.placeholder.com/300" style="margin-bottom: 20px; margin-left: 40px; width: 300px; height: 300px;" />
     </div>
 </div>
 
-@if (@ViewBag.ShowExtraStuff)
+<!-- If this person is a customer, display additional information about them -->
+@if (@Model.IsPrimaryContactPerson == true)
 {
+    <!-- Company Profile -->
     <div class="row" style="border: 2px solid #ffffff; margin-bottom: 20px;">
         <h2 style="margin-left: 30px;"><strong>Company Profile</strong></h2>
         <hr />
         <div class="column">
             <dl class="dl-horizontal" style="margin-left: 20px;">
+                <!-- Company name -->
                 <dt>
-                    @Html.DisplayNameFor(model => model.MyViewModelCustomer.CustomerName)
+                    @Html.Label("Company:")
                 </dt>
-
                 <dd>
-                    @Html.DisplayFor(model => model.MyViewModelCustomer.CustomerName)
+                    @Html.DisplayFor(model => model.VMCustomer.CustomerName)
                 </dd>
 
+                <!-- Phone number -->
                 <dt>
-                    @Html.DisplayNameFor(model => model.MyViewModelCustomer.PhoneNumber)
+                    @Html.Label("Phone Number:")
                 </dt>
-
                 <dd>
-                    @Html.DisplayFor(model => model.MyViewModelCustomer.PhoneNumber)
+                    @Html.DisplayFor(model => model.VMCustomer.PhoneNumber)
                 </dd>
 
+                <!-- Fax number -->
                 <dt>
-                    @Html.DisplayNameFor(model => model.MyViewModelCustomer.FaxNumber)
+                    @Html.Label("Fax Number:")
                 </dt>
-
                 <dd>
-                    @Html.DisplayFor(model => model.MyViewModelCustomer.FaxNumber)
+                    @Html.DisplayFor(model => model.VMCustomer.FaxNumber)
                 </dd>
 
+                <!-- Website URL -->
                 <dt>
-                    @Html.DisplayNameFor(model => model.MyViewModelCustomer.WebsiteURL)
+                    @Html.Label("Website:")
                 </dt>
-
                 <dd>
-                    <a href="@(Model.MyViewModelCustomer.WebsiteURL)">@Model.MyViewModelCustomer.WebsiteURL</a>
+                    <a href="@(Model.VMCustomer.WebsiteURL)">@Model.VMCustomer.WebsiteURL</a>
                 </dd>
 
+                <!-- Member since -->
                 <dt>
-                    @Html.DisplayNameFor(model => model.MyViewModelCustomer.ValidFrom)
+                    @Html.Label("Member Since:")
                 </dt>
-
                 <dd>
-                    @Html.DisplayFor(model => model.MyViewModelCustomer.ValidFrom)
+                    @(Model.VMCustomer.ValidFrom.ToShortDateString())
                 </dd>
 
             </dl>
@@ -124,40 +125,31 @@
 
         <!-- Display a map of the companies location -->
         <div class="column">
-            <div id="map" style="margin-bottom: 20px; width: 300px; height: 300px;"></div>
+            <div id="mapID"></div>
             <script>
-                var map;
-                var locationLat = @Model.MyViewModelCustomer.DeliveryLocation.Latitude.Value;
-                var locationLng = @Model.MyViewModelCustomer.DeliveryLocation.Longitude.Value;
-                var LatLng = new google.maps.LatLng(locationLat, locationLng);
-                function initMap() {
-                    map = new google.maps.Map(document.getElementById("map"), {
-                        center: { lat: locationLat, lng: locationLng},
-                        zoom: 12
-                    });
+                var locationLat = @Model.VMCustomer.DeliveryLocation.Latitude.Value;
+                var locationLng = @Model.VMCustomer.DeliveryLocation.Longitude.Value;
+                var map = L.map("mapID").setView([locationLat, locationLng], 10);
 
-                    var marker = new google.maps.Marker({
-                        position: { lat: locationLat, lng: locationLng },
-                        title: "@(Model.MyViewModelCustomer.CustomerName)"
-                    });
-                    marker.setMap(map);
+                L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+                    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+                    maxZoom: 18,
+                    id: "mapbox.streets",
+                    accessToken: "@ViewBag.DefinitelyNotASecretKey"
+                }).addTo(map);
 
-                    var contentString = '<div id="content" style="text-align: center; color: #000000">'+
-                        '<label id="firstHeading" class="firstHeading">@(Model.MyViewModelCustomer.CustomerName)</label>'+
-                        '<div id="bodyContent">' +
-                        '<p>@(Model.MyViewModelCustomer.City.CityName), @(Model.MyViewModelCustomer.City.StateProvince.StateProvinceCode)</p>' +
-                        '</div>';
-                    var getInfoWindow = new google.maps.InfoWindow({ content: contentString });
-                    getInfoWindow.open(map, marker);
-                }
+                var marker = L.marker([locationLat, locationLng]).addTo(map);
 
+                var contentString = '<div id="content" style="text-align: center; color: #000000">'+
+                    '<p><strong>@(Model.VMCustomer.CustomerName)</strong><br>' +
+                    '@(Model.VMCustomer.City.CityName), @(Model.VMCustomer.City.StateProvince.StateProvinceCode)</p> ';
+                marker.bindPopup(contentString).openPopup();
             </script>
         </div>
 
     </div>
 
-
-
+    <!-- Purchase History Summary -->
     <div class="row" style="border: 2px solid #ffffff; margin-bottom: 20px;">
         <h2 style="margin-left: 30px;"><strong>Purchase History Summary</strong></h2>
         <hr />
@@ -168,7 +160,7 @@
                 </dt>
 
                 <dd>
-                    @Html.DisplayFor(model => model.MyViewModelCustomer.Orders.Count)
+                    @Html.DisplayFor(model => model.VMCustomer.Orders.Count)
                 </dd>
 
                 <dt>
@@ -176,7 +168,7 @@
                 </dt>
 
                 <dd>
-                    @string.Format("{0:C}", @ViewBag.GrossSales)
+                    @string.Format("{0:C}", Model.VMGrossSales)
                 </dd>
 
                 <dt>
@@ -184,7 +176,7 @@
                 </dt>
 
                 <dd>
-                    @string.Format("{0:C}", @ViewBag.GrossProfits)
+                    @string.Format("{0:C}", Model.VMGrossProfits)
                 </dd>
 
             </dl>
@@ -193,6 +185,7 @@
 
     </div>
 
+    <!-- Items Purchased (10 highest by profit) -->
     <div class="row" style="border: 2px solid #ffffff; margin-bottom: 20px;">
         <h2 style="margin-left: 30px;"><strong>Items Purchased</strong> (10 Highest by Profit)</h2>
         <!-- Table headers -->
@@ -216,7 +209,7 @@
             </tr>
 
             <!-- Table rows -->
-            @foreach (var item in Model.MyViewModelInvoice)
+            @foreach (var item in Model.VMInvoices)
             {
                 <tr>
                     <td>
@@ -241,6 +234,9 @@
     </div>
 }
 
-<!-- Load the API for the map -->
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBj2P8Nsc66e2ipctx8BWeb4CdsbQc7-Fs&callback=initMap" type="text/javascript"></script>
-
+    <!-- Create a link back to the main page for easy navigation -->
+    <div>
+        <p>
+            @Html.ActionLink("Back to Search", "Home", "Home")
+        </p>
+    </div>

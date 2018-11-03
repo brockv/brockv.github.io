@@ -57,7 +57,7 @@ h1 {
     cursor: pointer;
     border: 1px solid #000000;
     color: #ffffff;
-    background: #565656;
+    background: #6e3667;
     font-weight: normal;
     transition: all 0.75s ease;
 }
@@ -69,7 +69,7 @@ h1 {
     }
 
 .tableParent {
-    margin-left: 15vw;
+    margin-left: 21vw;
     margin-top: 40px;
     padding-right: 50px;
     padding-left: 50px;
@@ -82,7 +82,7 @@ h1 {
     text-align: left;
     color: #ffffff;
     background-color: #6e3667;
-    width: 65vw;
+    width: 51vw;
     border: 1px solid #000000;
     transition: all 0.75s ease;
 }
@@ -110,4 +110,11 @@ h1 {
     content: "";
     clear: both;
     display: table;
+}
+
+#mapID {
+    margin-bottom: 20px;
+    margin-left: 40px;
+    width: 300px;
+    height: 300px;
 }

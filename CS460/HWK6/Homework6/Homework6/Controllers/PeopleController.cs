@@ -7,6 +7,7 @@ using Homework6.Models;
 using Homework6.Models.ViewModels;
 using Homework6.DAL;
 using System.Net;
+using System.IO;
 
 namespace Homework6.Controllers
 {
@@ -16,52 +17,54 @@ namespace Homework6.Controllers
 
         public ActionResult ViewDetails(int id)
         {
-            /* Initially hide the area we use to show extra information */
-            ViewBag.ShowExtraStuff = false;
+            WWIViewModel model = new WWIViewModel
+            {
+                /* See if there's an entry with the id that was passed in */
+                VMPerson = db.People.Find(id)
+            };
 
-            MyViewModel model = new MyViewModel();
-
-            /* See if there's an entry with the id that was passed in */
-            model.MyViewModelPerson = db.People.Find(id);
-            
             /* If no entry was found, send the user to the 'NotFound' view */
-            if (model.MyViewModelPerson == null)
+            if (model.VMPerson == null)
             {
                 return View("NotFound");
             }
 
             /* Check if this person is the PrimaryContactPerson for a company */
-            IQueryable<Customer> isPrimaryContactPerson = db.Customers.Where(x => x.PrimaryContactPersonID.Equals(model.MyViewModelPerson.PersonID));
+            if (db.Customers.Where(x => x.PrimaryContactPersonID.Equals(model.VMPerson.PersonID)).Any() == true)
+            {
+                model.IsPrimaryContactPerson = true;
+            }
 
             /* Check if the query found anything */
-            if (isPrimaryContactPerson.Any())
+            if (model.IsPrimaryContactPerson)
             {
                 /* Grab the data for this customer */
-                model.MyViewModelCustomer = isPrimaryContactPerson.First();
+                model.VMCustomer = db.Customers.Where(x => x.PrimaryContactPersonID.Equals(model.VMPerson.PersonID)).First();
 
                 /* Calculate the gross sales for this customer */
-                ViewBag.GrossSales = model.MyViewModelCustomer.Orders.SelectMany(x => x.Invoices)
+                model.VMGrossSales = model.VMCustomer.Orders.SelectMany(x => x.Invoices)
                     .SelectMany(x => x.InvoiceLines)
                     .Sum(x => x.ExtendedPrice);
 
                 /* Calculate the gross profit for this customer*/
-                ViewBag.GrossProfits = model.MyViewModelCustomer.Orders.SelectMany(x => x.Invoices)
+                model.VMGrossProfits = model.VMCustomer.Orders.SelectMany(x => x.Invoices)
                     .SelectMany(x => x.InvoiceLines)
                     .Sum(x => x.LineProfit);
 
                 /* Grab the top 10 purchases by this customer, in descending order */
-                model.MyViewModelInvoice = model.MyViewModelCustomer.Orders.SelectMany(x => x.Invoices)
+                model.VMInvoices = model.VMCustomer.Orders.SelectMany(x => x.Invoices)
                     .SelectMany(x => x.InvoiceLines)
                     .OrderByDescending(x => x.LineProfit)
                     .Take(10)
                     .ToList();
 
-                /* Switch the flag that controls the visibility of the extra information */
-                ViewBag.ShowExtraStuff = true;
+                StreamReader reader = new StreamReader("C:\\Users\\vance\\Documents\\School\\CS460\\brockv.github.io\\CS460\\HWK6\\Homework6\\Homework6\\super_secret_key.txt");
+                ViewBag.DefinitelyNotASecretKey = reader.ReadLine();
             }
 
-            /* Redirect to the 'ViewDetails' view */
-            return View("ViewDetails", model);
-        }
+
+                /* Redirect to the 'ViewDetails' view */
+                return View("ViewDetails", model);
+            }
     }
 }

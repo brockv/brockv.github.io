@@ -3,21 +3,10 @@
 @{
     ViewBag.Title = "Home Page";
 }
-
-
-
-<div class="intro col-12">
-    <h1>Wide World Importers</h1>
-    <hr />
-    <div>
-        <div class="border"></div>
-        <div c></div>
-    </div>
-</div>
+    <!-- DO NOT REMOVE THIS. Doing so will break the layout. -->
     </div>
 
-
-@using (Html.BeginForm("Home", "Home"))
+@using (Html.BeginForm("Home"))
 {
     @Html.AntiForgeryToken()
 
@@ -30,48 +19,46 @@
            @class = "form-control",
            id = "searchBar",
            placeholder = "Search by client name...",
-           type = "text"
+           type = "search"
        })
             <input id="btnSearch" class="btn btn-default submitted" type="submit" value="Search" />
         </div>
     </div>
-
 }
 
 <!-- Create the table to hold the search results -->
 
-        <div class="tableParent" style="max-width: 50vw;">
+<div class="tableParent" style="max-width: 50vw;">
 
-            <!-- Check if we should display anything and if the search bar was empty -->
-            @if (@ViewBag.ShowSearchResults && @Request["searchString"] != "")
-            {
-                <div>
-                    <!-- Show the appropriate message -->
-                    <strong>@ViewBag.DisplayMessage</strong>
-                </div>
-
-                <!-- If the model isn't null, we have stuff to display to the user -->
-                if (Model != null)
-                {
-                    <table>
-                        <!-- Create a link to more details for each entry found in the search -->
-                        @foreach (var client in Model)
-                        {
-                            <tr>
-                                <td>
-                                    @Html.ActionLink(
-                                    @client.FullName + " (" + @client.PreferredName + ")",
-                                    "ViewDetails",
-                                    "People",
-                                    new { id = @client.PersonID },
-                                    new { @class = "btn btn-default tableChild" })
-                                </td>
-                            </tr>
-                        }
-                    </table>
-                }
-            }
-
+    <!-- Check if we should display anything and if the search bar was empty -->
+    @if (@ViewBag.ShowSearchResults && @Request["searchString"] != "")
+    {
+        <div>
+            <!-- Show the appropriate message -->
+            <strong>@ViewBag.DisplayMessage</strong>
         </div>
+
+        <!-- If the model isn't null, we have stuff to display to the user -->
+        if (Model != null)
+        {
+            <table>
+                <!-- Create a link to more details for each entry found in the search -->
+                @foreach (var client in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.ActionLink(
+                            @client.FullName + " (" + @client.PreferredName + ")",
+                            "ViewDetails",
+                            "People",
+                            new { id = @client.PersonID },
+                            new { @class = "btn btn-default tableChild" })
+                        </td>
+                    </tr>
+                }
+            </table>
+        }
+    }
+</div>
 
 
