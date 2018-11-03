@@ -13,8 +13,14 @@ namespace Homework6.Controllers
 {
     public class PeopleController : Controller
     {
+        /* Create an instance of the database for doing initial lookups */
         private readonly WideWorldImportersContext db = new WideWorldImportersContext();
 
+        /// <summary>
+        /// Builds a view to display information about a given person, using their ID.
+        /// </summary>
+        /// <param name="id">The ID of the person</param>
+        /// <returns>A view displaying information about the given person.</returns>
         public ActionResult ViewDetails(int id)
         {
             WWIViewModel model = new WWIViewModel
@@ -29,17 +35,15 @@ namespace Homework6.Controllers
                 return View("NotFound");
             }
 
-            /* Check if this person is the PrimaryContactPerson for a company */
-            if (db.Customers.Where(x => x.PrimaryContactPersonID.Equals(model.VMPerson.PersonID)).Any() == true)
+            /* Check if this person is a PrimaryContactPerson for a company */
+            if (model.VMPerson.Customers2.Count() > 0)
             {
-                model.IsPrimaryContactPerson = true;
-            }
+                /* Set the bool flag to true */
+                model.VMIsPrimaryContactPerson = true;
 
-            /* Check if the query found anything */
-            if (model.IsPrimaryContactPerson)
-            {
                 /* Grab the data for this customer */
-                model.VMCustomer = db.Customers.Where(x => x.PrimaryContactPersonID.Equals(model.VMPerson.PersonID)).First();
+                model.VMCustomerID = model.VMPerson.Customers2.FirstOrDefault().CustomerID;
+                model.VMCustomer = db.Customers.Find(model.VMCustomerID);
 
                 /* Calculate the gross sales for this customer */
                 model.VMGrossSales = model.VMCustomer.Orders.SelectMany(x => x.Invoices)
@@ -58,13 +62,13 @@ namespace Homework6.Controllers
                     .Take(10)
                     .ToList();
 
+                /* Get the key for the map and store it to use in the view */
                 StreamReader reader = new StreamReader("C:\\Users\\vance\\Documents\\School\\CS460\\brockv.github.io\\CS460\\HWK6\\Homework6\\Homework6\\super_secret_key.txt");
                 ViewBag.DefinitelyNotASecretKey = reader.ReadLine();
             }
 
-
-                /* Redirect to the 'ViewDetails' view */
-                return View("ViewDetails", model);
-            }
+            /* Redirect to the 'ViewDetails' view */
+            return View("ViewDetails", model);
+        }
     }
 }

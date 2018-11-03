@@ -4,64 +4,65 @@
     ViewBag.Title = "View Details";
 }
 
+<!-- Scripts for MapBox map generation -->
 <head>
+    <!-- Leaflet's CSS for use with MapBox -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css"
           integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
           crossorigin="" />
 
-    <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <!-- Leaflet's JS for use with MapBox -->
     <script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js"
             integrity="sha512-nMMmRyTVoLYqjP9hrbed9S+FzjZHW5gY1TWCHA5ckwXZBadntCNs8kEqAWdrb9O7rxbCaA4lKTIWjDXZxflOcA=="
             crossorigin=""></script>
 </head>
+
 <!-- Display information belonging to this person -->
 <div class="row" style="border: 2px solid #ffffff; margin-bottom: 20px;">
     <h2 style="margin-left: 30px;"><strong>@Html.DisplayFor(model => model.VMPerson.FullName)</strong></h2>
     <hr />
     <div class="column">
         <dl class="dl-horizontal" style="margin-left: 20px;">
+            <!-- Preferred name -->
             <dt>
                 @Html.Label("Preferred Name:")
             </dt>
-
             <dd>
                 @Html.DisplayFor(model => model.VMPerson.PreferredName)
             </dd>
 
+            <!-- Phone number -->
             <dt>
                 @Html.Label("Phone Number:")
             </dt>
-
             <dd>
                 @Html.DisplayFor(model => model.VMPerson.PhoneNumber)
             </dd>
 
+            <!-- Fax number -->
             <dt>
                 @Html.Label("Fax Number:")
             </dt>
-
             <dd>
                 @Html.DisplayFor(model => model.VMPerson.FaxNumber)
             </dd>
 
+            <!-- Email address -->
             <dt>
                 @Html.Label("Email Address:")
             </dt>
-
             <dd>
                 <a href="mailto:@(Model.VMPerson.EmailAddress)">@(Model.VMPerson.EmailAddress)</a>
             </dd>
 
+            <!-- Date joined -->
             <dt>
                 @Html.Label("Date Joined:")
             </dt>
-
             <dd>
                 @(Model.VMPerson.ValidFrom.ToShortDateString())
             </dd>
-
         </dl>
-
     </div>
 
     <!-- Display the photo for this entry -->
@@ -71,62 +72,63 @@
 </div>
 
 <!-- If this person is a customer, display additional information about them -->
-@if (@Model.IsPrimaryContactPerson == true)
+@if (@Model.VMIsPrimaryContactPerson)
 {
     <!-- Company Profile -->
-    <div class="row" style="border: 2px solid #ffffff; margin-bottom: 20px;">
-        <h2 style="margin-left: 30px;"><strong>Company Profile</strong></h2>
-        <hr />
-        <div class="column">
-            <dl class="dl-horizontal" style="margin-left: 20px;">
-                <!-- Company name -->
-                <dt>
-                    @Html.Label("Company:")
-                </dt>
-                <dd>
-                    @Html.DisplayFor(model => model.VMCustomer.CustomerName)
-                </dd>
+<div class="row" style="border: 2px solid #ffffff; margin-bottom: 20px;">
+    <h2 style="margin-left: 30px;"><strong>Company Profile</strong></h2>
+    <hr />
+    <div class="column">
+        <dl class="dl-horizontal" style="margin-left: 20px;">
+            <!-- Company name -->
+            <dt>
+                @Html.Label("Company:")
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.VMCustomer.CustomerName)
+            </dd>
 
-                <!-- Phone number -->
-                <dt>
-                    @Html.Label("Phone Number:")
-                </dt>
-                <dd>
-                    @Html.DisplayFor(model => model.VMCustomer.PhoneNumber)
-                </dd>
+            <!-- Phone number -->
+            <dt>
+                @Html.Label("Phone Number:")
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.VMCustomer.PhoneNumber)
+            </dd>
 
-                <!-- Fax number -->
-                <dt>
-                    @Html.Label("Fax Number:")
-                </dt>
-                <dd>
-                    @Html.DisplayFor(model => model.VMCustomer.FaxNumber)
-                </dd>
+            <!-- Fax number -->
+            <dt>
+                @Html.Label("Fax Number:")
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.VMCustomer.FaxNumber)
+            </dd>
 
-                <!-- Website URL -->
-                <dt>
-                    @Html.Label("Website:")
-                </dt>
-                <dd>
-                    <a href="@(Model.VMCustomer.WebsiteURL)">@Model.VMCustomer.WebsiteURL</a>
-                </dd>
+            <!-- Website URL -->
+            <dt>
+                @Html.Label("Website:")
+            </dt>
+            <dd>
+                <a href="@(Model.VMCustomer.WebsiteURL)">@Model.VMCustomer.WebsiteURL</a>
+            </dd>
 
-                <!-- Member since -->
-                <dt>
-                    @Html.Label("Member Since:")
-                </dt>
-                <dd>
-                    @(Model.VMCustomer.ValidFrom.ToShortDateString())
-                </dd>
+            <!-- Member since -->
+            <dt>
+                @Html.Label("Member Since:")
+            </dt>
+            <dd>
+                @(Model.VMCustomer.ValidFrom.ToShortDateString())
+            </dd>
 
-            </dl>
+        </dl>
 
-        </div>
+    </div>
 
-        <!-- Display a map of the companies location -->
-        <div class="column">
-            <div id="mapID"></div>
-            <script>
+    <!-- ~~~~START OF EXTRA CREDIT SECTION~~~~ -->
+    <!-- Display a map of the companies location -->
+    <div class="column">
+        <div id="mapID"></div>
+        <script>
                 var locationLat = @Model.VMCustomer.DeliveryLocation.Latitude.Value;
                 var locationLng = @Model.VMCustomer.DeliveryLocation.Longitude.Value;
                 var map = L.map("mapID").setView([locationLat, locationLng], 10);
@@ -138,16 +140,16 @@
                     accessToken: "@ViewBag.DefinitelyNotASecretKey"
                 }).addTo(map);
 
-                var marker = L.marker([locationLat, locationLng]).addTo(map);
-
                 var contentString = '<div id="content" style="text-align: center; color: #000000">'+
                     '<p><strong>@(Model.VMCustomer.CustomerName)</strong><br>' +
-                    '@(Model.VMCustomer.City.CityName), @(Model.VMCustomer.City.StateProvince.StateProvinceCode)</p> ';
-                marker.bindPopup(contentString).openPopup();
-            </script>
-        </div>
-
+                    '@(Model.VMCustomer.City.CityName), @(Model.VMCustomer.City.StateProvince.StateProvinceCode)</p>';
+                var marker = L.marker([locationLat, locationLng]).addTo(map)
+                    .bindPopup(contentString).openPopup();
+        </script>
     </div>
+    <!-- ~~~~END OF EXTRA CREDIT SECTION~~~~ -->
+
+</div>
 
     <!-- Purchase History Summary -->
     <div class="row" style="border: 2px solid #ffffff; margin-bottom: 20px;">
@@ -234,9 +236,10 @@
     </div>
 }
 
-    <!-- Create a link back to the main page for easy navigation -->
-    <div>
-        <p>
-            @Html.ActionLink("Back to Search", "Home", "Home")
-        </p>
-    </div>
+<!-- Create a link back to the main page for easy navigation -->
+<div>
+    <p>
+        <!-- Used this method to preserve search results upon returning to the search page -->
+        <a href="javascript:history.back()">Back to Search</a>
+    </p>
+</div>
