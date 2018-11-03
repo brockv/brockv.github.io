@@ -179,7 +179,7 @@ In order to neatly organize and display the information necessary, I used the ta
 </div>
 ```
 
-### **IV: Creating the First Feature: Customer Sales Dashboard**
+### **IV: Creating the Second Feature: Customer Sales Dashboard**
 
 For this feature, the goal was to display additional information about a person if they were the primary contact person for a company. Otherwise, only show what was required in the first feature. This additional information included their company profile, a summary of their purchase history, and their top 10 most profitable items purchased (from Wide World Importers). Also, for extra credit we were given the option to pinpoint the companies location on a map.
 
@@ -262,7 +262,7 @@ model.VMInvoices = model.VMCustomer.Orders.SelectMany(x => x.Invoices)
 
 As with the basic information from the first feature, this additional information is displayed neatly in tables.
 
-#### **Company Profile**
+#### **Company Profile:**
 ```c#
 <!-- Company Profile -->
 <div class="row" style="border: 2px solid #ffffff; margin-bottom: 20px;">
@@ -342,7 +342,7 @@ As with the basic information from the first feature, this additional informatio
 </div>
 ```
 
-#### **Purchase History Summary**
+#### **Purchase History Summary:**
 ```c#
 <!-- Purchase History Summary -->
 <div class="row" style="border: 2px solid #ffffff; margin-bottom: 20px;">
@@ -381,7 +381,7 @@ As with the basic information from the first feature, this additional informatio
 </div>
 ```
 
-#### **Items Purchased (10 Highest by Profit)**
+#### **Items Purchased (10 Highest by Profit):**
 ```c#
 <!-- Items Purchased (10 highest by profit) -->
 <div class="row" style="border: 2px solid #ffffff; margin-bottom: 20px;">
@@ -446,7 +446,7 @@ The last thing I added to this page was a link at the bottom that would return t
 
 ### **V: The Working Pages**
 
-#### **Search Page**
+#### **Search Page:**
 
 ![](images/search_page.PNG?raw=true)
 
@@ -454,7 +454,7 @@ The last thing I added to this page was a link at the bottom that would return t
 
 ![](images/search_page_no_results.PNG?raw=true)
 
-#### **View Details Page**
+#### **View Details Page:**
 
 ![](images/details_page_basic_information.PNG?raw=true)
 
