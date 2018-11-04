@@ -33,7 +33,7 @@ The first feature we were expected to implement was the ability to search the da
 
 To get this started, I first added a search bar and a button to go along with it.
 
-```c#
+```html
 @using (Html.BeginForm("Home"))
 {
     @Html.AntiForgeryToken()
@@ -57,7 +57,7 @@ To get this started, I first added a search bar and a button to go along with it
 
 I then created an area to display any results found from the user's search. Each result would be created as an actionlink represented as a button, and displayed in a table for easy viewing.
 
-```c#
+```html
 <div class="tableParent" style="max-width: 50vw;">
 
     <!-- Check if we should display anything and if the search bar was empty -->
@@ -123,7 +123,7 @@ public ActionResult ViewDetails(int id)
 
 In order to neatly organize and display the information necessary, I used the table shown below. With that complete, it was time to move on to the second feature.
 
-```c#
+```html
 <!-- Display information belonging to this person -->
 <div class="row" style="border: 2px solid #ffffff; margin-bottom: 20px;">
     <h2 style="margin-left: 30px;"><strong>@Html.DisplayFor(model => model.VMPerson.FullName)</strong></h2>
@@ -263,7 +263,7 @@ model.VMInvoices = model.VMCustomer.Orders.SelectMany(x => x.Invoices)
 As with the basic information from the first feature, this additional information is displayed neatly in tables.
 
 #### **Company Profile:**
-```c#
+```html
 <!-- Company Profile -->
 <div class="row" style="border: 2px solid #ffffff; margin-bottom: 20px;">
     <h2 style="margin-left: 30px;"><strong>Company Profile</strong></h2>
@@ -343,7 +343,7 @@ As with the basic information from the first feature, this additional informatio
 ```
 
 #### **Purchase History Summary:**
-```c#
+```html
 <!-- Purchase History Summary -->
 <div class="row" style="border: 2px solid #ffffff; margin-bottom: 20px;">
     <h2 style="margin-left: 30px;"><strong>Purchase History Summary</strong></h2>
@@ -382,7 +382,7 @@ As with the basic information from the first feature, this additional informatio
 ```
 
 #### **Items Purchased (10 Highest by Profit):**
-```c#
+```html
 <!-- Items Purchased (10 highest by profit) -->
 <div class="row" style="border: 2px solid #ffffff; margin-bottom: 20px;">
     <h2 style="margin-left: 30px;"><strong>Items Purchased</strong> (10 Highest by Profit)</h2>
@@ -434,7 +434,7 @@ As with the basic information from the first feature, this additional informatio
 
 The last thing I added to this page was a link at the bottom that would return the user to the main search page. The method I used preserved the state of the previous page, so that any search results were still present, similar to when pressing the browser's back button.
 
-```c#
+```html
 <!-- Create a link back to the main page for easy navigation -->
 <div>
     <p>
@@ -461,3 +461,67 @@ The last thing I added to this page was a link at the bottom that would return t
 ![](images/details_page_additional_information_one.PNG?raw=true)
 
 ![](images/details_page_additional_information_two.PNG?raw=true)
+
+
+### **VI: Extra Feature: Pagination**
+
+While testing my application I often encountered searches that had 20+ results. Scrolling through them all became tedious, so I wanted an easier way to navigate the results. The answer to this problem was pagination, and luckily for me, was fairly easy to implement.
+
+I started by installing the PagedList.Mvc package through the NuGet Package Manager. This gave me access to its libraries in my application. Next, I had to make some changes to the method for my search page.
+
+```c#
+public ActionResult Home(string searchString, string currentFilter, int? page)
+{
+    /* Determine how to handle this request based on the search string */
+    if (searchString != null)
+    {
+        /* Reset the page to 1 if the search string changed */
+        page = 1;
+
+        /* Switch the flag that controls the table visibility */
+        ViewBag.ShowSearchResults = true;
+    }
+    else
+    {
+        /* Update the search string to what's in the filter */
+        searchString = currentFilter;
+    }
+    
+    /* Store the search so we can use it between page views */
+    ViewBag.CurrentFilter = searchString;
+```
+
+In addition to the searchString being passed in, I now also had currentFilter, which is used to store a user's search string between pages, and page, which is the page the user is attempting to view. Then, based on the value of searchString, I determined whether to reset the page back to 1 as a result of the string changing, or to update it to the value stored in currentFilter. After these actions, the search string is stored so that search results are preserved between pages.
+
+I then had to change how I was returning the information from the controller to the view. The two variables, pageSize and pageNumber, control how many results are shown per page, and which page to return to the user, respectfully. Before sending the results back to the view, they first needed to be ordered by some property (I chose FullName here, but it could have been anything related to the data), and then converted to a paged list.
+
+```c#
+int pageSize = 10;
+int pageNumber = (page ?? 1);
+
+/* Return the view with the search results */
+return View(searchResults.OrderBy(x => x.FullName).ToPagedList(pageNumber, pageSize));
+```
+
+The last thing to do was actually add the pagination to the view. The following code snippet demonstrates how this was done.
+
+```html
+<!-- START PAGINATION SECTION -->
+<div>
+    <!-- Display the current page out of the total number of pages -->
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+    <!-- Create the page buttons and set the parameters for traversing the pages -->
+    @Html.PagedListPager(Model, page => Url.Action("Home",
+        new { page, sortOrder = Model.OrderBy(x => x.FullName), currentFilter = ViewBag.CurrentFilter }))
+</div>
+<!-- END PAGINATION SECTION -->
+```
+
+This immediately followed the section where my table was contained, but could easily be placed anywhere else. The first line is a simple display that shows the current page the user is viewing and what the total number of pages are, like so: "Page 3 of 12". The lines after that create the buttons that allow the user to transition between pages. It creates a Url.Action associated with each button that passes the page number, the sorting order (required for paginiation to maintain ordering between pages), and the current filter (which preserves the search results between pages). Below are screenshots demonstrating the pagination in action.
+
+
+![](images/pagination_one.PNG?raw=true)
+
+![](images/pagination_two.PNG?raw=true)
+

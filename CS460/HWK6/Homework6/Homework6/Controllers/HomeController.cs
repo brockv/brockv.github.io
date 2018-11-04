@@ -24,7 +24,7 @@ namespace Homework6.Controllers
         /// <returns>The view with the results of the user's search</returns>                 
         public ActionResult Home(string searchString, string currentFilter, int? page)
         {
-            /**/
+            /* Determine how to handle this request based on the search string */
             if (searchString != null)
             {
                 /* Reset the page to 1 if the search string changed */
@@ -35,13 +35,12 @@ namespace Homework6.Controllers
             }
             else
             {
+                /* Update the search string to what's in the filter */
                 searchString = currentFilter;
             }
 
+            /* Store the search so we can use it between page views */
             ViewBag.CurrentFilter = searchString;
-
-            /* Set an initial display message -- assume the search doesn't find anything */
-            ViewBag.DisplayMessage = "I'm sorry, your search returned no results.";
 
             /* Check the search bar for a value */
             if (!String.IsNullOrEmpty(searchString))
@@ -52,14 +51,10 @@ namespace Homework6.Controllers
                 /* Check to see if anything was found, and handle it appropriately */
                 if (searchResults.Count() > 0)
                 {
-                    /* Change the display message to include the user's search string */
-                    ViewBag.DisplayMessage = "Names matching your search: \"" + ViewBag.CurrentFilter + "\"";
-
                     int pageSize = 10;
                     int pageNumber = (page ?? 1);
 
                     /* Return the view with the search results */
-                    //return View(searchResults);
                     return View(searchResults.OrderBy(x => x.FullName).ToPagedList(pageNumber, pageSize));
                 }
             }
