@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using Homework6.Models;
 using Homework6.DAL;
+using PagedList;
 
 namespace Homework6.Controllers
 {
@@ -14,29 +15,30 @@ namespace Homework6.Controllers
         private WideWorldImportersContext db = new WideWorldImportersContext();
 
         /// <summary>
-        /// GET method for the main page. From here the user can search for client's
-        /// by name using the search bar.
-        /// </summary>
-        /// <returns>The view with just the search bar and button</returns>
-        public ActionResult Home()
-        {
-            /* Initially hide the area we use to show search results */
-            ViewBag.ShowSearchResults = false;
-
-            return View();
-        }
-
-        /// <summary>
-        /// POST method for the main page. This shows the results of the user's
+        /// Main method for the search page. This shows the results of the user's
         /// search, whether successful or not.
         /// </summary>
         /// <param name="searchString">The user's input from the search bar</param>
-        /// <returns>The view with the results of the user's search</returns>
-        [HttpPost]
-        public ActionResult Home(string searchString)
+        /// <param name="currentFilter">String to store the user's search between pages</param>
+        /// <param name="page">The current page the user is viewing</param>
+        /// <returns>The view with the results of the user's search</returns>                 
+        public ActionResult Home(string searchString, string currentFilter, int? page)
         {
-            /* Switch the flag that controls the table visibility */
-            ViewBag.ShowSearchResults = true;
+            /**/
+            if (searchString != null)
+            {
+                /* Reset the page to 1 if the search string changed */
+                page = 1;
+
+                /* Switch the flag that controls the table visibility */
+                ViewBag.ShowSearchResults = true;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
 
             /* Set an initial display message -- assume the search doesn't find anything */
             ViewBag.DisplayMessage = "I'm sorry, your search returned no results.";
@@ -51,10 +53,14 @@ namespace Homework6.Controllers
                 if (searchResults.Count() > 0)
                 {
                     /* Change the display message to include the user's search string */
-                    ViewBag.DisplayMessage = "Names matching your search: \"" + searchString + "\"";
+                    ViewBag.DisplayMessage = "Names matching your search: \"" + ViewBag.CurrentFilter + "\"";
+
+                    int pageSize = 10;
+                    int pageNumber = (page ?? 1);
 
                     /* Return the view with the search results */
-                    return View(searchResults);
+                    //return View(searchResults);
+                    return View(searchResults.OrderBy(x => x.FullName).ToPagedList(pageNumber, pageSize));
                 }
             }
 
