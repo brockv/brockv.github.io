@@ -470,7 +470,7 @@ While testing my application I often encountered searches that had 20+ results. 
 I started by installing the PagedList.Mvc package through the NuGet Package Manager. This gave me access to its libraries in my application. Next, I had to make some changes to the method for my search page.
 
 ```c#
-public ActionResult Home(string searchString, string currentFilter, int? page)
+public ActionResult Home(string searchString, string currentSearch, int? page)
 {
     /* Determine how to handle this request based on the search string */
     if (searchString != null)
@@ -484,11 +484,11 @@ public ActionResult Home(string searchString, string currentFilter, int? page)
     else
     {
         /* Update the search string to what's in the filter */
-        searchString = currentFilter;
+        searchString = currentSearch;
     }
     
     /* Store the search so we can use it between page views */
-    ViewBag.CurrentFilter = searchString;
+    ViewBag.CurrentSearch = searchString;
 ```
 
 In addition to the searchString being passed in, I now also had currentFilter, which is used to store a user's search string between pages, and page, which is the page the user is attempting to view. Then, based on the value of searchString, I determined whether to reset the page back to 1 as a result of the string changing, or to update it to the value stored in currentFilter. After these actions, the search string is stored so that search results are preserved between pages.
@@ -513,7 +513,7 @@ The last thing to do was actually add the pagination to the view. The following 
 
     <!-- Create the page buttons and set the parameters for traversing the pages -->
     @Html.PagedListPager(Model, page => Url.Action("Home",
-        new { page, sortOrder = Model.OrderBy(x => x.FullName), currentFilter = ViewBag.CurrentFilter }))
+        new { page, sortOrder = Model.OrderBy(x => x.FullName), currentSearch = ViewBag.CurrentSearch }))
 </div>
 <!-- END PAGINATION SECTION -->
 ```
