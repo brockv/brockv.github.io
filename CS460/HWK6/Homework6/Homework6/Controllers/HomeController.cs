@@ -19,10 +19,10 @@ namespace Homework6.Controllers
         /// search, whether successful or not.
         /// </summary>
         /// <param name="searchString">The user's input from the search bar</param>
-        /// <param name="currentFilter">String to store the user's search between pages</param>
+        /// <param name="currentSearch">String to store the user's search between pages</param>
         /// <param name="page">The current page the user is viewing</param>
         /// <returns>The view with the results of the user's search</returns>                 
-        public ActionResult Home(string searchString, string currentFilter, int? page)
+        public ActionResult Home(string searchString, string currentSearch, int? page)
         {
             /* Determine how to handle this request based on the search string */
             if (searchString != null)
@@ -36,11 +36,11 @@ namespace Homework6.Controllers
             else
             {
                 /* Update the search string to what's in the filter */
-                searchString = currentFilter;
+                searchString = currentSearch;
             }
 
             /* Store the search so we can use it between page views */
-            ViewBag.CurrentFilter = searchString;
+            ViewBag.CurrentSearch = searchString;
 
             /* Check the search bar for a value */
             if (!String.IsNullOrEmpty(searchString))
@@ -51,7 +51,10 @@ namespace Homework6.Controllers
                 /* Check to see if anything was found, and handle it appropriately */
                 if (searchResults.Count() > 0)
                 {
+                    /* Set the limit for how many items to display per page */
                     int pageSize = 10;
+
+                    /* Set the page number to be viewed */
                     int pageNumber = (page ?? 1);
 
                     /* Return the view with the search results */

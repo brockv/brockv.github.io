@@ -1,5 +1,6 @@
 ﻿@model PagedList.IPagedList<Homework6.Models.Person>
 @using PagedList.Mvc;
+
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 @{
@@ -37,7 +38,7 @@
     {
         <div>
             <!-- Display a message related to the user's search -->
-            <strong>Names matching your search: "@ViewBag.CurrentFilter"</strong>
+            <strong>Names matching your search: "@ViewBag.CurrentSearch"</strong>
         </div>
 
         <table>
@@ -65,7 +66,7 @@
 
             <!-- Create the page buttons and set the parameters for traversing the pages -->
             @Html.PagedListPager(Model, page => Url.Action("Home",
-                new { page, sortOrder = Model.OrderBy(x => x.FullName), currentFilter = ViewBag.CurrentFilter }))
+                new { page, sortOrder = Model.OrderBy(x => x.FullName), currentFilter = ViewBag.CurrentSearch }))
         </div>
         <!-- END PAGINATION SECTION -->
     }
@@ -77,3 +78,8 @@
         </div>
     }
 </div>
+
+<footer id="footer">
+    <hr style="margin-right: 50px; margin-left: 50px;" />
+    <p style="margin-left: 50px;">&copy; @DateTime.Now.Year - Wide World Importers</p>
+</footer>
