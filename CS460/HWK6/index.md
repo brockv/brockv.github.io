@@ -314,7 +314,7 @@ As with the basic information from the first feature, this additional informatio
 
     </div>
 
-    <!-- ~~~~START OF EXTRA CREDIT SECTION~~~~ -->
+    <!-- START OF EXTRA CREDIT SECTION -->
     <!-- Display a map of the companies location -->
     <div class="column">
         <div id="mapID"></div>
@@ -337,7 +337,7 @@ As with the basic information from the first feature, this additional informatio
                 .bindPopup(contentString).openPopup();
         </script>
     </div>
-    <!-- ~~~~END OF EXTRA CREDIT SECTION~~~~ -->
+    <!-- END OF EXTRA CREDIT SECTION -->
 
 </div>
 ```
