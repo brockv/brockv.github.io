@@ -10,7 +10,7 @@
 <!-- DO NOT REMOVE THIS. Doing so will break the layout. -->
     </div>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Home", "Home"))
 {
     @Html.AntiForgeryToken()
 
@@ -23,7 +23,9 @@
            @class = "form-control",
            id = "searchBar",
            placeholder = "Search by client name...",
-           type = "text"
+           type = "text",
+           required = "required",
+           title = "Please enter a name to search for..."
        })
             <input id="btnSearch" class="btn btn-default submitted" type="submit" value="Search" />
         </div>
@@ -66,11 +68,11 @@
 
             <!-- Create the page buttons and set the parameters for traversing the pages -->
             @Html.PagedListPager(Model, page => Url.Action("Home",
-                new { page, sortOrder = Model.OrderBy(x => x.FullName), currentFilter = ViewBag.CurrentSearch }))
+                new { page, sortOrder = Model.OrderBy(x => x.FullName), currentSearch = ViewBag.CurrentSearch }))
         </div>
         <!-- END PAGINATION SECTION -->
     }
-    else
+    else if (Model == null && @ViewBag.CurrentSearch != null)
     {
         <div>
             <!-- Display a message saying nothing was found -->

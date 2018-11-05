@@ -6,7 +6,7 @@ For this assignment, we were expected to write an MVC web application that used 
 - [Home](https://brockv.github.io/)
 - [Assignment Page](http://www.wou.edu/~morses/classes/cs46x/assignments/HW6_1819.html)
 - [Code Repository](https://github.com/brockv/brockv.github.io/tree/master/CS460/HWK6/Homework6)
-- [Demo Video](https://www.youtube.com/watch?v=vN2k-Gze3Vo&feature=youtu.be)
+- [Demo Video](https://www.youtube.com/watch?v=2Yn21oedRm0&feature=youtu.be)
 
 ### **I: Restoring the Database**
 
