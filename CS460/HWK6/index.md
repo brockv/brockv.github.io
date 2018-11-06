@@ -319,22 +319,19 @@ As with the basic information from the first feature, this additional informatio
     <div class="column">
         <div id="mapID"></div>
         <script>
-            var locationLat = @Model.VMCustomer.DeliveryLocation.Latitude.Value;
-            var locationLng = @Model.VMCustomer.DeliveryLocation.Longitude.Value;
-            var map = L.map("mapID").setView([locationLat, locationLng], 10);
+        var locationLat = @Model.VMCustomer.DeliveryLocation.Latitude.Value;
+        var locationLng = @Model.VMCustomer.DeliveryLocation.Longitude.Value;
+        var map = L.map("mapID").setView([locationLat, locationLng], 10);
 
-            L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
-                attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-                maxZoom: 18,
-                id: "mapbox.streets",
-                accessToken: "@ViewBag.DefinitelyNotASecretKey"
-            }).addTo(map);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
 
-            var contentString = '<div id="content" style="text-align: center; color: #000000">'+
-                '<p><strong>@(Model.VMCustomer.CustomerName)</strong><br>' +
-                '@(Model.VMCustomer.City.CityName), @(Model.VMCustomer.City.StateProvince.StateProvinceCode)</p>';
-            var marker = L.marker([locationLat, locationLng]).addTo(map)
-                .bindPopup(contentString).openPopup();
+        var contentString = '<div id="content" style="text-align: center; color: #000000">'+
+            '<p><strong>@(Model.VMCustomer.CustomerName)</strong><br>' +
+            '@(Model.VMCustomer.City.CityName), @(Model.VMCustomer.City.StateProvince.StateProvinceCode)</p>';
+        var marker = L.marker([locationLat, locationLng]).addTo(map)
+            .bindPopup(contentString).openPopup();
         </script>
     </div>
     <!-- END OF EXTRA CREDIT SECTION -->

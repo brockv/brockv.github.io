@@ -61,10 +61,6 @@ namespace Homework6.Controllers
                     .OrderByDescending(x => x.LineProfit)
                     .Take(10)
                     .ToList();
-
-                /* Get the key for the map and store it to use in the view */
-                StreamReader reader = new StreamReader("C:\\Users\\vance\\Documents\\School\\CS460\\brockv.github.io\\CS460\\HWK6\\Homework6\\Homework6\\super_secret_key.txt");
-                ViewBag.DefinitelyNotASecretKey = reader.ReadLine();
             }
 
             /* Redirect to the 'ViewDetails' view */

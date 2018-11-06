@@ -3,41 +3,30 @@
     ViewBag.Title = "Index";
 }
 
-<div class="row inputArea">
 
-    <div class="col-12">
-        <!-- Create the input bar -->
-        <p><strong>Internet Language Translator</strong></p>
-        @Html.TextBox("inputString", "", new
-    {
-        @class = "form-control",
-        id = "userInput",
-        placeholder = "Start typing your message here...",
-        type = "text",
-    })
-    </div>
-</div>
+<body>
+    <div class="row inputArea">
 
-
-<script>
-    /* Callback function that grabs the last word entered into the input after the spacebar is pressed */
-    document.getElementById("userInput").onkeyup = function (e)
-    {
-        /* 32 == spacebar -- Was it pressed? */
-        if (e.which === 32)
+        <div class="col-12">
+            <!-- Create the input bar -->
+            <p><strong>Internet Language Translator</strong></p>
+            @Html.TextBox("inputString", "", new
         {
-            /* Get the text from the input field */
-            var input = document.getElementById("userInput").value;
+            @class = "form-control",
+            id = "userInput",
+            placeholder = "Start typing your message here...",
+            type = "text",
+        })
+        </div>
+    </div>
+    <p>
+        <div id="container">
+        </div>
+    </p>
 
-            /* Trim the last space from the string */
-            var parsedInput = input.substr(0, input.length - 1);
+</body>
 
-            /* Grab the last word from the string */
-            var lastWord = parsedInput.split(" ").pop();
-
-            /* TO-DO -- Send the word off to GIPHY to translate into a gif */
-            alert(lastWord);
-        }
-    }
-</script>
-
+@section scriptSection
+{
+    <script type="text/javascript" src="~/Scripts/js_functions.js"></script>
+}
