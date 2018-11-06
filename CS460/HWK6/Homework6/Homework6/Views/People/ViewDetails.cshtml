@@ -1,0 +1,248 @@
+﻿@model Homework6.Models.ViewModels.WWIViewModel
+
+@{
+    ViewBag.Title = "View Details";
+}
+
+<!-- START Scripts for MapBox map generation -->
+<head>
+    <!-- Leaflet's CSS for use with MapBox -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css"
+          integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
+          crossorigin="" />
+
+    <!-- Leaflet's JS for use with MapBox -->
+    <script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js"
+            integrity="sha512-nMMmRyTVoLYqjP9hrbed9S+FzjZHW5gY1TWCHA5ckwXZBadntCNs8kEqAWdrb9O7rxbCaA4lKTIWjDXZxflOcA=="
+            crossorigin=""></script>
+</head>
+<!-- END Scripts for MapBox map generation -->
+
+<!-- Display information belonging to this person -->
+<div class="row" style="border: 2px solid #ffffff; margin-bottom: 20px;">
+    <h2 style="margin-left: 30px;"><strong>@Html.DisplayFor(model => model.VMPerson.FullName)</strong></h2>
+    <hr />
+    <div class="column">
+        <dl class="dl-horizontal" style="margin-left: 20px;">
+            <!-- Preferred name -->
+            <dt>
+                @Html.Label("Preferred Name:")
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.VMPerson.PreferredName)
+            </dd>
+
+            <!-- Phone number -->
+            <dt>
+                @Html.Label("Phone Number:")
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.VMPerson.PhoneNumber)
+            </dd>
+
+            <!-- Fax number -->
+            <dt>
+                @Html.Label("Fax Number:")
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.VMPerson.FaxNumber)
+            </dd>
+
+            <!-- Email address -->
+            <dt>
+                @Html.Label("Email Address:")
+            </dt>
+            <dd>
+                <a href="mailto:@(Model.VMPerson.EmailAddress)">@(Model.VMPerson.EmailAddress)</a>
+            </dd>
+
+            <!-- Date joined -->
+            <dt>
+                @Html.Label("Date Joined:")
+            </dt>
+            <dd>
+                @(Model.VMPerson.ValidFrom.ToShortDateString())
+            </dd>
+        </dl>
+    </div>
+
+    <!-- Display the photo for this entry -->
+    <div class="column">
+        <img src="https://via.placeholder.com/300" style="margin-bottom: 20px; margin-left: 40px; width: 300px; height: 300px;" />
+    </div>
+</div>
+
+<!-- If this person is a customer, display additional information about them -->
+@if (@Model.VMIsPrimaryContactPerson)
+{
+    <!-- Company Profile -->
+    <div class="row" style="border: 2px solid #ffffff; margin-bottom: 20px;">
+        <h2 style="margin-left: 30px;"><strong>Company Profile</strong></h2>
+        <hr />
+        <div class="column">
+            <dl class="dl-horizontal" style="margin-left: 20px;">
+                <!-- Company name -->
+                <dt>
+                    @Html.Label("Company:")
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.VMCustomer.CustomerName)
+                </dd>
+
+                <!-- Phone number -->
+                <dt>
+                    @Html.Label("Phone Number:")
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.VMCustomer.PhoneNumber)
+                </dd>
+
+                <!-- Fax number -->
+                <dt>
+                    @Html.Label("Fax Number:")
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.VMCustomer.FaxNumber)
+                </dd>
+
+                <!-- Website URL -->
+                <dt>
+                    @Html.Label("Website:")
+                </dt>
+                <dd>
+                    <a href="@(Model.VMCustomer.WebsiteURL)">@Model.VMCustomer.WebsiteURL</a>
+                </dd>
+
+                <!-- Member since -->
+                <dt>
+                    @Html.Label("Member Since:")
+                </dt>
+                <dd>
+                    @(Model.VMCustomer.ValidFrom.ToShortDateString())
+                </dd>
+
+            </dl>
+
+        </div>
+
+    <!-- START OF EXTRA CREDIT SECTION -->
+    <!-- Display a map of the companies location -->
+    <div class="column">
+        <div id="mapID"></div>
+        <script>
+        var locationLat = @Model.VMCustomer.DeliveryLocation.Latitude.Value;
+        var locationLng = @Model.VMCustomer.DeliveryLocation.Longitude.Value;
+        var map = L.map("mapID").setView([locationLat, locationLng], 10);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        var contentString = '<div id="content" style="text-align: center; color: #000000">'+
+            '<p><strong>@(Model.VMCustomer.CustomerName)</strong><br>' +
+            '@(Model.VMCustomer.City.CityName), @(Model.VMCustomer.City.StateProvince.StateProvinceCode)</p>';
+        var marker = L.marker([locationLat, locationLng]).addTo(map)
+            .bindPopup(contentString).openPopup();
+        </script>
+    </div>
+    <!-- END OF EXTRA CREDIT SECTION -->
+
+    </div>
+
+    <!-- Purchase History Summary -->
+    <div class="row" style="border: 2px solid #ffffff; margin-bottom: 20px;">
+        <h2 style="margin-left: 30px;"><strong>Purchase History Summary</strong></h2>
+        <hr />
+        <div class="column">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.Label("Orders:")
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.VMCustomer.Orders.Count)
+                </dd>
+
+                <dt>
+                    @Html.Label("Gross Sales:")
+                </dt>
+
+                <dd>
+                    @string.Format("{0:C}", Model.VMGrossSales)
+                </dd>
+
+                <dt>
+                    @Html.Label("Gross Profits:")
+                </dt>
+
+                <dd>
+                    @string.Format("{0:C}", Model.VMGrossProfits)
+                </dd>
+
+            </dl>
+
+        </div>
+
+    </div>
+
+    <!-- Items Purchased (10 highest by profit) -->
+    <div class="row" style="border: 2px solid #ffffff; margin-bottom: 20px;">
+        <h2 style="margin-left: 30px;"><strong>Items Purchased</strong> (10 Highest by Profit)</h2>
+        <!-- Table headers -->
+        <table class="table itemsPurchased">
+            <tr>
+                <th>
+                    @Html.Label("Stock Item ID")
+                </th>
+
+                <th>
+                    @Html.Label("Description")
+                </th>
+
+                <th>
+                    @Html.Label("Line Profit")
+                </th>
+
+                <th>
+                    @Html.Label("Sales Person")
+                </th>
+            </tr>
+
+            <!-- Table rows -->
+            @foreach (var item in Model.VMInvoices)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StockItemID)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+
+                    <td>
+                        @(string.Format("{0:C}", item.LineProfit))
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Invoice.Person4.FullName)
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+}
+
+<!-- Create a link back to the main page for easy navigation -->
+<div>
+    <p>
+        <!-- Used this method to preserve search results upon returning to the search page -->
+        <a href="javascript:history.back()">Back to Search</a>
+    </p>
+</div>
+
+<footer>
+    <hr style="margin-right: 50px; margin-left: 50px;" />
+    <p style="margin-left: 50px;">&copy; @DateTime.Now.Year - Wide World Importers</p>
+</footer>

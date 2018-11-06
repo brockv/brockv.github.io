@@ -1,0 +1,27 @@
+﻿<!DOCTYPE html>
+<html>
+<head id="header">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body id="body">
+    <div class="container body-content">
+        <div class="intro col-12">
+            <h1>Wide World Importers</h1>
+            <hr style="margin-right: 50px; margin-left: 50px;" />
+            <div>
+                <div class="border"></div>
+                <div c></div>
+            </div>
+        </div>
+        @RenderBody()
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
