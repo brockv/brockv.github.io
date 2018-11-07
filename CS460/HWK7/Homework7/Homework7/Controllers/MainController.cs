@@ -1,5 +1,8 @@
-﻿using System;
+﻿using Homework7.DAL;
+using Homework7.Models;
+using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -11,6 +14,11 @@ namespace Homework7.Controllers
 {
     public class MainController : Controller
     {
+
+        /* Initialize the list we'll store user's forms in */
+        private SearchRequestLogContext requestLogDatabase = new SearchRequestLogContext();
+
+
         /// <summary>
         /// Default method. Only called when the application first starts, or
         /// if the page is refreshed.
@@ -31,8 +39,8 @@ namespace Homework7.Controllers
         [HttpGet]
         public JsonResult TranslateGIF(string lastWord)
         {
-            /* TODO -- HIDE THIS SOMEWHERE */
-            string superSecretKey = "";
+            /* Get the API Key for making the request */
+            string superSecretKey = System.Web.Configuration.WebConfigurationManager.AppSettings["APIKEY"];
 
             /* Build the URL with GIPHY's Translate Endpoint and the client's last word typed */
             string giphyURL = "http://api.giphy.com/v1/stickers/translate?api_key=" + superSecretKey + "&s=" + lastWord;
@@ -56,6 +64,26 @@ namespace Homework7.Controllers
             /* Close the streams */
             data.Close();
             getReponse.Close();
+
+            /* Create a new entry in the database */
+            var requestLogDB = requestLogDatabase.SearchRequests.Create();
+
+            /* Get the time of the request */
+            requestLogDB.RequestTimestamp = DateTime.Now;
+
+            /* Get what the client searched for */
+            requestLogDB.RequestType = lastWord;
+
+            /* Get the IP address of the client */
+            requestLogDB.RequestorIP = Request.UserHostAddress;
+
+            /* Get the client's browser */
+            requestLogDB.BrowserAgent = Request.UserAgent;
+
+            /* Save the changes to the database */
+            /* Add the search request to the database and save the changes */
+            requestLogDatabase.SearchRequests.Add(requestLogDB);
+            requestLogDatabase.SaveChanges();
 
             /* Returned the parsed object back to the client */
             return Json(jsonResponse, JsonRequestBehavior.AllowGet);

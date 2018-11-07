@@ -15,15 +15,15 @@ namespace Homework7
 
             routes.MapRoute(
                 name: "GIFTranslator",
-                url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Main", action = "TranslateGIF", id = UrlParameter.Optional }
+                url: "{controller}/{action}/{lastWord}",
+                defaults: new { controller = "Main", action = "TranslateGIF", lastWord = UrlParameter.Optional }
                 );
 
 
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Main", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "Main", action = "Index", lastWord = UrlParameter.Optional }
             );
         }
     }
