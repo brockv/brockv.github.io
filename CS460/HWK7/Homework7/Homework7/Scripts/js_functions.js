@@ -104,7 +104,7 @@ function chooseAction(lastWord) {
         $.ajax({
 
             dataType: "json",
-            url: "/Main/TranslateGIF?=",
+            url: "/Request/TranslateGIF?=",
             data: { "lastWord": lastWord },
             success: insertGIF
         });

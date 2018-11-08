@@ -16,7 +16,7 @@ namespace Homework7
             routes.MapRoute(
                 name: "GIFTranslator",
                 url: "{controller}/{action}/{lastWord}",
-                defaults: new { controller = "Main", action = "TranslateGIF", lastWord = UrlParameter.Optional }
+                defaults: new { controller = "Request", action = "TranslateGIF", lastWord = UrlParameter.Optional }
                 );
 
 
