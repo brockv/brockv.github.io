@@ -1,13 +1,8 @@
 ﻿using Homework7.DAL;
 using Homework7.Models;
 using System;
-using System.Collections.Generic;
-using System.Configuration;
 using System.IO;
-using System.Linq;
 using System.Net;
-using System.Web;
-using System.Web.Helpers;
 using System.Web.Mvc;
 
 namespace Homework7.Controllers
@@ -61,29 +56,28 @@ namespace Homework7.Controllers
             var serialize = new System.Web.Script.Serialization.JavaScriptSerializer();
             var jsonResponse = serialize.DeserializeObject(convertResponse);
 
-            /* Close the streams */
-            data.Close();
-            getReponse.Close();
-
             /* Create a new entry in the database */
-            var requestLogDB = requestLogDatabase.SearchRequests.Create();
+            SearchRequestLog requestLogDB = requestLogDatabase.RequestLogs.Create();
 
             /* Get the time of the request */
             requestLogDB.RequestTimestamp = DateTime.Now;
 
             /* Get what the client searched for */
-            requestLogDB.RequestType = lastWord;
+            requestLogDB.RequestType = Request.RequestType;//lastWord;
 
             /* Get the IP address of the client */
-            requestLogDB.RequestorIP = Request.UserHostAddress;
+            requestLogDB.ClientIP = Request.UserHostAddress;
 
             /* Get the client's browser */
             requestLogDB.BrowserAgent = Request.UserAgent;
 
-            /* Save the changes to the database */
             /* Add the search request to the database and save the changes */
-            requestLogDatabase.SearchRequests.Add(requestLogDB);
+            requestLogDatabase.RequestLogs.Add(requestLogDB);
             requestLogDatabase.SaveChanges();
+
+            /* Close the streams */
+            data.Close();
+            getReponse.Close();
 
             /* Returned the parsed object back to the client */
             return Json(jsonResponse, JsonRequestBehavior.AllowGet);

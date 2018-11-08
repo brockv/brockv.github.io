@@ -1,32 +1,46 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Index";
 }
 
-
-<body>
-    <div class="row inputArea">
-
-        <div class="col-12">
-            <!-- Create the input bar -->
-            <p><strong>Internet Language Translator</strong></p>
-            @Html.TextBox("inputString", "", new
-        {
-            @class = "form-control",
-            id = "userInput",
-            placeholder = "Start typing your message here...",
-            type = "text",
-        })
-        </div>
+<!-- DO NOT REMOVE THIS. Doing so will break the layout. -->
     </div>
-    <p>
-        <div id="container">
-        </div>
-    </p>
 
-</body>
+
+<div class="row inputArea">
+
+    <div class="col-12">
+        <!-- Create the input bar -->
+        @Html.TextBox("inputString", "", new
+    {
+        @class = "form-control",
+        id = "userInput",
+        placeholder = "Start typing your message here...",
+        type = "text",
+    })
+
+    </div>
+</div>
+
+<div style="margin-top: 10px;">
+    <!-- Add a button to refresh the page and let the client start over -->
+    <input type="button" id="btnClear" value="Start Over" onClick="window.location.reload()">
+</div>
+
+<div id="container" style="margin-left: 15px;">
+    <p>
+        <div id="messageContainer"></div>
+    </p>
+</div>
+
 
 @section scriptSection
 {
     <script type="text/javascript" src="~/Scripts/js_functions.js"></script>
 }
+
+</div>
+    <footer>
+        <hr />
+        <p>&copy; @DateTime.Now.Year - Brock Vance</p>
+    </footer>
+</div>

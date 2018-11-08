@@ -1,97 +1,146 @@
-/*eslint-env browser*/
-/*jslint browser: true*/
-/*global $*/
+/* Create an array of words we don't want translated into GIFS. */
+var boringWords =
+    ["I", "the", "be", "to", "of", "and", "a", "in", "that", "have", "it", "we", "say", "him", "her", "or", "an", "will", "me", "again",
+        "for", "not", "on", "with", "he", "she", "as", "you", "do", "at", "this", "one", "all", "would", "there", "their", "what", "when",
+        "but", "his", "hers", "by", "from", "they", "so", "up", "out", "if", "about", "who", "get", "which", "go", "me", "public", "are",
+        "make", "can", "like", "time", "no", "just", "know", "take", "people", "into", "year", "your", "good", "some", "could", "always", "went",
+        "them", "see", "other", "than", "then", "now", "look", "only", "come", "its", "it's", "over", "think", "also", "back", "really", "store",
+        "after", "use", "two", "how", "our", "work", "first", "well", "way", "even", "new", "want", "because", "any", "these", "give", "every",
+        "day", "most", "us", "my", "mine", "yours", "they're", "I'm", "going", "took", "huge", "big", "large", "very", "am", "let's", "had",
+        "try", "wicked", "pretty", "is", "please", "was", "name", "named", "stay", "away", "any", "anymore", "we're", "brought", "does", "did"];
 
-var wordsToTranslate = ['walk', 'walking', 'jumping', 'climbing', 'running', 'sprinting',
-    'lobster', 'cat', 'dog', 'bear', 'bird', 'turtle', 'ferret', 'eagle'];
-
-
-/* Call main() once the page is fully loaded */
-$(document).ready(main);
 
 /**
-  * Grab the length string from the input field
-  */
+ * Helper function to get the length of the entire string in the input field.
+ */
 function userInputLength() {
-    /* Enabled to shut the editor up */
-    "use strict";
 
     /* Return the length of the input */
     return $("#userInput").val().length;
 }
 
+/**
+ * Helper function to compare the word to our list of "fun" words.
+ * @param {any} lastWord The last word typed into the input field.
+ */
 function isFunWord(lastWord) {
-    /* Check if this is a word we want to translate */
-    var isFunWord = false;
-    for (var i = 0; i < wordsToTranslate.length; i++) {
-        if (wordsToTranslate[i] == lastWord) {
-            isFunWord = true;
+
+    /* Convert the word to lower case for comparisons */
+    var temp = lastWord;
+
+    /* Check if this word is in our list of "fun" words */
+    var isFunWord = true;
+    for (var i = 0; i < boringWords.length; i++) {
+        if (boringWords[i].toLowerCase() == temp.toLowerCase()) {
+            isFunWord = false;
         }
     }
 
+    /* Return true if it was in our list, false otherwise */
     return isFunWord;
 }
 
+/**
+ * This function extracts the image URL from the JSON object and uses it
+ * to insert the gif into the view.
+ * @param {any} result The JSON object sent from the controller.
+ */
 function insertGIF(result) {
 
-    /* Initialize a string for inserting the gif */
-    var output = "";
-
-    /* Grab just the image type we want to display */
+    /* Grab the image type we want to display */
     var giphyURL = result.data.images.preview_gif.url;
 
-    /* Write the URL to console */
+    /* DEBUG -- Write the URL to console */
     console.log(giphyURL)
 
     /* Add the gif we grabbed to the "container" <div> tag using its id (#) */
-    output += " <img width='200px' height='200px' src='" + giphyURL + "'/>";
-    $("#container").append(output);
+    $("#messageContainer").append("<img width='100px;' height='100px;' src='" + giphyURL + "'/>");
 }
 
 /**
- * This function gets the last word the user typed into the input field
- * after presses the spacebar.
+ * This function inserts the word passed in directly to the view.
+ * @param {any} lastWord The word to insert in the view.
+ */
+function insertWord(lastWord) {
+
+    /* Add the word entered to the "container" <div> tag using its id (#) */
+    $("#messageContainer").append(" " + "<label> " + lastWord + " </label>");
+}
+
+/**
+ * This function gets the last word typed into the input field.
  */
 function getLastWordTyped() {    
+
+    /* Initialize a variable to hold the word we're after */
+    var lastWord = "";
+
     /* Get the text from the input field */
     var input = document.getElementById("userInput").value;
 
-    /* Trim the last space from the string */
-    var parsedInput = input.substr(0, input.length);
+    /* Trim the any punctuation, as well as the last space from the string */
+    var parsedInput = input.substr(0, input.length).replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "");
 
     /* Don't do anything if the string is just spaces */
     if (/\S/.test(parsedInput)) {
 
         /* Grab the last word from the string */
-        var lastWord = parsedInput.split(" ").pop();
+        lastWord = parsedInput.split(" ").pop();    
+    }
 
-        /* If this is a word we're interested in translating, do GIPHY magic */
-        if (isFunWord(lastWord)) {            
-            $.ajax({
-                dataType: "json",
-                url: "/Main/TranslateGIF?=",
-                data: { "lastWord": lastWord },
-                success: insertGIF
-            });
-        }
-        else {
-            /* Add the word entered to the "container" <div> tag using its id (#) */
-            var output = "<label> " + lastWord + " </label>";
-            $("#container").append(" " + output);
-        }
+    /* Return the word to be used */
+    return lastWord;
+}
+
+/**
+ * This function determins what to do with the word we grabbed.
+ * @param {any} lastWord The last word typed into the input field.
+ */
+function chooseAction(lastWord) {
+
+    /* If this is a word we're interested in translating, do GIPHY magic */
+    if (isFunWord(lastWord)) {
+
+        $.ajax({
+
+            dataType: "json",
+            url: "/Main/TranslateGIF?=",
+            data: { "lastWord": lastWord },
+            success: insertGIF
+        });
+    }
+    /* It's a "boring" word -- just send it to the view */
+    else {
+
+        insertWord(lastWord);
     }
 }
 
 ///////////////////////////////////////////////////////
 //                      MAIN                         //
 ///////////////////////////////////////////////////////
-function main() {    
-    /* Callback function that grabs the last word entered into the input after the spacebar is pressed */
+function main() {
+
+    /* Give the input focus */
+    $("#userInput").focus();
+
+    /* Callback function that listens for the spacebar to be pressed */
     $("#userInput").keypress(function () {
 
         /* 32 == spacebar -- Was it pressed? */
-        if (userInputLength() > 0 && event.which === 32) {
-            getLastWordTyped();
+        if ($("#userInput").val().length > 0 && event.which === 32) {
+
+            /* Get the word the client typed before this space */
+            var lastWord = getLastWordTyped();
+
+            /* Determine what to do with the word */
+            chooseAction(lastWord);
+
+            /* Give the input focus again for ease of use */
+            $("#userInput").focus();
         }
     });
 }
+
+/* Call main() once the page is fully loaded */
+$(document).ready(main);

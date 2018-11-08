@@ -1,6 +1,6 @@
 ﻿<!DOCTYPE html>
 <html>
-<head>
+<head id="header">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
@@ -9,18 +9,25 @@
     <script src="~/Scripts/modernizr-2.6.2.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
     <link rel="shortcut icon" href="#" />
+
+    <!-- CUSTOM STYLE SHEET -->
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
 </head>
-<body>
+<body id="body">
 
     <div class="container body-content">
-        @RenderBody()
+        <div class="container body-content">
+            <div class="intro col-12" style="text-align: center;">
+                <h1>Internet Language Translator</h1>
+                <hr style="margin-right: 50px; margin-left: 50px;" />
+                <div>
+                    <div class="border"></div>
+                    <div c></div>
+                </div>
+            </div>
+            @RenderBody()
 
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Brock Vance</p>
-        </footer>
-    </div>
 
-    @RenderSection("scriptSection", required: true)
+        @RenderSection("scriptSection", required: true)
 </body>
 </html>

@@ -27,7 +27,7 @@ namespace Homework7.Models
         /// <summary>
         /// Property to hold the requestor's IP address.
         /// </summary>
-        public string RequestorIP { get; set; }
+        public string ClientIP { get; set; }
 
         /// <summary>
         /// Property to hold the client's browser agent information.
@@ -40,7 +40,7 @@ namespace Homework7.Models
         /// <returns></returns>
         public override string ToString()
         {
-            return $"{base.ToString()}: {RequestTimestamp} {RequestType} {RequestorIP} {BrowserAgent}";
+            return $"{base.ToString()}: {RequestTimestamp} {RequestType} {ClientIP} {BrowserAgent}";
         }
     }
 }

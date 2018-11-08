@@ -94,6 +94,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\down.sql" />
     <Content Include="App_Data\SearchRequestLog.mdf" />
     <Content Include="App_Data\SearchRequestLog_log.ldf">
       <DependentUpon>SearchRequestLog.mdf</DependentUpon>
