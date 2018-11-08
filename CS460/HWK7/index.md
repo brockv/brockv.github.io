@@ -8,9 +8,9 @@ The goal for this assignment was to create another MVC web application, this tim
 - [Code Repository](https://github.com/brockv/brockv.github.io/tree/master/CS460/HWK7/Homework7)
 - [Demo Video](https://www.youtube.com/watch?v=q4Nt569kcC8&feature=youtu.be)
 
-### **I: Setting Up the Controller**
+### **I: Setting Up the Controllers**
 
-The end goal of this assignment was to translate certain words from a client's input into GIFS using GIPHY's and their Sticker API Translate endpoint, then displaying them in the view. So to get this started, I first created the controller I would be using to handle the communication between GIPHY and the web app.
+The end goal of this assignment was to translate certain words from a client's input into GIFS using GIPHY's and their Sticker API Translate endpoint, then displaying them in the view. The first controller only has a single method which is used to load the view.
 
 ```c#
 /// <summary>
@@ -23,7 +23,11 @@ public ActionResult Index()
 {
     return View();
 }
+```
 
+The second controller also contains a single method, and is where the requests are sent from. This is reached using custom routing via the AJAX request.
+
+```c#
 /// <summary>
 /// Assembles a GET request using the client's search term, an API key, and GIHPY's Sticker 
 /// API Translate endpoint, and sends the request to GIPHY.
@@ -64,7 +68,7 @@ public JsonResult TranslateGIF(string lastWord)
 }
 ```
 
-The focus of the controller is the TranslateGIF method, which takes a string and returns a JSON object. The string, "lastWord", is passed from the JavaScript, which I'll cover later. In order to send a request to GIPHY we need an API key from them. After registering for an account on their website, I was able to get a key and save it to a file on my computer. For security reasons, that key should never end up in my repository or in my source code, but I still needed to access it to make requests. This is accomplished through the first line in the method, as well as a minor adjustment to the Web.config file in the root directory of my project. After retrieving the API key, it, along with the string passed in, are used to construct a URL to send to GIPHY. The request is sent, and then we wait for a response. Once we have the response, it's converted first to a Stream, then again to string. We then deserialize it into the JSON object we want to return to the JavaScript, and close the Streams before returning out.
+The TranslateGIF method takes a string and returns a JSON object. The string, "lastWord", is passed from the JavaScript, which I'll cover later. In order to send a request to GIPHY we need an API key from them. After registering for an account on their website, I was able to get a key and save it to a file on my computer. For security reasons, that key should never end up in my repository or in my source code, but I still needed to access it to make requests. This is accomplished through the first line in the method, as well as a minor adjustment to the Web.config file in the root directory of my project. After retrieving the API key, it, along with the string passed in, are used to construct a URL to send to GIPHY. The request is sent, and then we wait for a response. Once we have the response, it's converted first to a Stream, then again to string. We then deserialize it into the JSON object we want to return to the JavaScript, and close the Streams before returning out.
 
 The last thing that needed to be done was save the request log to a database. After creating a database, model, and context file, I generated a table to store the information in. Each time a request is made, it's logged and saved to the database for viewing later.
 
