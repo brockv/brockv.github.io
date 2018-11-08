@@ -1,0 +1,72 @@
+﻿body {
+    background: #ffffff;
+    color: #000000;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    overflow-x: hidden;
+    height: 100%;
+}
+
+hr {
+    border: 2px solid #000000;
+}
+
+h1 {
+    font-size: 74px;
+    font-weight: bold;
+}
+
+.inputArea {
+    margin-left: 15vw;
+}
+
+/* Set the border, width, and padding for the user input field */
+#userInput {
+    max-width: 60%;
+    height: 44px;
+    border: 1px solid #000000;
+    float: left;
+    font-size: 18px;
+}
+
+#btnClear {
+    height: 44px;
+    cursor: pointer;
+    border: 1px solid #000000;
+    font-weight: normal;
+    transition: all 0.75s ease;
+    margin-left: 23vw;
+    display: block;
+    width: 20%;
+}
+
+    /* Add a hover effect to the add items button */
+    #btnClear:hover {
+        background-color: #d0d0d0;
+        color: #000000;
+    }
+
+
+#container {
+    min-height: 100%;
+    position: relative;
+}
+
+#header {
+    padding: 10px;
+}
+
+#body {
+    padding: 10px;
+    padding-bottom: 60px; /* Height of the footer */
+}
+
+#footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 60px; /* Height of the footer */
+    padding-left: 50px;
+    padding-right: 50px;
+    margin-bottom: 50px;
+}
