@@ -56,7 +56,7 @@ namespace Homework7.Controllers
             requestLogDB.ClientIP = Request.UserHostAddress;
 
             /* Get the client's browser */
-            requestLogDB.BrowserAgent = Request.UserAgent;
+            requestLogDB.BrowserAgent = Request.Browser.Type;
 
             /* Add the search request to the database and save the changes */
             requestLogDatabase.RequestLogs.Add(requestLogDB);
