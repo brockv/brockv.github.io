@@ -50,7 +50,7 @@ namespace Homework7.Controllers
             requestLogDB.RequestTimestamp = DateTime.Now;
 
             /* Get what the client searched for */
-            requestLogDB.RequestType = Request.RequestType;//lastWord;
+            requestLogDB.RequestType = Request.Url.OriginalString;
 
             /* Get the IP address of the client */
             requestLogDB.ClientIP = Request.UserHostAddress;

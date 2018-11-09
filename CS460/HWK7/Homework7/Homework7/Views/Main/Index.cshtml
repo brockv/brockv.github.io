@@ -7,23 +7,25 @@
 
 
 <div class="row inputArea">
+    <div style="width: 100%; margin: 0 auto;">
+        <div>
+            <!-- Create the input bar -->
+            @Html.TextBox("inputString", "", new
+        {
+            @class = "form-control",
+            id = "userInput",
+            placeholder = "Start typing your message here...",
+            type = "text",
+        })
 
-    <div class="col-12">
-        <!-- Create the input bar -->
-        @Html.TextBox("inputString", "", new
-    {
-        @class = "form-control",
-        id = "userInput",
-        placeholder = "Start typing your message here...",
-        type = "text",
-    })
-
+            <!-- Add a button to refresh the page and let the client start over -->
+            <input type="button" id="btnClear" value="Start Over" onClick="window.location.reload()">
+        </div>
     </div>
 </div>
 
 <div style="margin-top: 10px;">
-    <!-- Add a button to refresh the page and let the client start over -->
-    <input type="button" id="btnClear" value="Start Over" onClick="window.location.reload()">
+
 </div>
 
 <div id="container" style="margin-left: 15px;">
