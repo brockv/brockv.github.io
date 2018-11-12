@@ -35,8 +35,8 @@ CREATE TABLE [dbo].[Bids]
     [ID]            INT IDENTITY (1,1)      NOT NULL,
     [ItemID]        INT                     NOT NULL,
     [Buyer]         NVARCHAR(30)            NOT NULL,
-    [Price]         INT                     NOT NULL,
-    [BidTimeStamp]  DATETIME                NOT NULL
+    [Price]         DECIMAL                 NOT NULL,
+    [BidTimestamp]  DATETIME                NOT NULL
     
     CONSTRAINT [PK_dbo.Bids] PRIMARY KEY CLUSTERED (ID ASC),
     CONSTRAINT [FK_dbo.Bids] FOREIGN KEY (ItemID) REFERENCES [dbo].[Items] (ID)

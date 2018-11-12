@@ -155,6 +155,8 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\BidsController.cs" />
+    <Compile Include="Controllers\ItemsController.cs" />
     <Compile Include="DAL\AuctionHouseContext.cs" />
     <Compile Include="Models\Bid.cs" />
     <Compile Include="Models\Buyer.cs" />
@@ -171,6 +173,8 @@
     <Content Include="App_Data\AuctionHouseDB_log.ldf">
       <DependentUpon>AuctionHouseDB.mdf</DependentUpon>
     </Content>
+    <Content Include="App_Data\down.sql" />
+    <Content Include="App_Data\up.sql" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -206,9 +210,14 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\Items.cshtml" />
     <Content Include="Views\Home\Bids.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Bids\Create.cshtml" />
+    <Content Include="Views\Items\Create.cshtml" />
+    <Content Include="Views\Items\Delete.cshtml" />
+    <Content Include="Views\Items\Details.cshtml" />
+    <Content Include="Views\Items\Edit.cshtml" />
+    <Content Include="Views\Items\Index.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

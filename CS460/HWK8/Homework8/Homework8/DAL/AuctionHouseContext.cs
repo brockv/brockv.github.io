@@ -19,6 +19,10 @@ namespace Homework8
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Bid>()
+                .Property(e => e.Price)
+                .HasPrecision(18, 0);
+
             modelBuilder.Entity<Item>()
                 .HasMany(e => e.Bids)
                 .WithRequired(e => e.Item)

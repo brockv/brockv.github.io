@@ -13,6 +13,7 @@ namespace Homework8
 
         [Key]
         [StringLength(30)]
+        [Display(Name = "Buyer")]
         public string Name { get; set; }
     }
 }
