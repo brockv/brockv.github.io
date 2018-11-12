@@ -32,11 +32,17 @@ namespace Homework8.Controllers
             {
                 db.Bids.Add(bid);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details/", "Items", new { id = bid.ItemID });
             }
 
             ViewBag.ItemID = new SelectList(db.Items, "ID", "Name", bid.ItemID);
             return View(bid);
+        }
+
+        public ActionResult GetBids()
+        {
+            List<Bid> listOfBids = db.Bids.ToList<Bid>();
+            return Json(new { data = listOfBids }, JsonRequestBehavior.AllowGet);
         }
     }
 }
