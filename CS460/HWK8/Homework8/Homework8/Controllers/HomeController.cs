@@ -13,14 +13,14 @@ namespace Homework8.Controllers
             return View();
         }
 
-        public ActionResult About()
+        public ActionResult Items()
         {
             ViewBag.Message = "Your application description page.";
 
             return View();
         }
 
-        public ActionResult Contact()
+        public ActionResult Bids()
         {
             ViewBag.Message = "Your contact page.";
 
