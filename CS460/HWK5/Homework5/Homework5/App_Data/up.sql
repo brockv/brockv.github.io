@@ -1,22 +1,27 @@
-﻿-- Service Request Form table
-CREATE TABLE [dbo].[ServiceRequestForms]
+﻿-- Buyers table
+CREATE TABLE [dbo].[Buyers]
 (
-    [ID]                 INT IDENTITY (1, 1) NOT NULL,
-    [FirstName]          NVARCHAR (30)		 NOT NULL,
-    [LastName]           NVARCHAR (30)		 NOT NULL,
-    [PhoneNumber]        NVARCHAR (20)		 NOT NULL,
-    [ApartmentName]      NVARCHAR (64)		 NOT NULL,
-    [UnitNumber]         INT				 NOT NULL,
-    [RequestDescription] NVARCHAR (100)		 NOT NULL,
-	[AllowEntry]         BIT	             NOT NULL,
-    [RequestTimestamp]   DATETIME			 NOT NULL,
-    CONSTRAINT [PK_dbo.ServiceRequestForms] PRIMARY KEY CLUSTERED ([ID] ASC)
+    [FullName]          NVARCHAR (30)		 NOT NULL,
+
+    CONSTRAINT [PK_dbo.Buyers] PRIMARY KEY CLUSTERED ([ID] ASC)
 );
 
-INSERT INTO [dbo].[ServiceRequestForms] (FirstName, LastName, PhoneNumber, ApartmentName, UnitNumber, RequestDescription, AllowEntry, RequestTimestamp) VALUES
-	('Doug', 'Douglas', '503-963-0325', 'Meadow Creek', '124', 'The backdoor is stuck shut.', '1', '2018/04/26 01:54:47 PM'),
-	('Ivy', 'Iverson', '503-980-5452', 'Shady Oaks', '262', 'Upstairs neighbors are too loud after quiet hours.', '0', '2018/07/06 08:17:36 AM'),
-	('Jim', 'Johnson', '503-870-0225', 'Robins Lane', '320', 'The bathroom faucet wont stop leaking', '1', '2018/08/16 11:44:47 PM'),
-	('Sue','Suzanne', '503-987-2465', 'Meadow Creek', '202', 'The shower head in the main bathroom is broken.', '0', '2018/10/03 08:22:56 AM'),
-	('Mira', 'Kuzak', '503-871-0285', 'Robins Lane', '110', 'The heaters in the bedrooms wont turn on.', '1', '2018/10/18 07:44:27 PM')
+INSERT INTO [dbo].[Buyers] (FullName) VALUES
+('Jane Stone'),
+('Tom McMasters'),
+('Otto Vanderwall');
+GO
+
+-- Sellers table
+CREATE TABLE [dbo].[Sellers]
+(
+    [FullName]          NVARCHAR (30)		 NOT NULL,
+
+    CONSTRAINT [PK_dbo.Buyers] PRIMARY KEY CLUSTERED ([ID] ASC)
+);
+
+INSERT INTO [dbo].[Sellers] (FullName) VALUES
+('Gayle Hardy'),
+('Lyle Banks'),
+('Pearl Greene');
 GO
