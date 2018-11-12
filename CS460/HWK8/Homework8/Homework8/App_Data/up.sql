@@ -1,4 +1,4 @@
--- Buyers table
+﻿-- Buyers table
 CREATE TABLE [dbo].[Buyers]
 (
     [ID]        INT IDENTITY (1, 1)     NOT NULL,
@@ -25,7 +25,7 @@ CREATE TABLE [dbo].[Items]
     [Seller]        NVARCHAR(30)                NOT NULL,
     
     CONSTRAINT [PK_dbo.Items] PRIMARY KEY CLUSTERED (ID ASC),
-    CONSTRAINT [FK_dbo.Items] FOREIGN KEY (Seller) REFERENCES [dbo].[Seller] (Name)
+    CONSTRAINT [FK_dbo.Items] FOREIGN KEY (Seller) REFERENCES [dbo].[Sellers] (Name)
 
 );
 
@@ -39,11 +39,11 @@ CREATE TABLE [dbo].[Bids]
     [BidTimeStamp]  DATETIME                NOT NULL
     
     CONSTRAINT [PK_dbo.Bids] PRIMARY KEY CLUSTERED (ID ASC),
-    CONSTRAINT [FK_dbo.Bids] FOREIGN KEY (ItemID) REFERENCES [dbo].[Item] (ID)
+    CONSTRAINT [FK_dbo.Bids] FOREIGN KEY (ItemID) REFERENCES [dbo].[Items] (ID)
 
 );
 
-INSERT INTO [dbo].[Buyesr](Name) VALUES
+INSERT INTO [dbo].[Buyers](Name) VALUES
     ('Jane Stone'),
     ('Tom McMasters'),
     ('Otto Vanderwall')
@@ -58,6 +58,6 @@ INSERT INTO [dbo].[Items](Name, Description, Seller)VALUES
     ('Albert Einsteins Telescope','A brass telescope owned by Albert Einstein in Germany, circa 1927', 'Gayle Hardy'),
     ('Bob Dylan Love Poems'      ,'Five versions of an original unpublished, handwritten, love poem by Bob Dylan', 'Lyle Banks');
 
-INSERT INTO [dbo].[Bids](ItemID, Buyer, Price, Timestamp) VALUES
+INSERT INTO [dbo].[Bids](ItemID, Buyer, Price, BidTimestamp) VALUES
     (1001, 'Otto Vanderwall', 250000,'12/04/2017 09:04:22'),
     (1003,'Jane Stone', 95000 ,'12/04/2017 08:44:03')

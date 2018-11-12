@@ -1,38 +1,36 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
-
-namespace Homework8.Models
+namespace Homework8
 {
-    public class Item
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+    using System.Data.Entity.Spatial;
+
+    public partial class Item
     {
-        /// <summary>
-        /// Primary key for the table.
-        /// </summary>
-        [Key]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Item()
+        {
+            Bids = new HashSet<Bid>();
+        }
+
         public int ID { get; set; }
 
-        /// <summary>
-        /// Property to hold the item's name.
-        /// </summary>
-        [Required(ErrorMessage = "Please enter the item's name"), StringLength(30)]
-        [Display(Name = "Item Name")]
+        [Required]
+        [StringLength(30)]
         public string Name { get; set; }
 
-        /// <summary>
-        /// Property to hold the item's description.
-        /// </summary>
-        [Required(ErrorMessage = "Please enter the item's description"), StringLength(30)]
-        [Display(Name = "Item Description")]
+        [Required]
+        [StringLength(100)]
         public string Description { get; set; }
 
-        /// <summary>
-        /// Property to hold the item's seller.
-        /// </summary>
-        [Required(ErrorMessage = "Please enter the seller's name"), StringLength(30)]
-        [Display(Name = "Seller")]
+        [Required]
+        [StringLength(30)]
         public string Seller { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Bid> Bids { get; set; }
+
+        public virtual Seller Seller1 { get; set; }
     }
 }

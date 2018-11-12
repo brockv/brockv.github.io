@@ -1,24 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
-
-namespace Homework8.Models
+namespace Homework8
 {
-    public class Seller
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+    using System.Data.Entity.Spatial;
+
+    public partial class Seller
     {
-        /// <summary>
-        /// Primary key for the table.
-        /// </summary>
-        [Key]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Seller()
+        {
+            Items = new HashSet<Item>();
+        }
+
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
 
-        /// <summary>
-        /// Property to hold the seller's name.
-        /// </summary>
-        [Required(ErrorMessage = "Please enter the seller's name"), StringLength(30)]
-        [Display(Name = "Seller Name")]
+        [Key]
+        [StringLength(30)]
         public string Name { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Item> Items { get; set; }
     }
 }

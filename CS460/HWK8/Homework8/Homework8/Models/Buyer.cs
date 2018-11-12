@@ -1,24 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
-
-namespace Homework8.Models
+namespace Homework8
 {
-    public class Buyer
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+    using System.Data.Entity.Spatial;
+
+    public partial class Buyer
     {
-        /// <summary>
-        /// Primary key for the table.
-        /// </summary>
-        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
 
-        /// <summary>
-        /// Property to hold the buyer's name.
-        /// </summary>
-        [Required(ErrorMessage = "Please enter the buyer's name"), StringLength(30)]
-        [Display(Name = "Buyer Name")]
+        [Key]
+        [StringLength(30)]
         public string Name { get; set; }
     }
 }
