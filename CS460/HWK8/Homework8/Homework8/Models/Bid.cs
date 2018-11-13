@@ -10,6 +10,7 @@ namespace Homework8.Models
     {
         public int ID { get; set; }
 
+        [Display(Name = "Item Name")]
         public int ItemID { get; set; }
 
         [Required]

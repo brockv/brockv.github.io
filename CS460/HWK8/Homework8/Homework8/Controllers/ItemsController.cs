@@ -30,6 +30,7 @@ namespace Homework8.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Item item = db.Items.Find(id);
+            //var bids = db.Bids.Include(b => b.Buyer1).Include(b => b.Item);
             if (item == null)
             {
                 return HttpNotFound();
