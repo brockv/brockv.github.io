@@ -1,4 +1,4 @@
-namespace Homework8
+namespace Homework8.DAL
 {
     using System;
     using System.Data.Entity;
@@ -21,7 +21,7 @@ namespace Homework8
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Bid>()
-                .Property(e => e.Price)
+                .Property(e => e.BidAmount)
                 .HasPrecision(18, 0);
 
             modelBuilder.Entity<Buyer>()

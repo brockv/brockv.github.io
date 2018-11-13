@@ -1,17 +1,16 @@
 ﻿@model Homework8.Models.Item
 
 @{
-    /**/
-
-    ViewBag.Title = "Item Details";
+    ViewBag.Title = "Details";
 }
 
+<br />
 <h2>Item Details</h2>
 <br />
 <br />
 
 <div>
-    <h3>@Html.DisplayFor(model => model.Name)</h3>
+    <h2>@Html.DisplayFor(model => model.Name)</h2>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -32,27 +31,7 @@
 
     </dl>
 </div>
-
-<div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
     @Html.ActionLink("Back to List", "Index")
-</div>
-
-@section scriptSection
-{
-    <script type="text/javascript" src="~/Scripts/js_functions.js"></script>
-}
-
-
-<br />
-<br />
-<h3>Current Bids for this Item</h3>
-<hr />
-<div id="dataTable_wrapper"></div>
-<table id="dataTable" class="table table-bordered table-striped">
-    <thead>
-        <tr>
-            <th>Buyer</th>
-            <th>Price</th>
-        </tr>
-    </thead>
-</table>
+</p>

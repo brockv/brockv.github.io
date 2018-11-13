@@ -14,16 +14,16 @@ namespace Homework8.Models
 
         [Required]
         [StringLength(30)]
-        [Display(Name = "Buyer")]
+        [Display(Name = "Buyer Name")]
         public string Buyer { get; set; }
 
         [Display(Name = "Bid Amount")]
-        public decimal Price { get; set; }
+        public decimal BidAmount { get; set; }
 
         [Display(Name = "Time of Bid")]
         public DateTime BidTimestamp { get; set; }
 
-        [Display(Name = "Item")]
+        [Display(Name = "Item Name")]
         public virtual Item Item { get; set; }
 
         public virtual Buyer Buyer1 { get; set; }

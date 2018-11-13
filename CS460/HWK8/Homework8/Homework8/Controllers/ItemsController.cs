@@ -6,7 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using Homework8;
+using Homework8.DAL;
 using Homework8.Models;
 
 namespace Homework8.Controllers
@@ -119,12 +119,6 @@ namespace Homework8.Controllers
             db.Items.Remove(item);
             db.SaveChanges();
             return RedirectToAction("Index");
-        }
-
-        public ActionResult GetData(int id)
-        {
-            List<Bid> listOfBids = db.Bids.ToList();
-            return Json(new { data = listOfBids }, JsonRequestBehavior.AllowGet);
         }
 
         protected override void Dispose(bool disposing)
