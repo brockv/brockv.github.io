@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Homework8;
+using Homework8.Models;
 
 namespace Homework8.Controllers
 {
@@ -18,6 +19,7 @@ namespace Homework8.Controllers
         public ActionResult Create()
         {
             ViewBag.ItemID = new SelectList(db.Items, "ID", "Name");
+            ViewBag.Buyer = new SelectList(db.Bids, "ID", "Buyer");
             return View();
         }
 
@@ -27,7 +29,7 @@ namespace Homework8.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID,ItemID,Buyer,Price,BidTimestamp")] Bid bid)
-        {
+        {            
             if (ModelState.IsValid)
             {
                 db.Bids.Add(bid);
@@ -37,12 +39,6 @@ namespace Homework8.Controllers
 
             ViewBag.ItemID = new SelectList(db.Items, "ID", "Name", bid.ItemID);
             return View(bid);
-        }
-
-        public ActionResult GetBids()
-        {
-            List<Bid> listOfBids = db.Bids.ToList<Bid>();
-            return Json(new { data = listOfBids }, JsonRequestBehavior.AllowGet);
         }
     }
 }

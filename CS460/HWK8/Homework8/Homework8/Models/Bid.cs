@@ -1,4 +1,4 @@
-namespace Homework8
+namespace Homework8.Models
 {
     using System;
     using System.Collections.Generic;
@@ -10,22 +10,18 @@ namespace Homework8
     {
         public int ID { get; set; }
 
-        [Required]
-        [Display(Name = "Item Name")]
         public int ItemID { get; set; }
 
         [Required]
         [StringLength(30)]
-        [Display(Name = "Buyer")]
         public string Buyer { get; set; }
 
-        [Display(Name = "Item Price")]
         public decimal Price { get; set; }
 
-        [Display(Name = "Time of Bid")]
         public DateTime BidTimestamp { get; set; }
 
-        [Display(Name = "Item Name")]
         public virtual Item Item { get; set; }
+
+        public virtual Buyer Buyer1 { get; set; }
     }
 }

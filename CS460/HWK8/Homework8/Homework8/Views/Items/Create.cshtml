@@ -1,18 +1,18 @@
-﻿@model Homework8.Item
+﻿@model Homework8.Models.Item
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Create New Listing";
 }
 
-<h2>Create</h2>
+<h2>Create New Listing</h2>
 
-
+<br />
+<br />
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>Item</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">

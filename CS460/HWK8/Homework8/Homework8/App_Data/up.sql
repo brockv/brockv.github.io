@@ -39,7 +39,8 @@ CREATE TABLE [dbo].[Bids]
     [BidTimestamp]  DATETIME                NOT NULL
     
     CONSTRAINT [PK_dbo.Bids] PRIMARY KEY CLUSTERED (ID ASC),
-    CONSTRAINT [FK_dbo.Bids] FOREIGN KEY (ItemID) REFERENCES [dbo].[Items] (ID)
+    CONSTRAINT [FK_dbo.Bids] FOREIGN KEY (ItemID) REFERENCES [dbo].[Items] (ID),
+	CONSTRAINT [FK2_dbo.Bid] FOREIGN KEY (Buyer) REFERENCES [dbo].[Buyers] (Name)
 
 );
 
