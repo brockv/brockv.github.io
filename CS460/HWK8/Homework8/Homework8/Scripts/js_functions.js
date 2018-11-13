@@ -1,32 +1,39 @@
-﻿function displayBids() {
-    $(document).ready(function () {
-        $('#dataTable').DataTable({
-            "ajax": {
-                "url": "/Items/GetData",
-                "type": "GET",
-                "datatype": "json"
-            },
-            "columns": [
-                { "data": "Buyer" },
-                { "data": "Price" }
-            ]
+﻿$(document).ready(function () {
+
+    //alert("Hello World");
+    var id = $("#actual-id").text();
+
+    // alert(id);
+
+    var source = "BidApi/ItemBids/" + id;
+
+    var ajax_call = function () {
+
+        $.ajax({
+            type: "GET",
+            dataType: "json",
+            data: { "id": id },
+            url: source,
+            success: showBids,
+            error: errorOnAjax
+
         });
-    });
-}
 
-function refreshBids() {
+    };
 
-    var interval = 1000 * X;
-    window.setInterval(main, interval);
-}
+    var interval = 1000 * 4; // where X is your timer interval in X seconds
 
-///////////////////////////////////////////////////////
-//                      MAIN                         //
-///////////////////////////////////////////////////////
-function main() {
-    displayBids();
-    refreshBids();
-}
+    window.setInterval(ajax_call, interval);
 
-/* Call main() once the page is fully loaded */
-$(document).ready(main);
+    function showBids(data) {
+
+
+
+    }
+
+    //if there is an error on the request
+    function errorOnAjax() {
+        console.log("error");
+    }
+
+});
