@@ -1,14 +1,4 @@
-﻿function refreshBids() {
-
-    var interval = 1000 * X;
-    window.setInterval(main, interval);
-}
-
-///////////////////////////////////////////////////////
-//                      MAIN                         //
-///////////////////////////////////////////////////////
-function main() {
-
+﻿function displayBids() {
     $(document).ready(function () {
         $('#dataTable').DataTable({
             "ajax": {
@@ -21,8 +11,20 @@ function main() {
                 { "data": "Price" }
             ]
         });
-    });  
+    });
+}
 
+function refreshBids() {
+
+    var interval = 1000 * X;
+    window.setInterval(main, interval);
+}
+
+///////////////////////////////////////////////////////
+//                      MAIN                         //
+///////////////////////////////////////////////////////
+function main() {
+    displayBids();
     refreshBids();
 }
 

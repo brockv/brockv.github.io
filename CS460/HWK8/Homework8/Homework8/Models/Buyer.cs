@@ -19,6 +19,7 @@ namespace Homework8.Models
 
         [Key]
         [StringLength(30)]
+        [Display(Name = "Buyer")]
         public string Name { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

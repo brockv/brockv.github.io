@@ -121,9 +121,9 @@ namespace Homework8.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult GetData()
+        public ActionResult GetData(int id)
         {
-            List<Bid> listOfBids = db.Bids.ToList<Bid>();
+            List<Bid> listOfBids = db.Bids.ToList();
             return Json(new { data = listOfBids }, JsonRequestBehavior.AllowGet);
         }
 
