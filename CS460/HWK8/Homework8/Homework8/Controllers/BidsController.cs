@@ -63,8 +63,11 @@ namespace Homework8.Controllers
             string jsonItem = "";
             if (vm.VMItem != null)
             {
-                /* Get all bids associated with this item */
-                vm.VMBids = vm.VMItem.Bids.Where(x => x.ItemID == id).ToList();
+                /* Get all bids associated with this item, listed highest to lowest */
+                vm.VMBids = vm.VMItem.Bids
+                    .Where(x => x.ItemID == id)
+                    .OrderByDescending(x => x.BidAmount)
+                    .ToList();
 
                 /* Serialize the JSON object */
                 jsonItem = JsonConvert.SerializeObject(vm.VMBids);

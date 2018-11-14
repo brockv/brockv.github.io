@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Services;
 using Homework8.DAL;
 using Homework8.Models;
 using Homework8.Models.ViewModels;
@@ -25,6 +28,25 @@ namespace Homework8.Controllers
             return View(items.ToList());
         }
 
+        [HttpGet]
+        public PartialViewResult Create()
+        {
+            ViewBag.Seller = new SelectList(db.Sellers, "Name", "Name");
+            return PartialView("Create", new Item());
+        }
+
+        [HttpPost]
+        public JsonResult CreateJSON([Bind(Include = "ID,Name,Description,Seller")] Item item)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Items.Add(item);
+                db.SaveChanges();
+            }
+
+            return Json(item, JsonRequestBehavior.AllowGet);
+        }
+
         // GET: Items/Details/5
         public ActionResult Details(int? id)
         {
@@ -41,13 +63,7 @@ namespace Homework8.Controllers
             return View(item);
         }
 
-        // GET: Items/Create
-        public ActionResult Create()
-        {
-            ViewBag.Seller = new SelectList(db.Sellers, "Name", "Name");
-            return View();
-        }
-
+        /*
         // POST: Items/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
@@ -65,6 +81,7 @@ namespace Homework8.Controllers
             ViewBag.Seller = new SelectList(db.Sellers, "Name", "Name", item.Seller);
             return View(item);
         }
+        */
 
         // GET: Items/Edit/5
         public ActionResult Edit(int? id)

@@ -4,13 +4,16 @@
     ViewBag.Title = "Index";
 }
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
 <br />
 <h1>Currently Listed Items</h1>
-<br/>
-<br/>
+<br />
+<br />
 
 <p>
-    @Html.ActionLink("Create New Listing", "Create")
+    <button type="button" class="btn btn-block" id="btnOpenModal" data-toggle="modal">Create New Listing</button>
+    <div class="modal fade" id="myModal" role="dialog" data-url="@Url.Action("Create", "Items")"></div>
 </p>
 <table class="table">
     <tr>
@@ -26,23 +29,39 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Seller1.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
-}
-
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Seller1.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+            </td>
+        </tr>
+    }
 </table>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $(".btn-block").click(function () {
+
+            var url = $("#myModal").data("url");
+            $.get(url, function (data) {
+
+                $("#myModal").html(data);
+                $("#myModal").modal("show");
+            });
+        });
+    });
+</script>
