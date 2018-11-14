@@ -4,6 +4,15 @@
     ViewBag.Title = "Details";
 }
 
+@section scriptSection
+{
+    <script type="text/javascript" src="~/Scripts/js_functions.js"></script>
+}
+
+
+<input type="hidden" value="@Model.ID" id="hdnFlag" />
+
+
 <br />
 <h2>Item Details</h2>
 <br />
@@ -35,3 +44,27 @@
     @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
+
+<div class="container">
+    <br />
+    <br />
+    <h3>Current Bids for this Item</h3>
+
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Buyer
+                </th>
+                <th>
+                    Bid Amount
+                </th>
+            </tr>
+        </thead>
+        <tbody class="tbody"></tbody>
+    </table>
+</div>
+
+
+

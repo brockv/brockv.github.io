@@ -1,39 +1,52 @@
-﻿$(document).ready(function () {
+﻿var id = document.getElementById("hdnFlag").value;
 
-    //alert("Hello World");
-    var id = $("#actual-id").text();
+function showBids(result) {
+    var rows;
+    $.each(JSON.parse(result), function (i, item) {
+        rows += "<tr>"
+            + "<td>" + item.Buyer + "</td>"
+            + "<td>" + item.BidAmount + "</td>"
+            + "</tr>";
+    });
+    $('#bidsTable tbody').append(rows);
+}
 
-    // alert(id);
-
-    var source = "BidApi/ItemBids/" + id;
-
-    var ajax_call = function () {
-
-        $.ajax({
-            type: "GET",
-            dataType: "json",
-            data: { "id": id },
-            url: source,
-            success: showBids,
-            error: errorOnAjax
-
-        });
-
-    };
-
-    var interval = 1000 * 4; // where X is your timer interval in X seconds
-
-    window.setInterval(ajax_call, interval);
-
-    function showBids(data) {
+//if there is an error on the request
+function errorOnAjax() {
+    console.log("ERROR");
+}
 
 
+///////////////////////////////////////////////////////
+//                      MAIN                         //
+///////////////////////////////////////////////////////
+function main() {
 
-    }
+    
+    $.ajax({
+        type: "GET",
+        dataType: "json",
+        url: "/Bids/GetBids",
+        data: { "id": id },
+        success: function (result) {
+            var html = '';
+            $.each(JSON.parse(result), function (key, item) {
+                html += '<tr>';
+                html += '<td>' + item.Buyer + '</td>';
+                html += '<td>' + "$" + item.BidAmount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') + '</td>';
+                html += '</tr>';
+            });
+            $('.tbody').html(html);
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
 
-    //if there is an error on the request
-    function errorOnAjax() {
-        console.log("error");
-    }
+    //var interval = 1000 * 4;
+    //window.setInterval(showBids, interval);
 
-});
+}
+
+/* Call main() once the page is fully loaded */
+$(document).ready(main);

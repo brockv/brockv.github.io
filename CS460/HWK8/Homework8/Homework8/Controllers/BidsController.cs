@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Homework8.DAL;
 using Homework8.Models;
+using Homework8.Models.ViewModels;
+using Newtonsoft.Json;
 
 namespace Homework8.Controllers
 {
@@ -47,6 +50,28 @@ namespace Homework8.Controllers
             ViewBag.Buyer = new SelectList(db.Buyers, "Name", "Name", bid.Buyer);
             ViewBag.ItemID = new SelectList(db.Items, "ID", "Name", bid.ItemID);
             return View(bid);
+        }
+
+        public JsonResult GetBids(int id)
+        {
+            AuctionHouseVM vm = new AuctionHouseVM
+            {
+                //Find the Item with the id
+                VMItem = db.Items.Find(id)
+            };
+
+            string jsonItem = "";
+            if (vm.VMItem != null)
+            {
+                /* Get all bids associated with this item */
+                vm.VMBids = vm.VMItem.Bids.Where(x => x.ItemID == id).ToList();
+
+                /* Serialize the JSON object */
+                jsonItem = JsonConvert.SerializeObject(vm.VMBids);
+            }
+            
+            /* Send the JSON object back */
+            return Json(jsonItem, JsonRequestBehavior.AllowGet);            
         }
     }
 }

@@ -154,6 +154,7 @@
     <Compile Include="Controllers\BidsController.cs" />
     <Compile Include="Controllers\ItemsController.cs" />
     <Compile Include="DAL\AuctionHouseContext.cs" />
+    <Compile Include="Models\ViewModels\AuctionHouseVM.cs" />
     <Compile Include="Models\Bid.cs" />
     <Compile Include="Models\Buyer.cs" />
     <Compile Include="Controllers\HomeController.cs" />
