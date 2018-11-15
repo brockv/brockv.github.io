@@ -10,35 +10,32 @@ function showBids(result) {
         html += '</tr>';
     });
     $('.tbody').html(html);
+
+    refreshBids();
 }
 
 //if there is an error on the request
-function refreshBids(ajax_call) {
+function refreshBids() {
     var interval = 1000 * 4;
-    window.setInterval(ajax_call, interval);
+    window.setInterval(main, interval);
 }
 
 
 ///////////////////////////////////////////////////////
 //                      MAIN                         //
 ///////////////////////////////////////////////////////
-function main() {
-
+function main() { 
+    $.ajax({
+    type: "GET",
+    dataType: "json",
+    url: "/Bids/GetBids",
+    data: { "id": id },
+    success: showBids,
+    error: function (errormessage) {
+        alert(errormessage.responseText);
+        }
+    });
     
-    var ajax_call = function () {
-        $.ajax({
-            type: "GET",
-            dataType: "json",
-            url: "/Bids/GetBids",
-            data: { "id": id },
-            success: showBids,
-            error: function (errormessage) {
-                alert(errormessage.responseText);
-            }
-        });
-    }
-
-    refreshBids(ajax_call);
 }
 
 /* Call main() once the page is fully loaded */

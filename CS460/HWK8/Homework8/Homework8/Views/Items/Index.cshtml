@@ -5,6 +5,9 @@
 }
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+
 
 <br />
 <h1>Currently Listed Items</h1>
@@ -12,8 +15,8 @@
 <br />
 
 <p>
-    <button type="button" class="btn btn-block" id="btnOpenModal" data-toggle="modal">Create New Listing</button>
-    <div class="modal fade" id="myModal" role="dialog" data-url="@Url.Action("Create", "Items")"></div>
+    <button type="button" class="btn btn-primary" id="btnOpenModal" data-toggle="modal" data-target="#createModal">Create New Listing</button>
+    <div class="modal fade" id="createModal" role="dialog"></div>    
 </p>
 <table class="table">
     <tr>
@@ -42,26 +45,44 @@
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID }, new { @class = "test", @data_toggle = "modal", @data_target = "#createModal", @data_id = item.ID })
             </td>
         </tr>
     }
 </table>
 
+
+
 <script type="text/javascript">
 
     $(document).ready(function () {
+        $("#btnOpenModal").click(function () {            
+            $.get("/Items/Create", function (data) {
 
-        $(".btn-block").click(function () {
+                $("#createModal").html(data);
+                $("#createModal").modal("show");
 
-            var url = $("#myModal").data("url");
-            $.get(url, function (data) {
+                $("#createModal").on("hidden.bs.modal", function () {
+                    /* Secretly reload the page so the new item shows */
+                    location.reload();
+                });
+            });
+        });        
 
-                $("#myModal").html(data);
-                $("#myModal").modal("show");
+        $(".test").click(function (id) {
+            $.get("/Items/Edit?id=" + $(this).data('id'), function (data) {
+
+                $("#createModal").html(data);
+                $("#createModal").modal("show");
+
+                $("#createModal").on("hidden.bs.modal", function () {
+                    /* Secretly reload the page so the new item shows */
+                    location.reload();
+                });
             });
         });
+        
     });
 </script>
+
+

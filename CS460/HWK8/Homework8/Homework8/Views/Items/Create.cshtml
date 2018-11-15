@@ -45,9 +45,8 @@
 
                 <!-- Modal footer section - contains the buttons -->
                 <div class="modal-footer form-group">
-                    <button class="btn btn-default" id="btnCancel" data-dismiss="modal">Cancel</button>
+                    <input type="button" class="btn btn-default" id="btnCancel" value="Cancel" data-dismiss="modal" />
                     <input type="button" class="btn btn-primary" id="btnOK" value="Create Listing" onclick="saveItemDetails()" />
-                    <!--<button class="btn btn-primary" id="btnOK" onclick="saveItemDetails()">Create Listing</button>-->
                 </div>
 
             </div>
@@ -56,8 +55,8 @@
 </div>
 
 <script type="text/javascript">
-    $(".btn-primary").click(function saveItemDetails() {
-        debugger;
+    $("#btnOK").click(function saveItemDetails() {
+        //debugger;
 
         /* Grab the user input from the form */
         var itemName = $("#itemName").val();

@@ -47,6 +47,32 @@ namespace Homework8.Controllers
             return Json(item, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpGet]
+        public PartialViewResult Edit(int? id)
+        {
+            ViewBag.Seller = new SelectList(db.Sellers, "Name", "Name");
+            ViewBag.HiddenID = id;
+            Item newItem = db.Items.Where(x => x.ID == id).FirstOrDefault();
+
+
+            return PartialView(newItem);
+        }
+
+        [HttpPost]
+        public JsonResult EditJSON(Item item)
+        {
+            Item newItem = db.Items.Where(x => x.ID == item.ID).FirstOrDefault();
+
+            newItem.ID = item.ID;
+            newItem.Name = item.Name;
+            newItem.Description = item.Description;
+            newItem.Seller = item.Seller;
+
+            db.SaveChanges();
+
+            return Json(newItem, JsonRequestBehavior.AllowGet);
+        }
+
         // GET: Items/Details/5
         public ActionResult Details(int? id)
         {
@@ -60,59 +86,6 @@ namespace Homework8.Controllers
             {
                 return HttpNotFound();
             }
-            return View(item);
-        }
-
-        /*
-        // POST: Items/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Name,Description,Seller")] Item item)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Items.Add(item);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            ViewBag.Seller = new SelectList(db.Sellers, "Name", "Name", item.Seller);
-            return View(item);
-        }
-        */
-
-        // GET: Items/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Item item = db.Items.Find(id);
-            if (item == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.Seller = new SelectList(db.Sellers, "Name", "Name", item.Seller);
-            return View(item);
-        }
-
-        // POST: Items/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Name,Description,Seller")] Item item)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(item).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.Seller = new SelectList(db.Sellers, "Name", "Name", item.Seller);
             return View(item);
         }
 
