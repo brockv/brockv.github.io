@@ -68,10 +68,10 @@
 
         /* Send the information to the method */
         $.post('/Items/CreateJSON', insertItem,
-            function (data) { if (data == 0) { location = location.href; } }, 'json');
+            function (data) { if (data == 0) { location = location.reload(); } }, 'json');
 
         /* Secretly reload the page so the new item shows */
-        window.location.href = '/Items/Index'
+        location.reload();
     });
 </script>
 

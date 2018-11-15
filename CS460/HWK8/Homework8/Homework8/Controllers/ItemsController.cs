@@ -50,26 +50,32 @@ namespace Homework8.Controllers
         [HttpGet]
         public PartialViewResult Edit(int? id)
         {
+            /* Initialize a SelectList of all the Sellers so we can use a DropDownList */
             ViewBag.Seller = new SelectList(db.Sellers, "Name", "Name");
-            ViewBag.HiddenID = id;
+
+            /* Grab the item associated with the ID passed in */
             Item newItem = db.Items.Where(x => x.ID == id).FirstOrDefault();
 
-
+            /* Return the modal form contained in the partial view */
             return PartialView(newItem);
         }
 
         [HttpPost]
         public JsonResult EditJSON(Item item)
         {
+            /* Get the item with the ID that was passed in from the modal form */
             Item newItem = db.Items.Where(x => x.ID == item.ID).FirstOrDefault();
 
+            /* Overwrite the values in the database*/
             newItem.ID = item.ID;
             newItem.Name = item.Name;
             newItem.Description = item.Description;
             newItem.Seller = item.Seller;
 
+            /* Save the changes to the item */
             db.SaveChanges();
 
+            /* Return to the JavaScript function */
             return Json(newItem, JsonRequestBehavior.AllowGet);
         }
 

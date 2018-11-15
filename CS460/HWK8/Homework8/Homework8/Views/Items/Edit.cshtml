@@ -60,21 +60,22 @@
 
 
 <script type="text/javascript">
-    function updateListing() {
+    $("#btnOK").click(function updateListing() {
         /* Grab the user input from the form */
         var itemID = $("#itemID").val();
         var itemName = $("#itemName").val();
         var itemDescription = $("#itemDescription").val();
-        var itemSeller = $("#itemSeller").val();        
+        var itemSeller = $("#itemSeller").val();
 
         /* Build the information using the values we grabbed */
         var updateListingDetails = { "ID": itemID, "Name": itemName, "Description": itemDescription, "Seller": itemSeller };
 
         /* Send the information to the method */
         $.post('/Items/EditJSON', updateListingDetails,
-            function (data) { if (data == 0) { location = localStorage.href; } }, 'json');
+            function (data) { if (data == 0) { location = location.reload(); } }, 'json');
 
         /* Secretly reload the page so the new item shows */
-        window.location.href = '/Items/Index';
-    }
+        location.reload();
+    
+    });
 </script>
