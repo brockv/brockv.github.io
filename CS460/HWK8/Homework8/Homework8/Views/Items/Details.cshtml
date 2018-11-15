@@ -1,15 +1,25 @@
-﻿@model Homework8.Item
+﻿@model Homework8.Models.Item
 
 @{
     ViewBag.Title = "Details";
 }
 
-<h2>Item Details</h2>
+@section scriptSection
+{
+    <script type="text/javascript" src="~/Scripts/js_functions.js"></script>
+}
 
-<br/>
-<br/>
+
+<input type="hidden" value="@Model.ID" id="hdnFlag" />
+
+
+<br />
+<h2>Item Details</h2>
+<br />
+<br />
+
 <div>
-    <h3>@Html.DisplayFor(model => model.Name)</h3>
+    <h2>@Html.DisplayFor(model => model.Name)</h2>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -35,9 +45,32 @@
     @Html.ActionLink("Back to List", "Index")
 </p>
 
+<!-- Push the bid table down farther -->
+<br />
+<br />
 
+<!-- Set up the area for displaying bids for this item -->
+<div class="container">
+    
+    <!-- Section header -->
+    <h3>Current Bids for this Item</h3>
+    <!-- Table headers -->
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Buyer
+                </th>
+                <th>
+                    Bid Amount
+                </th>
+            </tr>
+        </thead>
+        <!-- Table contents -->
+        <tbody class="tbody"></tbody>
+    </table>
 
-
+</div>
 
 
 

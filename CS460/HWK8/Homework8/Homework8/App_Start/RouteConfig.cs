@@ -18,6 +18,12 @@ namespace Homework8
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+
+            routes.MapRoute(
+                name: "DisplayBids",
+                url: "{controller}/{action}/{id}",
+                defaults: new { controller = "Bids", action = "GetBids", id = UrlParameter.Optional }
+            );
         }
     }
 }

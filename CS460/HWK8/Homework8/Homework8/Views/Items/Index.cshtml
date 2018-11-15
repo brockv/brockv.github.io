@@ -1,13 +1,22 @@
-﻿@model IEnumerable<Homework8.Item>
+﻿@model IEnumerable<Homework8.Models.Item>
 
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>Currently Listed Items</h2>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+
+
+<br />
+<h1>Currently Listed Items</h1>
+<br />
+<br />
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    <button type="button" class="btn btn-primary" id="btnOpenModal" data-toggle="modal" data-target="#createModal">Create New Listing</button>
+    <div class="modal fade" id="createModal" role="dialog"></div>    
 </p>
 <table class="table">
     <tr>
@@ -23,23 +32,72 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Seller1.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
-}
-
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Seller1.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID }, new { @class = "actionLinkEdit", @data_toggle = "modal", @data_target = "#createModal", @data_id = item.ID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ID })
+            </td>
+        </tr>
+    }
 </table>
+
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $("#btnOpenModal").click(function () {            
+            $.get("/Items/Create", function (data) {
+
+                $("#createModal").html(data);
+                $("#createModal").modal("show");
+
+                $("#createModal").on("hidden.bs.modal", function () {
+                    /* Secretly reload the page so the new item shows */
+                    location.reload();
+                });
+
+            });
+        });        
+
+        $(".actionLinkEdit").click(function () {
+            $.get("/Items/Edit?id=" + $(this).data('id'), function (data) {
+
+                $("#createModal").html(data);
+                $("#createModal").modal("show");
+
+                $("#createModal").on("hidden.bs.modal", function () {
+                    /* Secretly reload the page so the new item shows */
+                    location.reload();
+                });
+            });
+        });
+
+        $(".actionLinkDelete").click(function () {
+            $.get("/Items/Delete?id=" + $(this).data('id'), function (data) {
+
+                $("#createModal").html(data);
+                $("#createModal").modal("show");
+
+                $("#createModal").on("hidden.bs.modal", function () {
+                    /* Secretly reload the page so the new item shows */
+                    location.reload();
+                });
+            });
+        });
+        
+    });
+</script>
+
+

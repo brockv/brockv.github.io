@@ -1,4 +1,4 @@
-namespace Homework8
+namespace Homework8.Models
 {
     using System;
     using System.Collections.Generic;
@@ -18,7 +18,7 @@ namespace Homework8
 
         [Required]
         [StringLength(30)]
-        [Display(Name="Item Name")]
+        [Display(Name = "Item Name")]
         public string Name { get; set; }
 
         [Required]
@@ -28,7 +28,7 @@ namespace Homework8
 
         [Required]
         [StringLength(30)]
-        [Display(Name = "Seller")]
+        [Display(Name = "Seller Name")]
         public string Seller { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -1,10 +1,13 @@
-﻿@model Homework8.Bid
+﻿@model Homework8.Models.Bid
 
 @{
     ViewBag.Title = "Create";
 }
 
-<h2>Bid on an Item</h2>
+<br/>
+<h1>Bid on an Item</h1>
+<br />
+<br />
 
 
 @using (Html.BeginForm()) 
@@ -12,7 +15,6 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>Bid</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
@@ -26,16 +28,16 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Buyer, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Buyer, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.DropDownList("Buyer", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.Buyer, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.BidAmount, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.BidAmount, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.BidAmount, "", new { @class = "text-danger" })
             </div>
         </div>
 

@@ -1,58 +1,97 @@
-﻿@model Homework8.Item
+﻿@model Homework8.Models.Item
 
-@{
-    ViewBag.Title = "Edit";
-}
-
-<h2>Edit</h2>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Item</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.ID)
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-            </div>
-        </div>
+<!-- The Modal -->
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6"></div>
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                <!-- Modal header section -->
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModal-label">Edit Listing</h4>
+                </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Seller, "Seller", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("Seller", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Seller, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                <!-- Modal body section -->
+                <div class="modal-body">
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                    <input type="hidden" id="itemID" value="@Model.ID" />
+
+                    <!-- Input for the item's name -->
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-lg-6" })
+                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", id = "itemName" } })
+                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                    </div>
+
+                    <!-- Input for the item's description -->
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-lg-6" })
+                        @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", id = "itemDescription" } })
+                        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                    </div>
+
+                    <!-- Input for the item's seller -->
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Seller, "Seller", htmlAttributes: new { @class = "control-label col-lg-6" })
+                        @Html.DropDownList("Seller", null, htmlAttributes: new { @class = "form-control", id = "itemSeller" })
+                        @Html.ValidationMessageFor(model => model.Seller, "", new { @class = "text-danger" })
+                    </div>
+
+                </div>
+               
+                <!-- Modal footer section - contains the buttons -->
+                <div class="modal-footer form-group">
+                    <input type="button" class="btn btn-danger" id="btnDelete" style="float: left;" value="DELETE" onclick="" />
+                    <input type="button" class="btn btn-default" id="btnCancel" value="Cancel" data-dismiss="modal" onclick="deleteListing()" />
+                    <input type="button" class="btn btn-primary" id="btnOK" value="Update Listing" onclick="updateListing()" />
+                </div>
+
             </div>
         </div>
     </div>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
 </div>
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+
+<script type="text/javascript">
+    /* Handle when the "Update Listing" button is pressed */
+    $("#btnOK").click(function updateListing() {
+        /* Grab the user input from the form */
+        var itemID = $("#itemID").val();
+        var itemName = $("#itemName").val();
+        var itemDescription = $("#itemDescription").val();
+        var itemSeller = $("#itemSeller").val();
+
+        /* Build the information using the values we grabbed */
+        var updateListingDetails = { "ID": itemID, "Name": itemName, "Description": itemDescription, "Seller": itemSeller };
+
+        /* Send the information to the method */
+        $.post('/Items/EditJSON', updateListingDetails,
+            function (data) { if (data == 0) { location = location.reload(); } }, 'json');
+
+        /* Secretly reload the page so the new item shows */
+        location.reload();
+    
+    });
+
+    /* Handle when the "DELETE" button is pressed */
+    $("#btnDelete").click(function deleteListing() {
+        /* Grab the user input from the form */
+        var itemID = $("#itemID").val();
+
+        /* Send the information to the method */
+        $.post("/Items/Delete?id=" + itemID, itemID,
+            function (data) { if (data == 0) { location = location.reload(); } }, 'int');
+
+        /* Secretly reload the page so the new item shows */
+        location.reload();
+
+    });
+</script>

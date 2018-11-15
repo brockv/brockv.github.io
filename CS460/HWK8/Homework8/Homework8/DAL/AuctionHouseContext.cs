@@ -1,9 +1,10 @@
-namespace Homework8
+namespace Homework8.DAL
 {
     using System;
     using System.Data.Entity;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
+    using Homework8.Models;
 
     public partial class AuctionHouseContext : DbContext
     {
@@ -20,8 +21,14 @@ namespace Homework8
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Bid>()
-                .Property(e => e.Price)
+                .Property(e => e.BidAmount)
                 .HasPrecision(18, 0);
+
+            modelBuilder.Entity<Buyer>()
+                .HasMany(e => e.Bids)
+                .WithRequired(e => e.Buyer1)
+                .HasForeignKey(e => e.Buyer)
+                .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Item>()
                 .HasMany(e => e.Bids)
