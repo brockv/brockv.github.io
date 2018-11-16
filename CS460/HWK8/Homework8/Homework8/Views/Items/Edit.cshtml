@@ -16,13 +16,13 @@
                 <!-- Modal header section -->
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="myModal-label">Update Listing</h4>
+                    <h4 class="modal-title" id="myModal-label">Edit Listing</h4>
                 </div>
 
                 <!-- Modal body section -->
                 <div class="modal-body">
 
-                    <input type="hidden" id="itemID" value="@Model.ID"/>
+                    <input type="hidden" id="itemID" value="@Model.ID" />
 
                     <!-- Input for the item's name -->
                     <div class="form-group">
@@ -46,11 +46,12 @@
                     </div>
 
                 </div>
-
+               
                 <!-- Modal footer section - contains the buttons -->
                 <div class="modal-footer form-group">
-                    <input type="button" class="btn btn-default" id="btnCancel" value="Cancel" data-dismiss="modal" />
-                    <input type="button" class="btn btn-primary" id="btnOK" value="Update Listing" onclick="updateListing()" />
+                    <input type="button" class="btn btn-danger" id="btnDelete" style="float: left;" value="DELETE" onclick="" />
+                    <input type="button" class="btn btn-default" id="btnCancel" value="Cancel" data-dismiss="modal" onclick="deleteListing()" />
+                    <input type="button" class="btn btn-primary" id="btnUpdate" value="Update Listing" onclick="updateListing()" />
                 </div>
 
             </div>
@@ -60,22 +61,37 @@
 
 
 <script type="text/javascript">
-    $("#btnOK").click(function updateListing() {
-        /* Grab the user input from the form */
-        var itemID = $("#itemID").val();
-        var itemName = $("#itemName").val();
-        var itemDescription = $("#itemDescription").val();
-        var itemSeller = $("#itemSeller").val();
+    $(document).ready(function () {
 
-        /* Build the information using the values we grabbed */
-        var updateListingDetails = { "ID": itemID, "Name": itemName, "Description": itemDescription, "Seller": itemSeller };
+        /* Handle when the "Update Listing" button is pressed */
+        $("#btnUpdate").click(function updateListing() {
+            /* Grab the user input from the form */
+            var itemID = $("#itemID").val();
+            var itemName = $("#itemName").val();
+            var itemDescription = $("#itemDescription").val();
+            var itemSeller = $("#itemSeller").val();
 
-        /* Send the information to the method */
-        $.post('/Items/EditJSON', updateListingDetails,
-            function (data) { if (data == 0) { location = location.reload(); } }, 'json');
+            /* Build the information using the values we grabbed */
+            var updateListingDetails = { "ID": itemID, "Name": itemName, "Description": itemDescription, "Seller": itemSeller };
 
-        /* Secretly reload the page so the new item shows */
-        location.reload();
-    
+            /* Send the information to the method */
+            $.post('/Items/EditJSON', updateListingDetails,
+                function (data) { if (data == 0) { location.href = "/Items/Index"; } }, 'json');
+
+            window.location.reload(true);
+        });
+
+        /* Handle when the "DELETE" button is pressed */
+        $("#btnDelete").click(function deleteListing() {
+            /* Grab the user input from the form */
+            var itemID = $("#itemID").val();
+
+            /* Send the information to the method */
+            $.post("/Items/Delete?id=" + itemID, itemID,
+                function (data) { if (data == 0) { location.href = "/Items/Index"; } }, 'int');
+
+            window.location.reload(true);
+        });
+
     });
 </script>

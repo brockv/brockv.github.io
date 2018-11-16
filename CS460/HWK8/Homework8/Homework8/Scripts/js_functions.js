@@ -9,9 +9,7 @@ function showBids(result) {
         html += '<td>' + "$" + item.BidAmount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') + '</td>';
         html += '</tr>';
     });
-    $('.tbody').html(html);
-
-    refreshBids();
+    $('.tbody').html(html);    
 }
 
 //if there is an error on the request
@@ -35,7 +33,8 @@ function main() {
         alert(errormessage.responseText);
         }
     });
-    
+
+    refreshBids();
 }
 
 /* Call main() once the page is fully loaded */

@@ -1,4 +1,6 @@
-﻿@{
+﻿@model IEnumerable<Homework8.Models.Bid>
+
+@{
     ViewBag.Title = "Home Page";
 }
 
@@ -11,12 +13,66 @@
 </div>
 
 
-<div class="row">
+<div class="container">
+    <h2>Ten Most Recent Bids Across All Items</h2>
+    <!-- Table headers -->
+    <table class="table recentBids">
+        <tr>
+            <th>
+                @Html.Label("Item ID")
+            </th>
 
+            <th>
+                @Html.Label("Item Name")
+            </th>
+
+            <th>
+                @Html.Label("Buyer")
+            </th>
+
+            <th>
+                @Html.Label("Bid Amount")
+            </th>
+
+            <th>
+                @Html.Label("Time of Bid")
+            </th>
+        </tr>
+
+        <!-- Table rows -->
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ItemID)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Item.Name)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Buyer)
+            </td>
+
+            <td>
+                @(string.Format("{0:C}", item.BidAmount))
+            </td>
+
+            <td>
+                @if (item.BidTimestamp.Date == DateTime.Today)
+                {
+                    @(string.Format("{0:T}", item.BidTimestamp))
+                }
+                else
+                {
+                    @Html.DisplayFor(modelItem => item.BidTimestamp)
+                }
+            </td>
+        </tr>
+        }
+
+    </table>
 </div>
-
-
-<footer id="footer">
-    <hr style="margin-right: 50px; margin-left: 50px;" />
-    <p style="margin-left: 50px;">&copy; @DateTime.Now.Year - Brock Vance</p>
-</footer>
+<br/>
+<br/>

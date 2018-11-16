@@ -24,37 +24,60 @@ namespace Homework8.Controllers
         // GET: Items
         public ActionResult Index()
         {
+            /* Grab all of the items currently in the Items table */
             var items = db.Items.Include(i => i.Seller1);
+
+            /* Return the items that were found in a list */
             return View(items.ToList());
         }
 
         [HttpGet]
         public PartialViewResult Create()
         {
+            /* Initialize a SelectList of all the Sellers so we can use a DropDownList */
             ViewBag.Seller = new SelectList(db.Sellers, "Name", "Name");
+
+            /* Return the modal form contained in the partial view */
             return PartialView("Create", new Item());
         }
 
         [HttpPost]
         public JsonResult CreateJSON([Bind(Include = "ID,Name,Description,Seller")] Item item)
         {
+            /* Check if the model passed in is valid before doing anything with it */
             if (ModelState.IsValid)
             {
+                /* Add the new item to the table and save the changes */
                 db.Items.Add(item);
                 db.SaveChanges();
             }
 
+            /* Return to the JavaScript function */
             return Json(item, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
-        public PartialViewResult Edit(int? id)
+        public ActionResult Edit(int? id)
         {
-            /* Initialize a SelectList of all the Sellers so we can use a DropDownList */
-            ViewBag.Seller = new SelectList(db.Sellers, "Name", "Name");
+            /* If the ID passed in is null, silently redirect to the listings page */
+            if (id == null)
+            {
+                /* Silently return to the listings page */
+                return RedirectToAction("Index", "Items");
+            }            
 
             /* Grab the item associated with the ID passed in */
             Item newItem = db.Items.Where(x => x.ID == id).FirstOrDefault();
+
+            /* If there wasn't an entry associated with the given ID, silently return to the listings page */
+            if (newItem == null)
+            {
+                /* Silently return to the listings page */
+                return RedirectToAction("Index", "Items");
+            }
+
+            /* Initialize a SelectList of all the Sellers so we can use a DropDownList */
+            ViewBag.Seller = new SelectList(db.Sellers, "Name", "Name", newItem.Seller);
 
             /* Return the modal form contained in the partial view */
             return PartialView(newItem);
@@ -95,30 +118,16 @@ namespace Homework8.Controllers
             return View(item);
         }
 
-        // GET: Items/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Item item = db.Items.Find(id);
-            if (item == null)
-            {
-                return HttpNotFound();
-            }
-            return View(item);
-        }
-
         // POST: Items/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        [HttpPost]
+        public JsonResult Delete(int id)
         {
             Item item = db.Items.Find(id);
             db.Items.Remove(item);
             db.SaveChanges();
-            return RedirectToAction("Index");
+
+            /* Return to the JavaScript function */
+            return Json(item, JsonRequestBehavior.AllowGet);
         }
 
         protected override void Dispose(bool disposing)

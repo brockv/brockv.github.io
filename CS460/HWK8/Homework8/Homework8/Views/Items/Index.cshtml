@@ -45,7 +45,8 @@
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.ID }, new { @class = "test", @data_toggle = "modal", @data_target = "#createModal", @data_id = item.ID })
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID }, new { @class = "actionLinkEdit", @data_toggle = "modal", @data_target = "#createModal", @data_id = item.ID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ID })
             </td>
         </tr>
     }
@@ -56,33 +57,31 @@
 <script type="text/javascript">
 
     $(document).ready(function () {
+
         $("#btnOpenModal").click(function () {            
             $.get("/Items/Create", function (data) {
 
                 $("#createModal").html(data);
                 $("#createModal").modal("show");
-
-                $("#createModal").on("hidden.bs.modal", function () {
-                    /* Secretly reload the page so the new item shows */
-                    location.reload();
-                });
-
             });
         });        
 
-        $(".test").click(function (id) {
+        $(".actionLinkEdit").click(function () {
             $.get("/Items/Edit?id=" + $(this).data('id'), function (data) {
 
                 $("#createModal").html(data);
-                $("#createModal").modal("show");
-
-                $("#createModal").on("hidden.bs.modal", function () {
-                    /* Secretly reload the page so the new item shows */
-                    location.reload();
-                });
+                $("#createModal").modal("show"); 
             });
         });
-        
+
+        $(".actionLinkDelete").click(function () {
+            $.get("/Items/Delete?id=" + $(this).data('id'), function (data) {
+
+                $("#createModal").html(data);
+                $("#createModal").modal("show");
+            });
+        });
+
     });
 </script>
 
