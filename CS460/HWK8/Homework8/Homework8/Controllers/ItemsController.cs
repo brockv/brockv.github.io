@@ -31,6 +31,22 @@ namespace Homework8.Controllers
             return View(items.ToList());
         }
 
+        // GET: Items/Details/5
+        public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Item item = db.Items.Find(id);
+            //var bids = db.Bids.Include(b => b.Buyer1).Include(b => b.Item);
+            if (item == null)
+            {
+                return HttpNotFound();
+            }
+            return View(item);
+        }
+
         [HttpGet]
         public PartialViewResult Create()
         {
@@ -50,12 +66,15 @@ namespace Homework8.Controllers
                 /* Add the new item to the table and save the changes */
                 db.Items.Add(item);
                 db.SaveChanges();
+
+
             }
 
             /* Return to the JavaScript function */
             return Json(item, JsonRequestBehavior.AllowGet);
-        }
 
+        }
+            
         [HttpGet]
         public ActionResult Edit(int? id)
         {
@@ -102,25 +121,25 @@ namespace Homework8.Controllers
             return Json(newItem, JsonRequestBehavior.AllowGet);
         }
 
-        // GET: Items/Details/5
-        public ActionResult Details(int? id)
+        [HttpGet]
+        public ActionResult ConfirmDelete(int? id)
         {
-            if (id == null)
+            /* Attempt to grab the item associated with the ID passed in */
+            Item item = db.Items.Where(x => x.ID == id).FirstOrDefault();
+
+            /* If the ID or item are null, silently redirect to the listings page */
+            if (id == null || item == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                /* Silently return to the listings page */
+                return RedirectToAction("Index", "Items");
             }
-            Item item = db.Items.Find(id);
-            //var bids = db.Bids.Include(b => b.Buyer1).Include(b => b.Item);
-            if (item == null)
-            {
-                return HttpNotFound();
-            }
-            return View(item);
+
+            /* Return the modal form contained in the partial view */
+            return PartialView(item);
         }
 
-        // POST: Items/Delete/5
         [HttpPost]
-        public JsonResult Delete(int id)
+        public JsonResult Delete(int? id)
         {
             Item item = db.Items.Find(id);
             db.Items.Remove(item);
@@ -128,6 +147,26 @@ namespace Homework8.Controllers
 
             /* Return to the JavaScript function */
             return Json(item, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult DeleteJSON(Item item)
+        {
+            Item newItem = new Item();
+
+            /* Make sure the model passed in is valid before doing anything with it */
+            if (ModelState.IsValid)
+            {
+                /* Get the item with the ID that was passed in from the modal form */
+                newItem = db.Items.Where(x => x.ID == item.ID).FirstOrDefault();
+
+                /* Remove the item from the database and save the changes */
+                db.Items.Remove(newItem);
+                db.SaveChanges();
+            }
+
+            /* Return to the JavaScript function */
+            return Json(newItem, JsonRequestBehavior.AllowGet);
         }
 
         protected override void Dispose(bool disposing)

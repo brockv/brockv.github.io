@@ -4,11 +4,6 @@
     ViewBag.Title = "Details";
 }
 
-@section scriptSection
-{
-    <script type="text/javascript" src="~/Scripts/js_functions.js"></script>
-}
-
 
 <input type="hidden" value="@Model.ID" id="hdnFlag" />
 
@@ -51,7 +46,7 @@
 
 <!-- Set up the area for displaying bids for this item -->
 <div class="container">
-    
+
     <!-- Section header -->
     <h3>Current Bids for this Item</h3>
     <!-- Table headers -->
@@ -73,4 +68,7 @@
 </div>
 
 
-
+@section showBidsScriptSection
+{
+    <script type="text/javascript" src="~/Scripts/js_show_bids_functions.js"></script>
+}

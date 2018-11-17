@@ -1,9 +1,9 @@
 ﻿@model Homework8.Models.Item
 
+<!-- Scripts required to display the modal window -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-
 
 
 <!-- The Modal -->
@@ -28,14 +28,18 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-lg-6" })
                         @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", id = "itemName" } })
-                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+
+                        <!-- Using a custom method for validation because my setup prevents default Razor validation from working -->
+                        @Html.Label(" ", new { @class = "text-danger", id = "itemNameValidation" })
                     </div>
 
                     <!-- Input for the item's description -->
                     <div class="form-group">
                         @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-lg-6" })
                         @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", id = "itemDescription" } })
-                        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+
+                        <!-- Using a custom method for validation because my setup prevents default Razor validation from working -->
+                        @Html.Label(" ", new { @class = "text-danger", id = "itemDescriptionValidation" })
                     </div>
 
                     <!-- Input for the item's seller -->
@@ -46,11 +50,10 @@
                     </div>
 
                 </div>
-               
+
                 <!-- Modal footer section - contains the buttons -->
                 <div class="modal-footer form-group">
-                    <input type="button" class="btn btn-danger" id="btnDelete" style="float: left;" value="DELETE" onclick="" />
-                    <input type="button" class="btn btn-default" id="btnCancel" value="Cancel" data-dismiss="modal" onclick="deleteListing()" />
+                    <input type="button" class="btn btn-default" id="btnCancel" value="Cancel" data-dismiss="modal" />
                     <input type="button" class="btn btn-primary" id="btnUpdate" value="Update Listing" onclick="updateListing()" />
                 </div>
 
@@ -60,6 +63,7 @@
 </div>
 
 
+<!-- Script to handle actions related to the modal window -->
 <script type="text/javascript">
     $(document).ready(function () {
 
@@ -71,27 +75,28 @@
             var itemDescription = $("#itemDescription").val();
             var itemSeller = $("#itemSeller").val();
 
-            /* Build the information using the values we grabbed */
-            var updateListingDetails = { "ID": itemID, "Name": itemName, "Description": itemDescription, "Seller": itemSeller };
+            if (itemName == "") {
+                $("#itemNameValidation").text("*Item Name is required");
+            }
 
-            /* Send the information to the method */
-            $.post('/Items/EditJSON', updateListingDetails,
-                function (data) { if (data == 0) { location.href = "/Items/Index"; } }, 'json');
+            if (itemDescription == "") {
+                $("#itemDescriptionValidation").text("*Item Description is required");
+            }
 
-            window.location.reload(true);
+            if (itemName && itemDescription != "") {
+                /* Build the information using the values we grabbed */
+                var updateListingDetails = { "ID": itemID, "Name": itemName, "Description": itemDescription, "Seller": itemSeller };
+
+                /* Send the information to the method */
+                $.post('/Items/EditJSON', updateListingDetails,
+                    function (data) { if (data == 0) { window.location.reload(true); } }, 'json');
+
+                /* Refresh the parent view to reflect the changes */
+                window.location.reload(true);
+                window.location.reload(true);
+            }
+
         });
-
-        /* Handle when the "DELETE" button is pressed */
-        $("#btnDelete").click(function deleteListing() {
-            /* Grab the user input from the form */
-            var itemID = $("#itemID").val();
-
-            /* Send the information to the method */
-            $.post("/Items/Delete?id=" + itemID, itemID,
-                function (data) { if (data == 0) { location.href = "/Items/Index"; } }, 'int');
-
-            window.location.reload(true);
-        });
-
     });
 </script>
+
