@@ -17,7 +17,7 @@
                 <!-- Modal header section -->
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="myModal-label">Create New Listing</h4>
+                    <h3 class="modal-title" id="myModal-label">Create New Listing</h3>
                 </div>
 
                 <!-- Modal body section -->
@@ -52,7 +52,7 @@
                 <!-- Modal footer section - contains the buttons -->
                 <div class="modal-footer form-group">
                     <input type="button" class="btn btn-default" id="btnCancel" value="Cancel" data-dismiss="modal" />
-                    <input type="button" class="btn btn-primary" id="btnCreate" value="Create Listing" />
+                    <input type="button" class="btn btn-primary" id="btnCreate" value="Create Listing" onclick="saveItemDetails()" />
                 </div>
 
             </div>
@@ -62,49 +62,42 @@
 
 <!-- Script to handle actions related to the modal window -->
 <script type="text/javascript">
-    $(document).ready(function () {
-        $("#btnCreate").click(function saveItemDetails() {
+    function saveItemDetails() {
+        /* Grab the user input from the form */
+        var itemName = $("#itemName").val();
+        var itemDescription = $("#itemDescription").val();
+        var itemSeller = $("#itemSeller").val();
 
-            /* Grab the user input from the form */
-            var itemName = $("#itemName").val();
-            var itemDescription = $("#itemDescription").val();
-            var itemSeller = $("#itemSeller").val();
+        /* Display error message if the item name is missing */
+        if (itemName == "") {
+            $("#itemNameValidation").text("*Item Name is required");
+        }
 
-            /* Display error message if the item name is missing */
-            if (itemName == "") {
-                $("#itemNameValidation").text("*Item Name is required");
-            }
+        /* Display error message if the item description is missing */
+        if (itemDescription == "") {
+            $("#itemDescriptionValidation").text("*Item Description is required");
+        }
 
-            /* Display error message if the item description is missing */
-            if (itemDescription == "") {
-                $("#itemDescriptionValidation").text("*Item Description is required");
-            }
+        /* If both the item name and description are valid, proceed */
+        if (itemName && itemDescription != "") {
 
-            /* If both the item name and description are valid, proceed */
-            if (itemName && itemDescription != "") {
+            /* Clear the error messages, if there were any */
+            $("#itemNameValidation").text(" ");
+            $("#itemDescriptionValidation").text(" ");
 
-                /* Clear the error messages, if there were any */
-                $("#itemNameValidation").text(" ");
-                $("#itemDescriptionValidation").text(" ");
+            /* Build the information using the values we grabbed */
+            var insertItem = { "Name": itemName, "Description": itemDescription, "Seller": itemSeller };
 
-                /* Build the information using the values we grabbed */
-                var insertItem = { "Name": itemName, "Description": itemDescription, "Seller": itemSeller };
+            /* Send the information to the method */
+            $.post('/Items/CreateJSON', insertItem, refreshParentPage(), 'json');
+        }
+    }
 
-                /* Send the information to the method */
-                $.post('/Items/CreateJSON', insertItem,
-                    function (data) { if (data == 0) { window.location.reload(true); } }, 'json');
-
-                /* Refresh the parent view to reflect the changes */
-                window.location.reload(true);
-                window.location.reload(true);
-            }
-
-        });
-    });
+    /* This is called in order to refresh the parent page so that the changes appear immediately */
+    function refreshParentPage() {
+        setTimeout(function () {
+            location.reload();
+        }, 250);
+    }
 </script>
 
-
-
-@section scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}

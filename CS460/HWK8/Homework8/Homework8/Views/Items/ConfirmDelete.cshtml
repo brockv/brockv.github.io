@@ -16,8 +16,8 @@
                 <!-- Modal header section -->
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="myModal-label">Confirm Delete</h4>
-                    <label class="text-danger">This action is permanent, and cannot be undone</label>
+                    <h3 class="modal-title" id="myModal-label">Confirm Delete</h3>
+                    <label class="text-danger">WARNING: This action is permanent, and cannot be undone</label>
                 </div>
 
                 <!-- Modal body section -->
@@ -50,7 +50,7 @@
                 </div>
 
                 <!-- Modal footer section - contains the buttons -->
-                <div class="modal-footer form-group">
+                <div class="modal-footer form-group">                    
                     <input type="button" class="btn btn-default" id="btnCancel" value="Cancel" data-dismiss="modal" />
                     <input type="button" class="btn btn-danger" id="btnDelete" value="DELETE" onclick="deleteListing()" />
                 </div>
@@ -60,20 +60,21 @@
     </div>
 </div>
 
-
+<!-- Script to handle actions related to the modal window -->
 <script type="text/javascript">
     /* Handle deleting items */
     function deleteListing() {
         /* Grab the values from the form */
         var itemID = "@Model.ID";
 
-
         /* Send the information to the method */
-        $.post("/Items/Delete?id=" + itemID, itemID,
-            function (data) { if (data == 0) { location.href = "/Items/Index"; } }, 'int');
+        $.post("/Items/Delete?id=" + itemID, itemID, refreshParentPage(), 'int');
 
-        /* Refresh the parent view to reflect the changes */
-        window.location.reload(true);
-        window.location.reload(true);
+        /* This is called in order to refresh the parent page so that the changes appear immediately */
+        function refreshParentPage() {
+            setTimeout(function () {
+                location.reload();
+            }, 250);
+        }
     }
 </script>

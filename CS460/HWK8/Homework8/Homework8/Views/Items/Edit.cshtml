@@ -10,13 +10,13 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-6"></div>
-        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-dialog modal-dialog-centered" id="theModal">
             <div class="modal-content">
 
                 <!-- Modal header section -->
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="myModal-label">Edit Listing</h4>
+                    <h3 class="modal-title" id="myModal-label">Edit Listing</h3>
                 </div>
 
                 <!-- Modal body section -->
@@ -62,41 +62,39 @@
     </div>
 </div>
 
-
 <!-- Script to handle actions related to the modal window -->
 <script type="text/javascript">
-    $(document).ready(function () {
+    /* Handle when the "Update Listing" button is pressed */
+    function updateListing() {
+        /* Grab the user input from the form */
+        var itemID = $("#itemID").val();
+        var itemName = $("#itemName").val();
+        var itemDescription = $("#itemDescription").val();
+        var itemSeller = $("#itemSeller").val();
 
-        /* Handle when the "Update Listing" button is pressed */
-        $("#btnUpdate").click(function updateListing() {
-            /* Grab the user input from the form */
-            var itemID = $("#itemID").val();
-            var itemName = $("#itemName").val();
-            var itemDescription = $("#itemDescription").val();
-            var itemSeller = $("#itemSeller").val();
+        if (itemName == "") {
+            $("#itemNameValidation").text("*Item Name is required");
+        }
 
-            if (itemName == "") {
-                $("#itemNameValidation").text("*Item Name is required");
-            }
+        if (itemDescription == "") {
+            $("#itemDescriptionValidation").text("*Item Description is required");
+        }
 
-            if (itemDescription == "") {
-                $("#itemDescriptionValidation").text("*Item Description is required");
-            }
+        if (itemName && itemDescription != "") {
+            /* Build the information using the values we grabbed */
+            var updateListing = { "ID": itemID, "Name": itemName, "Description": itemDescription, "Seller": itemSeller };
 
-            if (itemName && itemDescription != "") {
-                /* Build the information using the values we grabbed */
-                var updateListingDetails = { "ID": itemID, "Name": itemName, "Description": itemDescription, "Seller": itemSeller };
+            /* Send the information to the method */
+            $.post('/Items/EditJSON', updateListing, refreshParentPage(), 'json');
+        }
+    }
 
-                /* Send the information to the method */
-                $.post('/Items/EditJSON', updateListingDetails,
-                    function (data) { if (data == 0) { window.location.reload(true); } }, 'json');
-
-                /* Refresh the parent view to reflect the changes */
-                window.location.reload(true);
-                window.location.reload(true);
-            }
-
-        });
-    });
+    /* This is called in order to refresh the parent page so that the changes appear immediately */
+    function refreshParentPage() {
+        setTimeout(function () {
+            location.reload();
+        }, 250);
+    }
 </script>
+
 

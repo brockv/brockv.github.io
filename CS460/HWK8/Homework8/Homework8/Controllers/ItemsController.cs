@@ -58,7 +58,7 @@ namespace Homework8.Controllers
         }
 
         [HttpPost]
-        public JsonResult CreateJSON([Bind(Include = "ID,Name,Description,Seller")] Item item)
+        public JsonResult CreateJSON([Bind(Include = "Name,Description,Seller")] Item item)
         {
             /* Check if the model passed in is valid before doing anything with it */
             if (ModelState.IsValid)
@@ -141,32 +141,29 @@ namespace Homework8.Controllers
         [HttpPost]
         public JsonResult Delete(int? id)
         {
+            /* Get the item associated with the ID passed in */
             Item item = db.Items.Find(id);
-            db.Items.Remove(item);
-            db.SaveChanges();
+
+            /* If item isn't null, check if it's in the Bids table */
+            if (item != null)
+            {
+                /* Check if this item is in the Bids table */
+                Bid bid = db.Bids.Where(x => x.ItemID == id).FirstOrDefault();
+
+                /* If bid isn't null, remove the entry associated with this item */
+                if (bid != null)
+                {
+                    db.Bids.Remove(bid);
+                }
+
+                /* Remove the item from the table and save the changes */
+                db.Items.Remove(item);
+                db.SaveChanges();
+            }
+            
 
             /* Return to the JavaScript function */
             return Json(item, JsonRequestBehavior.AllowGet);
-        }
-
-        [HttpPost]
-        public JsonResult DeleteJSON(Item item)
-        {
-            Item newItem = new Item();
-
-            /* Make sure the model passed in is valid before doing anything with it */
-            if (ModelState.IsValid)
-            {
-                /* Get the item with the ID that was passed in from the modal form */
-                newItem = db.Items.Where(x => x.ID == item.ID).FirstOrDefault();
-
-                /* Remove the item from the database and save the changes */
-                db.Items.Remove(newItem);
-                db.SaveChanges();
-            }
-
-            /* Return to the JavaScript function */
-            return Json(newItem, JsonRequestBehavior.AllowGet);
         }
 
         protected override void Dispose(bool disposing)

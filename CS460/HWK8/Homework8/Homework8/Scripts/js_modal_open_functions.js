@@ -23,7 +23,7 @@
             $(window).on('load', function () {
                 jQuery("#createModal").modal("show");
             });
-        });
+        });        
     });
 
     /* Open the modal for deleting listings */
@@ -35,8 +35,7 @@
             $("#createModal").html(data);
             $(window).on('load', function () {
                 jQuery("#createModal").modal("show");
-            });            
+            });
         });
     });
-
 });
