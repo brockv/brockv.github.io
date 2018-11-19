@@ -21,7 +21,11 @@ namespace Homework8.Controllers
     {
         private AuctionHouseContext db = new AuctionHouseContext();
 
-        // GET: Items
+        /// <summary>
+        /// Builds a list of all the items currently listed on the site.
+        /// </summary>
+        /// <returns>A list of all items currently listed on the site.</returns>
+        [HttpGet]
         public ActionResult Index()
         {
             /* Grab all of the items currently in the Items table */
@@ -31,6 +35,32 @@ namespace Homework8.Controllers
             return View(items.ToList());
         }
 
+        /// <summary>
+        /// Attempts to load a page containing additional details for an item associated
+        /// with the given id.
+        /// </summary>
+        /// <param name="id">The id to use for looking up an item.</param>
+        /// <returns>The page containing additional details for the item associated with the given id.</returns>
+        [HttpGet]
+        public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Item item = db.Items.Find(id);
+            //var bids = db.Bids.Include(b => b.Buyer1).Include(b => b.Item);
+            if (item == null)
+            {
+                return HttpNotFound();
+            }
+            return View(item);
+        }
+
+        /// <summary>
+        /// Builds a modal window to allow the user to create a new listing.
+        /// </summary>
+        /// <returns>A modal window containing the input elements necessary for creating a new listing.</returns>
         [HttpGet]
         public PartialViewResult Create()
         {
@@ -41,8 +71,13 @@ namespace Homework8.Controllers
             return PartialView("Create", new Item());
         }
 
+        /// <summary>
+        /// Uses the information passed from the modal window to create a new entry in the Items table.
+        /// </summary>
+        /// <param name="item">The item to add to the Items table.</param>
+        /// <returns>A JSON object containing information about the item.</returns>
         [HttpPost]
-        public JsonResult CreateJSON([Bind(Include = "ID,Name,Description,Seller")] Item item)
+        public JsonResult CreateJSON([Bind(Include = "Name,Description,Seller")] Item item)
         {
             /* Check if the model passed in is valid before doing anything with it */
             if (ModelState.IsValid)
@@ -55,23 +90,29 @@ namespace Homework8.Controllers
             /* Return to the JavaScript function */
             return Json(item, JsonRequestBehavior.AllowGet);
         }
-
+        
+        /// <summary>
+        /// Builds a modal window to allow the user to edit a listing associated with the given id.
+        /// </summary>
+        /// <param name="id">The id of the item the user is trying to edit.</param>
+        /// <returns>A modal window containing the input elements necessary for editing a listing.</returns>
         [HttpGet]
         public ActionResult Edit(int? id)
         {
-
+            /* If the ID passed in is null, silently redirect to the listings page */
             if (id == null)
             {
-                /* If the given ID is null, silently return to the listings page */
+                /* Silently return to the listings page */
                 return RedirectToAction("Index", "Items");
             }            
 
             /* Grab the item associated with the ID passed in */
             Item newItem = db.Items.Where(x => x.ID == id).FirstOrDefault();
 
+            /* If there wasn't an entry associated with the given ID, silently return to the listings page */
             if (newItem == null)
             {
-                /* If there wasn't an entry associated with the given ID, silently return to the listings page */
+                /* Silently return to the listings page */
                 return RedirectToAction("Index", "Items");
             }
 
@@ -82,6 +123,11 @@ namespace Homework8.Controllers
             return PartialView(newItem);
         }
 
+        /// <summary>
+        /// Uses the information from the modal window to update the item the user edited.
+        /// </summary>
+        /// <param name="item">The item the user edited.</param>
+        /// <returns>A JSON object containing information about the item.</returns>
         [HttpPost]
         public JsonResult EditJSON(Item item)
         {
@@ -101,30 +147,60 @@ namespace Homework8.Controllers
             return Json(newItem, JsonRequestBehavior.AllowGet);
         }
 
-        // GET: Items/Details/5
-        public ActionResult Details(int? id)
+        /// <summary>
+        /// Builds a modal window to allow the user to confirm deleting a listing.
+        /// </summary>
+        /// <param name="id">The id of the item the user is trying to delete.</param>
+        /// <returns>A modal window containing information about the item the user is trying to delete.</returns>
+        [HttpGet]
+        public ActionResult ConfirmDelete(int? id)
         {
-            if (id == null)
+            /* Attempt to grab the item associated with the ID passed in */
+            Item item = db.Items.Where(x => x.ID == id).FirstOrDefault();
+
+            /* If the ID or item are null, silently redirect to the listings page */
+            if (id == null || item == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                /* Silently return to the listings page */
+                return RedirectToAction("Index", "Items");
             }
-            Item item = db.Items.Find(id);
-            //var bids = db.Bids.Include(b => b.Buyer1).Include(b => b.Item);
-            if (item == null)
-            {
-                return HttpNotFound();
-            }
-            return View(item);
+
+            /* Return the modal form contained in the partial view */
+            return PartialView(item);
         }
 
-        // POST: Items/Delete/5
+        /// <summary>
+        /// Deletes the item associated with given id, and also removes it from the Bids table if it's there.
+        /// </summary>
+        /// <param name="id">The id of the item being deleted</param>
+        /// <returns>A JSON object containing information for the item that was deleted.</returns>
         [HttpPost]
-        public JsonResult Delete(int id)
+        public JsonResult Delete(int? id)
         {
+            /* Get the item associated with the ID passed in */
             Item item = db.Items.Find(id);
-            db.Items.Remove(item);
-            db.SaveChanges();
 
+            /* If item isn't null, check if it's in the Bids table */
+            if (item != null)
+            {
+                /* Check if this item is in the Bids table */
+                List<Bid> bids = db.Bids.Where(x => x.ItemID == id).ToList();
+
+                /* If there are bids associated with this item, remove all of them */
+                if (bids.Count > 0)
+                {
+                    /* Iterate through the bids for this item, removing each one from the Bids table */
+                    foreach (Bid bid in bids)
+                    {
+                        db.Bids.Remove(bid);
+                    }
+                }
+
+                /* Remove the item from the table and save the changes */
+                db.Items.Remove(item);
+                db.SaveChanges();
+            }
+            
             /* Return to the JavaScript function */
             return Json(item, JsonRequestBehavior.AllowGet);
         }

@@ -48,3 +48,7 @@ body.modal-open .modal {
     border: 2px solid #000000;
     font-weight: bold;
 }
+
+.validationLabels {
+    color: #ff0000;
+}

@@ -16,7 +16,7 @@
 <div class="container">
     <h2>Ten Most Recent Bids Across All Items</h2>
     <!-- Table headers -->
-    <table class="table itemsPurchased">
+    <table class="table recentBids">
         <tr>
             <th>
                 @Html.Label("Item ID")
@@ -48,7 +48,7 @@
             </td>
 
             <td>
-                @Html.DisplayFor(modelItem => item.Item.Name)
+                @Html.ActionLink(item.Item.Name, "Details", "Items", new { id = item.ItemID }, null)
             </td>
 
             <td>

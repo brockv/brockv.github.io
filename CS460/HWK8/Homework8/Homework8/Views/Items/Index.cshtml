@@ -4,21 +4,29 @@
     ViewBag.Title = "Index";
 }
 
+<!-- Scripts required to display the modal window -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
 
 
 <br />
-<h1>Currently Listed Items</h1>
+<h1><strong>Currently Listed Items</strong></h1>
 <br />
 <br />
 
 <p>
+    <!-- Create a button to allow the user to create new listings -->
     <button type="button" class="btn btn-primary" id="btnOpenModal" data-toggle="modal" data-target="#createModal">Create New Listing</button>
-    <div class="modal fade" id="createModal" role="dialog"></div>    
+
+    <!-- Set up the div for the modal -->
+    <div class="modal fade" id="createModal" role="dialog"></div>
+
 </p>
+
+<!-- Create a table to hold all of the current listings -->
 <table class="table">
+    <!-- Table headers -->
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Seller1.Name)
@@ -34,6 +42,7 @@
 
     @foreach (var item in Model)
     {
+        <!-- Table data -->
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Seller1.Name)
@@ -44,60 +53,22 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
+            <!-- Action links to edit, view details for, and delete listings -->
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.ID }, new { @class = "actionLinkEdit", @data_toggle = "modal", @data_target = "#createModal", @data_id = item.ID }) |
-                @Html.ActionLink("Details", "Details", new { id = item.ID })
+                @Html.ActionLink("Details", "Details", new { id = item.ID }, new { @class = "actionLinkDetails" }) |                
+                @Html.ActionLink("Bid", "Create", "Bids", new { id = item.ID }, new { @class = "actionLinkBid", @data_toggle = "modal", @data_target = "#createModal", @data_id = item.ID }) |
+                @Html.ActionLink("Delete", "ConfirmDelete", new { id = item.ID }, new { @class = "actionLinkDelete btn-sm btn-danger", @data_toggle = "modal", @data_target = "#createModal", @data_id = item.ID })
             </td>
         </tr>
     }
 </table>
 
 
-
-<script type="text/javascript">
-
-    $(document).ready(function () {
-        $("#btnOpenModal").click(function () {            
-            $.get("/Items/Create", function (data) {
-
-                $("#createModal").html(data);
-                $("#createModal").modal("show");
-
-                $("#createModal").on("hidden.bs.modal", function () {
-                    /* Secretly reload the page so the new item shows */
-                    location.reload();
-                });
-
-            });
-        });        
-
-        $(".actionLinkEdit").click(function () {
-            $.get("/Items/Edit?id=" + $(this).data('id'), function (data) {
-
-                $("#createModal").html(data);
-                $("#createModal").modal("show");
-
-                $("#createModal").on("hidden.bs.modal", function () {
-                    /* Secretly reload the page so the new item shows */
-                    location.reload();
-                });
-            });
-        });
-
-        $(".actionLinkDelete").click(function () {
-            $.get("/Items/Delete?id=" + $(this).data('id'), function (data) {
-
-                $("#createModal").html(data);
-                $("#createModal").modal("show");
-
-                $("#createModal").on("hidden.bs.modal", function () {
-                    /* Secretly reload the page so the new item shows */
-                    location.reload();
-                });
-            });
-        });
-        
-    });
-</script>
+<!-- Include the script for controlling which version of the modal to open -->
+@section modalOpenScriptSection
+{
+    <script type="text/javascript" src="~/Scripts/js_modal_open_functions.js"></script>
+}
 
 

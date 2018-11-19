@@ -198,7 +198,8 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Scripts\js_functions.js" />
+    <Content Include="Scripts\js_show_bids_functions.js" />
+    <Content Include="Scripts\js_modal_open_functions.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -213,13 +214,13 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\README.md" />
-    <Content Include="Views\Items\Delete.cshtml" />
     <Content Include="Views\Items\Details.cshtml" />
     <Content Include="Views\Items\Edit.cshtml" />
     <Content Include="Views\Items\Index.cshtml" />
     <Content Include="Views\Bids\Create.cshtml" />
     <Content Include="Views\Bids\Index.cshtml" />
     <Content Include="Views\Items\Create.cshtml" />
+    <Content Include="Views\Items\ConfirmDelete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

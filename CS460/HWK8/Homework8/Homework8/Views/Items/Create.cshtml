@@ -1,8 +1,11 @@
 ﻿@model Homework8.Models.Item
 
+<!-- Scripts required to display the modal window -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+
 
 <!-- The Modal -->
 <div class="container">
@@ -14,7 +17,7 @@
                 <!-- Modal header section -->
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="myModal-label">Create New Listing</h4>
+                    <h3 class="modal-title" id="myModal-label">Create New Listing</h3>
                 </div>
 
                 <!-- Modal body section -->
@@ -24,21 +27,24 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-lg-6" })
                         @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", id = "itemName" } })
-                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+
+                        <!-- Using a custom method for validation because my setup prevents default Razor validation from working -->
+                        @Html.Label(" ", new { @class = "text-danger", id = "itemNameValidation" })
                     </div>
 
                     <!-- Input for the item's description -->
                     <div class="form-group">
                         @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-lg-6" })
                         @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", id = "itemDescription" } })
-                        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+
+                        <!-- Using a custom method for validation because my setup prevents default Razor validation from working -->
+                        @Html.Label(" ", new { @class = "text-danger", id = "itemDescriptionValidation" })
                     </div>
 
                     <!-- Input for the item's seller -->
                     <div class="form-group">
                         @Html.LabelFor(model => model.Seller, "Seller", htmlAttributes: new { @class = "control-label col-lg-6" })
                         @Html.DropDownList("Seller", null, htmlAttributes: new { @class = "form-control", id = "itemSeller" })
-                        @Html.ValidationMessageFor(model => model.Seller, "", new { @class = "text-danger" })
                     </div>
 
                 </div>
@@ -46,7 +52,7 @@
                 <!-- Modal footer section - contains the buttons -->
                 <div class="modal-footer form-group">
                     <input type="button" class="btn btn-default" id="btnCancel" value="Cancel" data-dismiss="modal" />
-                    <input type="button" class="btn btn-primary" id="btnOK" value="Create Listing" onclick="saveItemDetails()" />
+                    <input type="button" class="btn btn-primary" id="btnCreate" value="Create Listing" onclick="saveItemDetails()" />
                 </div>
 
             </div>
@@ -54,29 +60,44 @@
     </div>
 </div>
 
+<!-- Script to handle actions related to the modal window -->
 <script type="text/javascript">
-    $("#btnOK").click(function saveItemDetails() {
-        //debugger;
-
+    function saveItemDetails() {
         /* Grab the user input from the form */
         var itemName = $("#itemName").val();
         var itemDescription = $("#itemDescription").val();
         var itemSeller = $("#itemSeller").val();
 
-        /* Build the information using the values we grabbed */
-        var insertItem = { "Name": itemName, "Description": itemDescription, "Seller": itemSeller };
+        /* Display error message if the item name is missing */
+        if (itemName == "") {
+            $("#itemNameValidation").text("*Item Name is required");
+        }
 
-        /* Send the information to the method */
-        $.post('/Items/CreateJSON', insertItem,
-            function (data) { if (data == 0) { location = location.reload(); } }, 'json');
+        /* Display error message if the item description is missing */
+        if (itemDescription == "") {
+            $("#itemDescriptionValidation").text("*Item Description is required");
+        }
 
-        /* Secretly reload the page so the new item shows */
-        location.reload();
-    });
+        /* If both the item name and description are valid, proceed */
+        if (itemName && itemDescription != "") {
+
+            /* Clear the error messages, if there were any */
+            $("#itemNameValidation").text(" ");
+            $("#itemDescriptionValidation").text(" ");
+
+            /* Build the information using the values we grabbed */
+            var insertItem = { "Name": itemName, "Description": itemDescription, "Seller": itemSeller };
+
+            /* Send the information to the method */
+            $.post('/Items/CreateJSON', insertItem, refreshParentPage(), 'json');
+        }
+    }
+
+    /* This is called in order to refresh the parent page so that the changes appear immediately */
+    function refreshParentPage() {
+        setTimeout(function () {
+            location.reload();
+        }, 250);
+    }
 </script>
-
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
 

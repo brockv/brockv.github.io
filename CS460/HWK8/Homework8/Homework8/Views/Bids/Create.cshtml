@@ -4,59 +4,94 @@
     ViewBag.Title = "Create";
 }
 
-<br/>
-<h1>Bid on an Item</h1>
-<br />
-<br />
+<!-- Scripts required to display the modal window -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 
 
-@using (Html.BeginForm()) 
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.ItemID, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("ItemID", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.ItemID, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Buyer, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("Buyer", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Buyer, "", new { @class = "text-danger" })
-            </div>
-        </div>
+<!-- The Modal -->
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6"></div>
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.BidAmount, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.BidAmount, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.BidAmount, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                <!-- Modal header section -->
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h3 class="modal-title" id="myModal-label">Place a Bid</h3>
+                </div>
 
-        <div class="form-group">
-            @Html.HiddenFor(model => model.BidTimestamp, new { @Value = System.DateTime.Now })
-        </div>
+                <!-- Modal body section -->
+                <div class="modal-body">
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
+                    <!-- Input for the item's name -->
+                    <div class="form-group">
+                        <div>
+                            @Html.LabelFor(model => model.Item.Name, htmlAttributes: new { @class = "control-label" })
+                        </div>
+                        @Html.DisplayFor(model => model.Item.Name, new { htmlAttributes = new { @class = "form-control", id = "itemName" } })
+                    </div>
+
+                    <!-- Input for the item's description -->
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Buyer, "Buyer", htmlAttributes: new { @class = "control-label col-lg-6" })
+                        @Html.DropDownList("Buyer", null, htmlAttributes: new { @class = "form-control", id = "buyerName" })
+                    </div>
+
+                    <!-- Input for the item's seller -->
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.BidAmount, "Bid Amount", htmlAttributes: new { @class = "control-label col-lg-6" })
+                        @Html.EditorFor(model => model.BidAmount, new { htmlAttributes = new { @class = "form-control", id = "bidAmount" } })
+
+                        <!-- Using a custom method for validation because my setup prevents default Razor validation from working -->
+                        @Html.Label(" ", new { @class = "text-danger", id = "bidAmountValidation" })
+                    </div>
+
+                    <!-- Input for the time the bid was placed -->
+                    <div class="form-group">
+                        <input type="hidden" id="bidTimeStamp" value=@System.DateTime.Now />
+                    </div>
+
+                </div>
+
+                    <!-- Modal footer section - contains the buttons -->
+                    <div class="modal-footer form-group">
+                        <input type="button" class="btn btn-default" id="btnCancel" value="Cancel" data-dismiss="modal" />
+                        <input type="button" class="btn btn-primary" id="btnCreate" value="Create Listing" onclick="saveItemDetails()" />
+                    </div>
+
+                </div>
         </div>
     </div>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
 </div>
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+<!-- Script to handle actions related to the modal window -->
+<script type="text/javascript">
+    function saveItemDetails() {
+        /* Grab the user input from the form */
+        var buyerName = $("#buyerName").val();
+        var bidAmount = $("#bidAmount").val();
+        var bidTimestamp = $("#bidTimeStamp").val();
+
+        /* Display error message if the bid amount is missing */
+        if (bidAmount == "") {
+            $("#bidAmountValidation").text("*Bid Amount is required");
+        }
+
+        /* If both the item name and description are valid, proceed */
+        if (bidAmount != "") {
+
+            /* Clear the error message, if there was one */
+            $("#bidAmountValidation").text(" ");
+
+            /* Build the information using the values we grabbed */
+            var bidDetails = { "ItemID": @Model.Item.ID , "Buyer": buyerName, "BidAmount": bidAmount, "BidTimestamp": bidTimestamp };
+
+            /* Send the information to the method */
+            $.post('/Bids/CreateJSON', bidDetails, window.location.href = "/Items/Details/" + @Model.Item.ID, 'json');
+        }
+    }
+</script>

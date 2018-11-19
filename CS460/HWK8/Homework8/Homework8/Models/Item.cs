@@ -16,12 +16,12 @@ namespace Homework8.Models
 
         public int ID { get; set; }
 
-        [Required]
+        [Required(ErrorMessage="Item Name is required")]
         [StringLength(30)]
         [Display(Name = "Item Name")]
         public string Name { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Item Description is required")]
         [StringLength(100)]
         [Display(Name = "Item Description")]
         public string Description { get; set; }
