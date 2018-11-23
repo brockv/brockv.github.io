@@ -1,27 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
+﻿using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
-using System.Data.SqlClient;
-using System.Diagnostics;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using System.Web.Services;
 using Homework8.DAL;
 using Homework8.Models;
-using Homework8.Models.ViewModels;
-using Newtonsoft.Json;
 
 namespace Homework8.Controllers
 {
     public class ItemsController : Controller
     {
+        /* Initialize an instance of the database */
         private AuctionHouseContext db = new AuctionHouseContext();
 
-        // GET: Items
+        /// <summary>
+        /// Builds a list of all the items currently listed on the site.
+        /// </summary>
+        /// <returns>A list of all items currently listed on the site.</returns>
+        [HttpGet]
         public ActionResult Index()
         {
             /* Grab all of the items currently in the Items table */
@@ -31,7 +28,13 @@ namespace Homework8.Controllers
             return View(items.ToList());
         }
 
-        // GET: Items/Details/5
+        /// <summary>
+        /// Attempts to load a page containing additional details for an item associated
+        /// with the given id.
+        /// </summary>
+        /// <param name="id">The id to use for looking up an item.</param>
+        /// <returns>The page containing additional details for the item associated with the given id.</returns>
+        [HttpGet]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -47,6 +50,10 @@ namespace Homework8.Controllers
             return View(item);
         }
 
+        /// <summary>
+        /// Builds a modal window to allow the user to create a new listing.
+        /// </summary>
+        /// <returns>A modal window containing the input elements necessary for creating a new listing.</returns>
         [HttpGet]
         public PartialViewResult Create()
         {
@@ -57,6 +64,11 @@ namespace Homework8.Controllers
             return PartialView("Create", new Item());
         }
 
+        /// <summary>
+        /// Uses the information passed from the modal window to create a new entry in the Items table.
+        /// </summary>
+        /// <param name="item">The item to add to the Items table.</param>
+        /// <returns>A JSON object containing information about the item.</returns>
         [HttpPost]
         public JsonResult CreateJSON([Bind(Include = "Name,Description,Seller")] Item item)
         {
@@ -66,15 +78,17 @@ namespace Homework8.Controllers
                 /* Add the new item to the table and save the changes */
                 db.Items.Add(item);
                 db.SaveChanges();
-
-
             }
 
             /* Return to the JavaScript function */
             return Json(item, JsonRequestBehavior.AllowGet);
-
         }
-            
+        
+        /// <summary>
+        /// Builds a modal window to allow the user to edit a listing associated with the given id.
+        /// </summary>
+        /// <param name="id">The id of the item the user is trying to edit.</param>
+        /// <returns>A modal window containing the input elements necessary for editing a listing.</returns>
         [HttpGet]
         public ActionResult Edit(int? id)
         {
@@ -102,6 +116,11 @@ namespace Homework8.Controllers
             return PartialView(newItem);
         }
 
+        /// <summary>
+        /// Uses the information from the modal window to update the item the user edited.
+        /// </summary>
+        /// <param name="item">The item the user edited.</param>
+        /// <returns>A JSON object containing information about the item.</returns>
         [HttpPost]
         public JsonResult EditJSON(Item item)
         {
@@ -121,6 +140,11 @@ namespace Homework8.Controllers
             return Json(newItem, JsonRequestBehavior.AllowGet);
         }
 
+        /// <summary>
+        /// Builds a modal window to allow the user to confirm deleting a listing.
+        /// </summary>
+        /// <param name="id">The id of the item the user is trying to delete.</param>
+        /// <returns>A modal window containing information about the item the user is trying to delete.</returns>
         [HttpGet]
         public ActionResult ConfirmDelete(int? id)
         {
@@ -138,6 +162,11 @@ namespace Homework8.Controllers
             return PartialView(item);
         }
 
+        /// <summary>
+        /// Deletes the item associated with given id, and also removes it from the Bids table if it's there.
+        /// </summary>
+        /// <param name="id">The id of the item being deleted</param>
+        /// <returns>A JSON object containing information for the item that was deleted.</returns>
         [HttpPost]
         public JsonResult Delete(int? id)
         {
@@ -148,12 +177,16 @@ namespace Homework8.Controllers
             if (item != null)
             {
                 /* Check if this item is in the Bids table */
-                Bid bid = db.Bids.Where(x => x.ItemID == id).FirstOrDefault();
+                List<Bid> bids = db.Bids.Where(x => x.ItemID == id).ToList();
 
-                /* If bid isn't null, remove the entry associated with this item */
-                if (bid != null)
+                /* If there are bids associated with this item, remove all of them */
+                if (bids.Count > 0)
                 {
-                    db.Bids.Remove(bid);
+                    /* Iterate through the bids for this item, removing each one from the Bids table */
+                    foreach (Bid bid in bids)
+                    {
+                        db.Bids.Remove(bid);
+                    }
                 }
 
                 /* Remove the item from the table and save the changes */
@@ -161,7 +194,6 @@ namespace Homework8.Controllers
                 db.SaveChanges();
             }
             
-
             /* Return to the JavaScript function */
             return Json(item, JsonRequestBehavior.AllowGet);
         }

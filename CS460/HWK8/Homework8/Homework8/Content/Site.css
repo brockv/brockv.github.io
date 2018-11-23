@@ -44,11 +44,17 @@ body.modal-open .modal {
 #btnOpenModal {
     width: 225px;
     max-width: 225px;
-    background-color: dodgerblue;
     border: 2px solid #000000;
     font-weight: bold;
 }
 
-.validationLabels {
-    color: #ff0000;
+#tableHeader {
+    font-size: 28px;
+}
+
+#bidsTable {
+    border-collapse: collapse;
+    display: none;
+    float: left;
+    max-width: 40%;
 }

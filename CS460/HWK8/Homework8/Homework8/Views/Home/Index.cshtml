@@ -7,33 +7,35 @@
 <!-- DO NOT REMOVE THIS. Doing so will break the layout. -->
     </div>
 
+<!-- Page header -->
 <div class="jumbotron intro col-12" style="text-align: center;">
     <h1>Reginald's Ancient Antiquities Auction House</h1>
     <hr style="margin-right: 50px; margin-left: 50px;" />
 </div>
 
-
+<!-- Create the container to display the table in -->
 <div class="container">
     <h2>Ten Most Recent Bids Across All Items</h2>
     <!-- Table headers -->
     <table class="table recentBids">
         <tr>
+            <!-- Display for Item ID -->
             <th>
                 @Html.Label("Item ID")
             </th>
-
+            <!-- Display for Item Name -->
             <th>
                 @Html.Label("Item Name")
             </th>
-
+            <!-- Display for Buyer -->
             <th>
                 @Html.Label("Buyer")
             </th>
-
+            <!-- Display for Bid Amount -->
             <th>
                 @Html.Label("Bid Amount")
             </th>
-
+            <!-- Display for Bid Timestamp -->
             <th>
                 @Html.Label("Time of Bid")
             </th>
@@ -43,30 +45,36 @@
         @foreach (var item in Model)
         {
         <tr>
+            <!-- Value of Item ID -->
             <td>
                 @Html.DisplayFor(modelItem => item.ItemID)
             </td>
 
+            <!-- Value of Item Name -->
             <td>
                 @Html.ActionLink(item.Item.Name, "Details", "Items", new { id = item.ItemID }, null)
             </td>
 
+            <!-- Value of Buyer -->
             <td>
                 @Html.DisplayFor(modelItem => item.Buyer)
             </td>
 
+            <!-- Value of Bid Amount -->
             <td>
                 @(string.Format("{0:C}", item.BidAmount))
             </td>
 
+            <!-- Value of Bid Timestamp -->
             <td>
+                <!-- If the bid was placed today, only show the time. Otherwise, show the date as well -->
                 @if (item.BidTimestamp.Date == DateTime.Today)
                 {
                     @(string.Format("{0:T}", item.BidTimestamp))
                 }
                 else
                 {
-                    @Html.DisplayFor(modelItem => item.BidTimestamp)
+                @Html.DisplayFor(modelItem => item.BidTimestamp)
                 }
             </td>
         </tr>

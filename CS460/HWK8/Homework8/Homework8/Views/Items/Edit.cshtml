@@ -26,7 +26,7 @@
 
                     <!-- Input for the item's name -->
                     <div class="form-group">
-                        @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-lg-6" })
+                        @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label" })
                         @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", id = "itemName" } })
 
                         <!-- Using a custom method for validation because my setup prevents default Razor validation from working -->
@@ -35,7 +35,7 @@
 
                     <!-- Input for the item's description -->
                     <div class="form-group">
-                        @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-lg-6" })
+                        @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label" })
                         @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", id = "itemDescription" } })
 
                         <!-- Using a custom method for validation because my setup prevents default Razor validation from working -->
@@ -44,7 +44,7 @@
 
                     <!-- Input for the item's seller -->
                     <div class="form-group">
-                        @Html.LabelFor(model => model.Seller, "Seller", htmlAttributes: new { @class = "control-label col-lg-6" })
+                        @Html.LabelFor(model => model.Seller, "Seller", htmlAttributes: new { @class = "control-label" })
                         @Html.DropDownList("Seller", null, htmlAttributes: new { @class = "form-control", id = "itemSeller" })
                         @Html.ValidationMessageFor(model => model.Seller, "", new { @class = "text-danger" })
                     </div>

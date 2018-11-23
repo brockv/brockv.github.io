@@ -38,4 +38,18 @@
             });
         });
     });
+
+    /* Open the modal for placing bids */
+    $(".actionLinkBid").click(function () {
+        /* Get the modal from the partial view it's in */
+        $.get("/Bids/Create?id=" + $(this).data('id'), function (data) {
+
+            /* Send the data to the modal and show it */
+            $("#createModal").html(data);
+            $(window).on('load', function () {
+                $.validator.unobtrusive.parse($("#createForm"));
+                jQuery("#createModal").modal("show");
+            });
+        });
+    });
 });
