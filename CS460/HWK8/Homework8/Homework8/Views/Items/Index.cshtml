@@ -11,31 +11,38 @@
 
 
 <br />
-<h1>Currently Listed Items</h1>
+<h1><strong>Currently Listed Items</strong></h1>
 <br />
 <br />
 
+<!-- Button for creating listings and the div to contain the modal -->
 <p>
     <!-- Create a button to allow the user to create new listings -->
     <button type="button" class="btn btn-primary" id="btnOpenModal" data-toggle="modal" data-target="#createModal">Create New Listing</button>
 
     <!-- Set up the div for the modal -->
     <div class="modal fade" id="createModal" role="dialog"></div>
-
 </p>
 
 <!-- Create a table to hold all of the current listings -->
-<table class="table">
+<table class="table" style="max-width: 100%;">
     <!-- Table headers -->
     <tr>
+        <!-- Item ID Header -->
         <th>
-            @Html.DisplayNameFor(model => model.Seller1.Name)
+            @Html.DisplayNameFor(model => model.ID)
         </th>
+        <!-- Item Name Header-->
         <th>
             @Html.DisplayNameFor(model => model.Name)
         </th>
+        <!-- Item Description Header -->
         <th>
             @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <!-- Item Seller Header -->
+        <th>
+            @Html.DisplayNameFor(model => model.Seller1.Name)
         </th>
         <th></th>
     </tr>
@@ -44,30 +51,35 @@
     {
         <!-- Table data -->
         <tr>
+            <!-- Item ID Data -->
             <td>
-                @Html.DisplayFor(modelItem => item.Seller1.Name)
+                @Html.DisplayFor(modelItem => item.ID)
             </td>
+            <!-- Item Name Data -->
             <td>
-                @Html.DisplayFor(modelItem => item.Name)
+                @Html.ActionLink(item.Name, "Details", "Items", new { id = item.ID }, null)
             </td>
+            <!-- Item Description Data -->
             <td>
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
-            <!-- Action links to edit, view details for, and delete listings -->
+            <!-- Item Seller Data -->
+            <td>
+                @Html.DisplayFor(modelItem => item.Seller1.Name)
+            </td>
+            <!-- Action links to edit, bid on, and delete listings -->
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.ID }, new { @class = "actionLinkEdit", @data_toggle = "modal", @data_target = "#createModal", @data_id = item.ID }) |
-                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                @Html.ActionLink("Delete", "ConfirmDelete", new { id = item.ID }, new { @class = "actionLinkDelete", @data_toggle = "modal", @data_target = "#createModal", @data_id = item.ID })
+                @Html.ActionLink("Bid", "Create", "Bids", new { id = item.ID }, new { @class = "actionLinkBid", @data_toggle = "modal", @data_target = "#createModal", @data_id = item.ID }) |
+                @Html.ActionLink("Delete", "ConfirmDelete", new { id = item.ID }, new { @class = "actionLinkDelete btn-sm btn-danger", @data_toggle = "modal", @data_target = "#createModal", @data_id = item.ID })
             </td>
         </tr>
     }
 </table>
-
 
 <!-- Include the script for controlling which version of the modal to open -->
 @section modalOpenScriptSection
 {
     <script type="text/javascript" src="~/Scripts/js_modal_open_functions.js"></script>
 }
-
 
