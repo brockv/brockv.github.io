@@ -37,10 +37,7 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.BidAmount, "Bid Amount", htmlAttributes: new { @class = "control-label" })
                         @Html.EditorFor(model => model.BidAmount, new { htmlAttributes = new { @class = "form-control", id = "bidAmount"} })
-                        @Html.ValidationMessageFor(model => model.BidAmount, "", new { @class = "text-danger" })
-
-                        <!-- Using a custom method for validation because my setup prevents default Razor validation from working -->
-                        @Html.Label(" ", new { @class = "text-danger", id = "bidAmountValidation" })
+                        @Html.ValidationMessageFor(model => model.BidAmount, "", new { @class = "text-danger", id = "bidAmountValidation" })
                     </div>
 
                 </div>
@@ -62,7 +59,7 @@
 <script type="text/javascript">
 
     /* Initialize a variable to store the highest bid in */
-    var currentHighestBid;
+    var currentHighestBid = 0;
 
     /**
      * Used to get the variable returned from the AJAX call for outside use
@@ -71,7 +68,7 @@
         debugger;
         if (data != 0) {
             currentHighestBid = data;
-            $("#currentHighestBid").text("\xa0\xa0$" + currentHighestBid);
+            $("#currentHighestBid").text("\xa0\xa0$" + currentHighestBid.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'));
         }
         else {
             $("#currentHighestBid").text("\xa0\xa0[NO BIDS YET]");

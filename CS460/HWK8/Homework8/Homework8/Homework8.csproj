@@ -218,7 +218,6 @@
     <Content Include="Views\Items\Edit.cshtml" />
     <Content Include="Views\Items\Index.cshtml" />
     <Content Include="Views\Bids\Create.cshtml" />
-    <Content Include="Views\Bids\Index.cshtml" />
     <Content Include="Views\Items\Create.cshtml" />
     <Content Include="Views\Items\ConfirmDelete.cshtml" />
   </ItemGroup>

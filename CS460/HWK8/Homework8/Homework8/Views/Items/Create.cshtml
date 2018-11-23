@@ -21,18 +21,14 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label" })
                         @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", id = "itemName" } })
-
-                        <!-- Using a custom method for validation because my setup prevents default Razor validation from working -->
-                        @Html.Label(" ", new { @class = "text-danger", id = "itemNameValidation" })
+                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger", id = "itemNameValidation" })
                     </div>
 
                     <!-- Input for the item's description -->
                     <div class="form-group">
                         @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label" })
                         @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", id = "itemDescription" } })
-
-                        <!-- Using a custom method for validation because my setup prevents default Razor validation from working -->
-                        @Html.Label(" ", new { @class = "text-danger", id = "itemDescriptionValidation" })
+                        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger", id = "itemDescriptionValidation" })                        
                     </div>
 
                     <!-- Input for the item's seller -->
