@@ -29,7 +29,7 @@
     <!-- Table headers -->
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Seller1.Name)
+            @Html.DisplayNameFor(model => model.ID)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Name)
@@ -37,30 +37,35 @@
         <th>
             @Html.DisplayNameFor(model => model.Description)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Seller1.Name)
+        </th>
         <th></th>
     </tr>
 
     @foreach (var item in Model)
     {
         <!-- Table data -->
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Seller1.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <!-- Action links to edit, view details for, and delete listings -->
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.ID }, new { @class = "actionLinkEdit", @data_toggle = "modal", @data_target = "#createModal", @data_id = item.ID }) |
-                @Html.ActionLink("Details", "Details", new { id = item.ID }, new { @class = "actionLinkDetails" }) |                
-                @Html.ActionLink("Bid", "Create", "Bids", new { id = item.ID }, new { @class = "actionLinkBid", @data_toggle = "modal", @data_target = "#createModal", @data_id = item.ID }) |
-                @Html.ActionLink("Delete", "ConfirmDelete", new { id = item.ID }, new { @class = "actionLinkDelete btn-sm btn-danger", @data_toggle = "modal", @data_target = "#createModal", @data_id = item.ID })
-            </td>
-        </tr>
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ID)
+        </td>
+        <td>
+            @Html.ActionLink(item.Name, "Details", "Items", new { id = item.ID }, null)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Seller1.Name)
+        </td>
+        <!-- Action links to edit, view details for, and delete listings -->
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.ID }, new { @class = "actionLinkEdit", @data_toggle = "modal", @data_target = "#createModal", @data_id = item.ID }) |
+            @Html.ActionLink("Bid", "Create", "Bids", new { id = item.ID }, new { @class = "actionLinkBid", @data_toggle = "modal", @data_target = "#createModal", @data_id = item.ID }) |
+            @Html.ActionLink("Delete", "ConfirmDelete", new { id = item.ID }, new { @class = "actionLinkDelete btn-sm btn-danger", @data_toggle = "modal", @data_target = "#createModal", @data_id = item.ID })
+        </td>
+    </tr>
     }
 </table>
 

@@ -4,13 +4,6 @@
     ViewBag.Title = "Create";
 }
 
-<!-- Scripts required to display the modal window -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-
-
-
 <!-- The Modal -->
 <div class="container">
     <div class="row">
@@ -26,72 +19,118 @@
 
                 <!-- Modal body section -->
                 <div class="modal-body">
-
                     <!-- Input for the item's name -->
                     <div class="form-group">
                         <div>
-                            @Html.LabelFor(model => model.Item.Name, htmlAttributes: new { @class = "control-label" })
+                            @Html.LabelFor(model => model.Item.Name, htmlAttributes: new { @class = "control-label" })                            
                         </div>
                         @Html.DisplayFor(model => model.Item.Name, new { htmlAttributes = new { @class = "form-control", id = "itemName" } })
                     </div>
 
                     <!-- Input for the item's description -->
                     <div class="form-group">
-                        @Html.LabelFor(model => model.Buyer, "Buyer", htmlAttributes: new { @class = "control-label col-lg-6" })
+                        @Html.LabelFor(model => model.Buyer, "Buyer", htmlAttributes: new { @class = "control-label" })
                         @Html.DropDownList("Buyer", null, htmlAttributes: new { @class = "form-control", id = "buyerName" })
                     </div>
 
                     <!-- Input for the item's seller -->
                     <div class="form-group">
-                        @Html.LabelFor(model => model.BidAmount, "Bid Amount", htmlAttributes: new { @class = "control-label col-lg-6" })
-                        @Html.EditorFor(model => model.BidAmount, new { htmlAttributes = new { @class = "form-control", id = "bidAmount" } })
-
-                        <!-- Using a custom method for validation because my setup prevents default Razor validation from working -->
-                        @Html.Label(" ", new { @class = "text-danger", id = "bidAmountValidation" })
-                    </div>
-
-                    <!-- Input for the time the bid was placed -->
-                    <div class="form-group">
-                        <input type="hidden" id="bidTimeStamp" value=@System.DateTime.Now />
+                        @Html.LabelFor(model => model.BidAmount, "Bid Amount", htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.BidAmount, new { htmlAttributes = new { @class = "form-control", id = "bidAmount"} })
+                        @Html.ValidationMessageFor(model => model.BidAmount, "", new { @class = "text-danger", id = "bidAmountValidation" })
                     </div>
 
                 </div>
 
-                    <!-- Modal footer section - contains the buttons -->
-                    <div class="modal-footer form-group">
-                        <input type="button" class="btn btn-default" id="btnCancel" value="Cancel" data-dismiss="modal" />
-                        <input type="button" class="btn btn-primary" id="btnCreate" value="Create Listing" onclick="saveItemDetails()" />
-                    </div>
-
+                <!-- Modal footer section - contains the buttons -->
+                <div class="modal-footer form-group">
+                    @Html.Label("Current Highest Bid:", htmlAttributes: new { style = "float: left;" })
+                    @Html.Label(" ", htmlAttributes: new { style = "float: left;", id = "currentHighestBid" })
+                    <input type="button" class="btn btn-default" id="btnCancel" value="Cancel" data-dismiss="modal" />
+                    <input type="submit" class="btn btn-success" id="btnCreate" value="Place Bid" onclick="saveBidDetails()" />
                 </div>
+
+            </div>
         </div>
     </div>
 </div>
 
 <!-- Script to handle actions related to the modal window -->
 <script type="text/javascript">
-    function saveItemDetails() {
+
+    /* Initialize a variable to store the highest bid in */
+    var currentHighestBid = 0;
+
+    /**
+     * Used to get the variable returned from the AJAX call for outside use
+     * */
+    function callback(data) {
+        debugger;
+        if (data != 0) {
+            currentHighestBid = data;
+            $("#currentHighestBid").text("\xa0\xa0$" + currentHighestBid.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'));
+        }
+        else {
+            $("#currentHighestBid").text("\xa0\xa0[NO BIDS YET]");
+        }
+    }
+
+    /**
+     * Gets the highest bid for the currently viewed item
+     * */
+    function getHighestBid() {        
+        $.ajax({
+            type: "GET",
+            url: "/Bids/GetHighestBid",
+            data: { "id": @Model.Item.ID },
+            dataType: "json",
+            success: function (data) {
+                callback(data);                
+            }
+        });
+    }
+
+    /* Get the highest bid for this item */
+    getHighestBid();
+    
+
+    function saveBidDetails() {
         /* Grab the user input from the form */
         var buyerName = $("#buyerName").val();
         var bidAmount = $("#bidAmount").val();
-        var bidTimestamp = $("#bidTimeStamp").val();
 
-        /* Display error message if the bid amount is missing */
-        if (bidAmount == "") {
-            $("#bidAmountValidation").text("*Bid Amount is required");
-        }
-
-        /* If both the item name and description are valid, proceed */
+        var regex = /\s*(?=.*[1-9])\d*(?:\.\d{1,2})?\s*$/;
+        /* If the bid amount isn't empty, proceed */
         if (bidAmount != "") {
+            /* If the bid amount matches the regex above, proceed */
+            if (bidAmount.match(regex)) {
+                /* If the bid amount is greater than this item's current highest bid, proceed */
+                if (parseFloat(bidAmount).toFixed(2) > currentHighestBid) {
+                    /* Clear the error message, if there was one */
+                    $("#bidAmountValidation").text(" ");
 
-            /* Clear the error message, if there was one */
-            $("#bidAmountValidation").text(" ");
+                    /* Build the information using the values we grabbed */
+                    var bidDetails = { "ItemID": @Model.Item.ID , "Buyer": buyerName, "BidAmount": bidAmount };
 
-            /* Build the information using the values we grabbed */
-            var bidDetails = { "ItemID": @Model.Item.ID , "Buyer": buyerName, "BidAmount": bidAmount, "BidTimestamp": bidTimestamp };
-
-            /* Send the information to the method */
-            $.post('/Bids/CreateJSON', bidDetails, window.location.href = "/Items/Details/" + @Model.Item.ID, 'json');
+                    /* Send the information to the method */
+                    $.post('/Bids/CreateJSON', bidDetails, window.location.href = "/Items/Details/" + @Model.Item.ID, 'json');
+                }
+                /* Inform the user their bid needs to be higher */
+                else {
+                    $("#bidAmountValidation").text("*Bid Amount must be more than the current highest bid");
+                }
+            }
+            /* Inform the user that their input is in an invalid format */
+            else {
+                $("#bidAmountValidation").text("*Bid Amount must be numeric and greater than zero");
+            }
+        }
+        /* Inform the user that the bid amount is required */
+        else {
+            $("#bidAmountValidation").text("*Bid Amount is required");
         }
     }
 </script>
+
+
+

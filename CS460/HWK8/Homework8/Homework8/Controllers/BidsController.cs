@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web.Mvc;
 using Homework8.DAL;
@@ -37,11 +38,14 @@ namespace Homework8.Controllers
         /// <param name="bid">The entry to create in the Bids table.</param>
         /// <returns>A JSON object containing the information from the form.</returns>
         [HttpPost]
-        public JsonResult CreateJSON([Bind(Include = "ItemID,Buyer,BidAmount,BidTimestamp")] Bid bid)
+        public JsonResult CreateJSON([Bind(Include = "ItemID,Buyer,BidAmount")] Bid bid)
         {
             /* Make sure the Model passed in is in a valid state before doing anything with it */
             if (ModelState.IsValid)
             {
+                /* Set the time of the bid */
+                bid.BidTimestamp = System.DateTime.Now;
+
                 /* Add the bid to the Bids table and save the changes to the database */
                 db.Bids.Add(bid);
                 db.SaveChanges();
@@ -87,6 +91,40 @@ namespace Homework8.Controllers
             
             /* Send the JSON object back -- If there were no bids, this will be an empty string */
             return Json(jsonItem, JsonRequestBehavior.AllowGet);            
+        }
+
+        [HttpGet]
+        public JsonResult GetHighestBid(int? id)
+        {
+            /* Initialize our ViewModel and attempt to find an item associated with the given id */
+            AuctionHouseVM vm = new AuctionHouseVM
+            {
+                /* Attempt to find an item associated with the given id */
+                VMItem = db.Items.Find(id)
+            };
+
+            /* If there was an item associated with the given id, check if it has any bids */
+            decimal highestBid = 0;
+            if (vm.VMItem != null)
+            {
+                /* Get the highest bid associated with this item */
+                vm.VMBids = vm.VMItem.Bids
+                    .Where(x => x.ItemID == id)
+                    .OrderByDescending(x => x.BidAmount)
+                    .Take(1)
+                    .ToList();
+
+                /* Get the bid amount from the bid we just grabbed */
+                highestBid = vm.VMBids.Select(x => x.BidAmount).FirstOrDefault();
+            }
+
+            return Json(highestBid, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult CreateBid()
+        {
+            ViewBag.Buyer = new SelectList(db.Buyers, "Name", "Name");
+            return PartialView("Create", new Bid());
         }
     }
 }

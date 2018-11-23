@@ -9,57 +9,77 @@
 
 
 <br />
-<h2>Item Details</h2>
+<h1><strong>Item Details</strong></h1>
 <br />
 <br />
 
+<!-- Display the information about this item -->
 <div>
+    <!-- Display the Item Name up top -->
     <h2>@Html.DisplayFor(model => model.Name)</h2>
     <hr />
     <dl class="dl-horizontal">
+        <!-- Seller Name -->
         <dt>
             @Html.DisplayNameFor(model => model.Seller1.Name)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.Seller1.Name)
         </dd>
 
+        <!-- Item Description -->
         <dt>
             @Html.DisplayNameFor(model => model.Description)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.Description)
         </dd>
 
     </dl>
 </div>
+
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
+    <!-- Add a button that goes back to the list of all items -->
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary", style = "margin-left: 60px;" })
+
+    <!-- Set up the div for the modal -->
+    <div class="modal fade" id="createModal" role="dialog"></div>
 </p>
 
-<!-- Push the bid table down farther -->
+<!-- Push the bid table down further -->
 <br />
 <br />
 
 <!-- Set up the area for displaying bids for this item -->
 <div class="container">
-
-    <!-- Section header -->
-    <h3 id="tableHeader" style="display: none;">Current Bids for this Item</h3>
-    <!-- Table headers -->
-    <table class="table" id="bidsTable" style="display: none;">
-        <thead class="thead"></thead>
+    <div class="row" style="display: block;">
+        <!-- Section header (This is hidden by default. We only want to show it if there are bids.) -->
+        <label id="tableHeader"></label>
+        <!-- Add a button to bid on this item -->
+        @Html.ActionLink("Place a Bid", "Create", "Bids", new { id = Model.ID }, new { @class = "actionLinkBid btn btn-success",
+            style="margin-left: 30px; vertical-align: top;", @data_toggle = "modal", @data_target = "#createModal", @data_id = Model.ID })
+    </div>
+    <!-- Table headers (This is hidden by default. We only want to show it if there are bids.) -->
+    <table class="table" id="bidsTable">
+        <thead>
+            <tr>
+                <th>
+                    Buyer
+                </th>
+                <th>
+                    Bid Amount
+                </th>
+            </tr>
+        </thead>
         <!-- Table contents -->
         <tbody class="tbody"></tbody>
     </table>
 
 </div>
 
-
 @section showBidsScriptSection
 {
     <script type="text/javascript" src="~/Scripts/js_show_bids_functions.js"></script>
+    <script type="text/javascript" src="~/Scripts/js_modal_open_functions.js"></script>
 }
+

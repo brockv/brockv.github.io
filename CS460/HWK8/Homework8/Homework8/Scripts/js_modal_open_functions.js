@@ -47,6 +47,7 @@
             /* Send the data to the modal and show it */
             $("#createModal").html(data);
             $(window).on('load', function () {
+                $.validator.unobtrusive.parse($("#createForm"));
                 jQuery("#createModal").modal("show");
             });
         });

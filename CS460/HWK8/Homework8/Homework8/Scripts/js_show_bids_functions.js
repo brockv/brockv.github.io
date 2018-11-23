@@ -9,28 +9,25 @@ function showBids(result) {
 
     /* Only build the table if we got something back in the result */
     if (!jQuery.isEmptyObject(result)) {
-
-        /* Build the columns */
-        var columns = "";
-        columns += '<tr>';
-        columns += '<th>Buyer</th>';
-        columns += '<th>Bid Amount</th>';
-        columns += '</tr>';
-        $(".thead").html(columns);
-
         /* Build the rows */
         var rows = '';
         $.each(JSON.parse(result), function (_key, item) {
             rows += '<tr>';
             rows += '<td>' + item.Buyer + '</td>';
-            rows += '<td>' + "$" + item.BidAmount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') + '</td>'; /* Format the bid amount into a currency display */
+            /* Format the bid amount into a currency display */
+            rows += '<td>' + "$" + item.BidAmount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') + '</td>';
             rows += '</tr>';
         });
         $('.tbody').html(rows);
 
         /* Show the table */
-        $("#tableHeader").show();
+        $("#tableHeader").html("Current Bids for this Item");
         $("#bidsTable").show();
+
+    }
+    /* Inform the user that there are no bids */
+    else {
+        $("#tableHeader").html("There are no Bids for this Item");
     }
 }
 
@@ -56,7 +53,10 @@ function getBids() {
  * Sets a refresh timer to the AJAX function, getBids()
  * */
 function refreshBids() {
-    var interval = 1000 * 4;
+    /* Set the interval to 5 seconds */
+    var interval = 1000 * 5;
+
+    /* Apply the interval to the appropriate function */
     window.setInterval(getBids, interval);
 }
 
