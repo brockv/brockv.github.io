@@ -39,13 +39,13 @@ namespace Homework8.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return View("ItemNotFound");
             }
             Item item = db.Items.Find(id);
             //var bids = db.Bids.Include(b => b.Buyer1).Include(b => b.Item);
             if (item == null)
             {
-                return HttpNotFound();
+                return View("ItemNotFound");
             }
             return View(item);
         }

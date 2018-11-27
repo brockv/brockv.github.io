@@ -8,6 +8,7 @@
 *.sln.docstates
 
 super_secret_key.txt
+ConnectionString.config
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
