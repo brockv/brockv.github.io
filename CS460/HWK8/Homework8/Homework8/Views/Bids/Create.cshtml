@@ -65,7 +65,6 @@
      * Used to get the variable returned from the AJAX call for outside use
      * */
     function callback(data) {
-        debugger;
         if (data != 0) {
             currentHighestBid = data;
             $("#currentHighestBid").text("\xa0\xa0$" + currentHighestBid.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'));
