@@ -11,6 +11,8 @@ Computer Science program.
 - [Homework V](https://brockv.github.io/CS460/HWK5/): Multi-page web application using .NET MVC 5 with a simple database
 - [Homework VI](https://brockv.github.io/CS460/HWK6/): Multi-page web application using .NET MVC 5 with an existing database
 - [Homework VII](https://brockv.github.io/CS460/HWK7/): Single-page .NET MVC 5 web application using AJAX
+- [Homework VIII](https://brockv.github.io/CS460/HWK8/): .NET MVC 5 web application using a self-made multi-table relational database
+- [Homework IV](https://brockv.github.io/CS460/HWK9/): Publishing the previous assignment through Azure
 
 ## **Software Engineering II**
 - TBA
