@@ -46,3 +46,19 @@ This assignment consisted of learning how to publish applications online through
 ### **VII: Deploy the Local Web App to Azure**
 
 ![](images/deploy.PNG?raw=true)
+
+### **VIII: Live Site**
+
+![](images/live_site_one.PNG?raw=true)
+
+![](images/live_site_two.PNG?raw=true)
+
+![](images/live_site_three.PNG?raw=true)
+
+![](images/live_site_four.PNG?raw=true)
+
+![](images/live_site_five.PNG?raw=true)
+
+![](images/live_site_six.PNG?raw=true)
+
+![](images/live_site_seven.PNG?raw=true)
