@@ -42,7 +42,10 @@ function getBids() {
         dataType: "json",
         url: "/Bids/GetBids",
         data: { "id": itemID },
-        success: showBids
+        success: showBids,
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
     });
 }
 
