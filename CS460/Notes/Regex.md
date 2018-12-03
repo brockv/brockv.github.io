@@ -1,38 +1,38 @@
 # **Useful Regular Expressions**
 
 
-### ****Date in DD/MM/YYYY Format****
+### **Date in DD/MM/YYYY Format**
 
 /^(0?[1-9]|[12][0-9]|3[01])([ \/\-])(0?[1-9]|1[012])\2([0-9][0-9][0-9][0-9])(([ -])([0-1]?[0-9]|2[0-3]):[0-5]?[0-9]:[0-5]?[0-9])?$/
 
-### ****Time in 24-Hour Format****
+### **Time in 24-Hour Format**
 
 /^([01]?[0-9]|2[0-3]):[0-5][0-9]$/
 
-### ****Positive Integer****
+### **Positive Integer**
 
 /^\d+$/
 
-### ****Negative Integer****
+### **Negative Integer**
 
 /^-\d+$/
 
-### ****Integer****
+### **Integer**
 
 /^-?\d+$/
 
-### ****Positive Number****
+### **Positive Number**
 
 /^\d*\.?\d+$/
 
-### ****Negative Number****
+### **Negative Number**
 
 /^-\d*\.?\d+$/
 
-### ****Positive or Negative Number****
+### **Positive or Negative Number**
 
 /^-?\d*\.?\d+$/
 
-### ****Number in $XXX,XXX.XX Currency Format****
+### **Number in $XXX,XXX.XX Currency Format**
 
 /\d(?=(\d{3})+\.)/g
