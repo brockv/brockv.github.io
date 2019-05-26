@@ -15,10 +15,10 @@ Computer Science program.
 - [Homework IV](https://brockv.github.io/CS460/HWK9/): Publishing the previous assignment through Azure
 
 ## **Software Engineering II**
-- TBA
+- [Team Repository](https://bitbucket.org/floatnone/float-none/src/master/)
 
 ## **Software Engineering III**
-- TBA
+- [Team Repository](https://bitbucket.org/floatnone/float-none/src/master/)
 
 ## **Notes**
 - Coming soon!
