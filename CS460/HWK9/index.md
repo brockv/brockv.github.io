@@ -7,7 +7,7 @@ This assignment consisted of learning how to publish applications online through
 - [Assignment Page](http://www.wou.edu/~morses/classes/cs46x/assignments/HW9_1819.html)
 - [Code Repository](https://github.com/brockv/brockv.github.io/tree/master/CS460/HWK8/Homework8)
 - [Demo Video](https://www.youtube.com/watch?v=O74b6g8YWhg&feature=youtu.be)
-- [Live Site](https://bvance-homework9.azurewebsites.net)
+- ~~[Live Site]~~(No longer available)
 
 ### **I: Create a Resource Group**
 
